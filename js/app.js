@@ -5,11 +5,12 @@
 
 import { state } from './state.js';
 import { cleanTrackingParameters } from './utils/urlUtils.js';
+import { initTheme, setupThemeSelector } from './utils/theme.js';
 
 import { renderTreeView } from './components/treeView.js';
 import { renderMainView } from './components/mainView.js';
 import { renderInspector } from './components/inspector.js';
-import { setupModals } from './components/modals.js';
+import { setupModals, triggerCleanTrackingModal } from './components/modals.js';
 
 import { exportToNetscapeHTML } from './parsers/exporter.js';
 import {
@@ -149,6 +150,9 @@ async function applySyncToChrome(diff) {
 
 // ─── Main App Entry ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
+  await initTheme();
+  setupThemeSelector();
+
   const treeRootEl       = document.getElementById('tree-root');
   const bookmarkContentEl = document.getElementById('bookmark-content');
   const dropZoneEl       = document.getElementById('drop-zone');
@@ -221,6 +225,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       hideSpinner();
       state.setTree(tree, false);
       showToast(`Loaded ${state.getAllBookmarks().length} bookmarks from Chrome.`, 'success');
+
+      if (location.hash === '#clean') {
+        setTimeout(() => triggerCleanTrackingModal(showToast), 200);
+      }
     } catch (err) {
       hideSpinner();
       showError('Could not load Chrome bookmarks: ' + err.message);
@@ -424,13 +432,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ── Clean Tracking Parameters ─────────────────────────────────────────────
   if (btnCleanParams) {
     btnCleanParams.addEventListener('click', () => {
-      if (!state.tree) return;
-      let count = 0;
-      state.getAllBookmarks().forEach(bm => {
-        const { cleanedUrl, hasChanges } = cleanTrackingParameters(bm.url);
-        if (hasChanges) { state.updateNode(bm.id, { url: cleanedUrl }); count++; }
-      });
-      showToast(count > 0 ? `Stripped tracking params from ${count} URLs!` : 'All URLs are already clean.', count > 0 ? 'success' : 'info');
+      triggerCleanTrackingModal(showToast);
     });
   }
 
