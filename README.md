@@ -7,11 +7,13 @@ Instead of making live edits immediately, BookmarkLab loads your bookmarks into 
 ## Key Features
 
 - **Safe Sync Model**: Preview all proposed deletions, moves, and edits before committing them to your browser.
+- **Drag-and-Drop Organization**: Reorganize bookmarks and folders effortlessly using drag-and-drop.
 - **One-Click Backup**: Download an HTML backup of your live Chrome bookmarks before making changes.
 - **Duplicate Removal**: Find and clean up duplicate bookmarks across all folders.
 - **Auto-Clustering**: Automatically group bookmarks into folders by domain or topic category.
 - **Clean Tracking Parameters**: Strip tracking tags like `utm_*`, `fbclid`, and `gclid` from bookmark URLs.
 - **Link Health Check**: Quickly verify which bookmarked links are still active.
+- **Custom Accent Themes**: Choose your favorite color theme (Glassy Purple, Emerald, Cyan, Gold, Rose).
 
 ## Installation
 

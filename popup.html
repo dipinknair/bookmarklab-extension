@@ -8,12 +8,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
+    :root, [data-theme="purple"] {
       --bg-primary: #0f1117;
       --bg-secondary: #161b27;
       --bg-card: #1a2035;
       --border-color: rgba(255,255,255,0.08);
       --accent-primary: #6366f1;
+      --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
       --accent-emerald: #10b981;
       --accent-amber: #f59e0b;
       --accent-violet: #818cf8;
@@ -21,6 +22,31 @@
       --text-muted: #64748b;
       --text-secondary: #94a3b8;
       --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --shadow-glow: 0 0 16px rgba(99, 102, 241, 0.4);
+    }
+
+    [data-theme="emerald"] {
+      --accent-primary: #10b981;
+      --accent-gradient: linear-gradient(135deg, #10b981, #059669, #14b8a6);
+      --shadow-glow: 0 0 16px rgba(16, 185, 129, 0.4);
+    }
+
+    [data-theme="cyan"] {
+      --accent-primary: #06b6d4;
+      --accent-gradient: linear-gradient(135deg, #06b6d4, #0284c7, #3b82f6);
+      --shadow-glow: 0 0 16px rgba(6, 182, 212, 0.4);
+    }
+
+    [data-theme="gold"] {
+      --accent-primary: #f59e0b;
+      --accent-gradient: linear-gradient(135deg, #f59e0b, #d97706, #b45309);
+      --shadow-glow: 0 0 16px rgba(245, 158, 11, 0.4);
+    }
+
+    [data-theme="rose"] {
+      --accent-primary: #f43f5e;
+      --accent-gradient: linear-gradient(135deg, #f43f5e, #e11d48, #c026d3);
+      --shadow-glow: 0 0 16px rgba(244, 63, 94, 0.4);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,14 +72,38 @@
     .popup-logo {
       width: 32px;
       height: 32px;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      background: var(--accent-gradient);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+      box-shadow: var(--shadow-glow);
     }
+
+    .theme-selector {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+    }
+
+    .theme-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--dot-color);
+      border: 2px solid transparent;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .theme-dot:hover { transform: scale(1.2); }
+    .theme-dot.active { border-color: #ffffff; transform: scale(1.1); }
 
     .popup-logo svg {
       color: white;
@@ -229,7 +279,7 @@
       gap: 8px;
       width: 100%;
       padding: 11px 16px;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      background: var(--accent-gradient);
       border: none;
       border-radius: 10px;
       color: white;
@@ -239,7 +289,7 @@
       cursor: pointer;
       transition: all 0.2s ease;
       letter-spacing: -0.01em;
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+      box-shadow: var(--shadow-glow);
     }
 
     .btn-launch:hover {
@@ -306,6 +356,14 @@
         <span class="live-dot"></span>
         Live Chrome Bookmarks
       </span>
+    </div>
+    <!-- Theme Accent Picker -->
+    <div class="theme-selector" title="Choose Accent Theme">
+      <button class="theme-dot active" data-theme="purple" style="--dot-color: #6366f1;" title="Glassy Purple"></button>
+      <button class="theme-dot" data-theme="emerald" style="--dot-color: #10b981;" title="Glassy Emerald"></button>
+      <button class="theme-dot" data-theme="cyan" style="--dot-color: #06b6d4;" title="Cyber Cyan"></button>
+      <button class="theme-dot" data-theme="gold" style="--dot-color: #f59e0b;" title="Muted Gold"></button>
+      <button class="theme-dot" data-theme="rose" style="--dot-color: #f43f5e;" title="Neon Rose"></button>
     </div>
   </div>
 
@@ -390,6 +448,6 @@
     </button>
   </div>
 
-  <script src="js/popup.js"></script>
+  <script type="module" src="js/popup.js"></script>
 </body>
 </html>

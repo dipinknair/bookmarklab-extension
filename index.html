@@ -83,11 +83,11 @@
 
     /* ── Sync button styling ────────────────────────── */
     .btn-sync {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      background: var(--accent-gradient);
       border: none; color: white;
-      box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+      box-shadow: 0 4px 14px var(--border-glow);
     }
-    .btn-sync:hover { box-shadow: 0 6px 20px rgba(99,102,241,0.5); transform: translateY(-1px); }
+    .btn-sync:hover { box-shadow: 0 6px 20px var(--shadow-glow); transform: translateY(-1px); }
     .btn-sync:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
   </style>
 </head>
@@ -111,6 +111,17 @@
       </div>
 
       <div class="header-actions">
+        <!-- Theme Accent Picker -->
+        <div class="theme-selector" title="Choose Accent Theme">
+          <button class="theme-dot active" data-theme="purple" style="--dot-color: #6366f1;" title="Glassy Purple (Default)"></button>
+          <button class="theme-dot" data-theme="emerald" style="--dot-color: #10b981;" title="Glassy Emerald"></button>
+          <button class="theme-dot" data-theme="cyan" style="--dot-color: #06b6d4;" title="Cyber Cyan"></button>
+          <button class="theme-dot" data-theme="gold" style="--dot-color: #f59e0b;" title="Muted Gold"></button>
+          <button class="theme-dot" data-theme="rose" style="--dot-color: #f43f5e;" title="Neon Rose"></button>
+        </div>
+
+        <div class="divider-v"></div>
+
         <!-- Undo / Redo -->
         <button id="btn-undo" class="btn btn-icon" title="Undo (Cmd+Z)" disabled>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
@@ -359,6 +370,22 @@
         </div>
         <div class="modal-footer">
           <button id="btn-run-cluster" class="btn btn-accent">Run Auto-Cluster</button>
+          <button class="btn btn-secondary modal-close-btn">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Clean Tracking Diff Modal -->
+      <div id="modal-clean-diff" class="modal-dialog modal-lg" style="display:none;">
+        <div class="modal-header">
+          <h3 class="modal-title">Clean Tracking Parameters</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc" id="clean-diff-desc">The following bookmarks have tracking parameters (utm_*, fbclid, gclid, etc.) that will be stripped:</p>
+          <div id="clean-diff-body" class="clean-diff-list"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-confirm-clean-all" class="btn btn-primary glow-button">Strip Parameters from All URLs</button>
           <button class="btn btn-secondary modal-close-btn">Cancel</button>
         </div>
       </div>

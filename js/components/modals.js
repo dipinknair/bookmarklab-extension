@@ -1,10 +1,15 @@
 /**
- * Modals Controller — Deduplication & Auto-Cluster
- * (Export and browser guide modals removed — this is an extension, not a file importer)
+ * Modals Controller — Deduplication, Auto-Cluster & Clean Tracking Diff
  */
 
 import { state } from '../state.js';
-import { normalizeUrlForDedupe, categorizeBookmark, getDomainName, getBrandName } from '../utils/urlUtils.js';
+import {
+  normalizeUrlForDedupe,
+  categorizeBookmark,
+  getDomainName,
+  getBrandName,
+  cleanTrackingParameters
+} from '../utils/urlUtils.js';
 
 export function setupModals(showToast) {
   const backdrop = document.getElementById('modal-backdrop');
@@ -156,6 +161,101 @@ export function setupModals(showToast) {
 
     state.setTree(state.tree);
   }
+
+  // ── 3. Clean Tracking Diff Trigger ─────────────────────────────────────────
+  const btnCleanParams = document.getElementById('btn-clean-params');
+  if (btnCleanParams) {
+    btnCleanParams.addEventListener('click', () => {
+      triggerCleanTrackingModal(showToast);
+    });
+  }
+}
+
+export function triggerCleanTrackingModal(showToast) {
+  const dirtyItems = [];
+  const bookmarks = state.getAllBookmarks();
+
+  bookmarks.forEach(bm => {
+    const { cleanedUrl, hasChanges } = cleanTrackingParameters(bm.url);
+    if (hasChanges) {
+      dirtyItems.push({
+        id: bm.id,
+        title: bm.title || 'Untitled',
+        originalUrl: bm.url,
+        cleanedUrl: cleanedUrl
+      });
+    }
+  });
+
+  if (dirtyItems.length === 0) {
+    showToast('All URLs are clean — no tracking parameters found!', 'info');
+    return;
+  }
+
+  const backdrop = document.getElementById('modal-backdrop');
+  const modal = document.getElementById('modal-clean-diff');
+  const descEl = document.getElementById('clean-diff-desc');
+  const bodyEl = document.getElementById('clean-diff-body');
+  const confirmBtn = document.getElementById('btn-confirm-clean-all');
+
+  if (!backdrop || !modal || !bodyEl) return;
+
+  if (descEl) {
+    descEl.innerHTML = `Found <strong>${dirtyItems.length}</strong> bookmark${dirtyItems.length > 1 ? 's' : ''} with tracking parameters (utm_*, fbclid, gclid, etc.):`;
+  }
+
+  if (confirmBtn) {
+    confirmBtn.textContent = `Strip Parameters from ${dirtyItems.length} URL${dirtyItems.length > 1 ? 's' : ''}`;
+  }
+
+  bodyEl.innerHTML = dirtyItems.map(item => {
+    const original = esc(item.originalUrl);
+    const cleaned = esc(item.cleanedUrl);
+
+    // Highlight parameters removed
+    let highlightedOriginal = original;
+    const qIdx = item.originalUrl.indexOf('?');
+    if (qIdx !== -1) {
+      const base = esc(item.originalUrl.substring(0, qIdx));
+      const query = esc(item.originalUrl.substring(qIdx));
+      highlightedOriginal = `${base}<span class="url-removed">${query}</span>`;
+    }
+
+    const domain = getDomainName(item.originalUrl);
+
+    return `
+      <div class="clean-diff-item">
+        <div class="clean-diff-header">
+          <strong>${esc(item.title)}</strong>
+          <span class="clean-diff-domain">${esc(domain)}</span>
+        </div>
+        <div class="clean-diff-row">
+          <span class="diff-tag old">Original</span>
+          <span class="url-text">${highlightedOriginal}</span>
+        </div>
+        <div class="clean-diff-row">
+          <span class="diff-tag new">Cleaned</span>
+          <span class="url-text">${cleaned}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const handleConfirm = () => {
+    dirtyItems.forEach(item => {
+      state.updateNode(item.id, { url: item.cleanedUrl });
+    });
+    if (backdrop) backdrop.style.display = 'none';
+    showToast(`Stripped tracking parameters from ${dirtyItems.length} URLs!`, 'success');
+  };
+
+  if (confirmBtn) {
+    confirmBtn.onclick = handleConfirm;
+  }
+
+  backdrop.style.display = 'flex';
+  backdrop.querySelectorAll('.modal-dialog').forEach(d => d.style.display = 'none');
+  modal.style.display = 'flex';
 }
 
 function esc(str) {

@@ -1,9 +1,9 @@
-/**
- * BookmarkLab Extension — Toolbar Popup Controller
- * Provides quick stats, 1-click actions, and a link to the full dashboard
- */
+import { initTheme, setupThemeSelector } from './utils/theme.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  await initTheme();
+  setupThemeSelector();
+
   const statTotal = document.getElementById('stat-total');
   const statDupes = document.getElementById('stat-dupes');
   const statTracking = document.getElementById('stat-tracking');

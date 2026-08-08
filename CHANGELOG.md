@@ -6,6 +6,21 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 
 ---
 
+## [Unreleased]
+
+### Added
+- Theme Accent Color selector — choose between Glassy Purple (Default), Glassy Emerald, Cyber Cyan, Muted Gold, and Neon Rose.
+- Persistent theme preferences saved across sessions using `chrome.storage.local`.
+- Clean Tracking Diff Preview Modal — displays a side-by-side URL comparison (Original vs Cleaned) with stripped parameters highlighted in red before applying edits.
+- Deep-link hash navigation (`#clean`) from popup quick actions directly into the Clean Tracking Diff Modal.
+
+### Changed
+- Standardized UI accent colors to Glassy Purple across the dashboard, popup, buttons, and card hover effects.
+- Renamed "Sync to Chrome" toolbar label to "Sync Bookmarks" for clear cross-browser compatibility.
+- Removed unused `activeTab` permission from `manifest.json`.
+
+---
+
 ## [1.0.0] — 2026-08-08
 
 ### Added
