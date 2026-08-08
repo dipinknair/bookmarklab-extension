@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookmarkLab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0f1117;
+      --bg-secondary: #161b27;
+      --bg-card: #1a2035;
+      --border-color: rgba(255,255,255,0.08);
+      --accent-primary: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-violet: #818cf8;
+      --text-primary: #e2e8f0;
+      --text-muted: #64748b;
+      --text-secondary: #94a3b8;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 340px;
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 380px;
+    }
+
+    /* Header */
+    .popup-header {
+      background: linear-gradient(135deg, #0f1117 0%, #161b27 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 16px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .popup-logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .popup-logo svg {
+      color: white;
+    }
+
+    .popup-brand {
+      flex: 1;
+    }
+
+    .popup-brand-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      display: block;
+    }
+
+    .popup-brand-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 1px;
+    }
+
+    .live-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      animation: live-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes live-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Stats Grid */
+    .popup-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 14px 14px 10px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 11px 12px;
+      transition: border-color 0.2s;
+    }
+
+    .stat-card:hover {
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .stat-card.dupes .stat-value { color: var(--accent-amber); }
+    .stat-card.tracking .stat-value { color: var(--accent-violet); }
+
+    /* Divider */
+    .popup-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 2px 14px 10px;
+    }
+
+    /* Quick Actions */
+    .popup-actions-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0 14px;
+      margin-bottom: 6px;
+    }
+
+    .popup-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 0 14px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      text-align: left;
+      width: 100%;
+    }
+
+    .action-btn:hover {
+      background: rgba(99, 102, 241, 0.12);
+      border-color: rgba(99, 102, 241, 0.4);
+      color: var(--accent-violet);
+      transform: translateX(2px);
+    }
+
+    .action-btn .action-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .action-btn.dedupe .action-icon { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .action-btn.cluster .action-icon { background: rgba(99, 102, 241, 0.15); color: var(--accent-primary); }
+    .action-btn.clean .action-icon { background: rgba(129, 140, 248, 0.15); color: var(--accent-violet); }
+
+    .action-btn-text {
+      flex: 1;
+    }
+
+    .action-btn-title {
+      display: block;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--text-primary);
+    }
+
+    .action-btn-sub {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 1px;
+    }
+
+    /* CTA Button */
+    .popup-footer {
+      padding: 10px 14px 14px;
+    }
+
+    .btn-launch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px 16px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: -0.01em;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+    }
+
+    .btn-launch:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    }
+
+    .btn-launch:active {
+      transform: translateY(0);
+    }
+
+    /* Loading state */
+    #popup-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 28px 14px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-top-color: var(--accent-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #popup-content { display: none; }
+
+    #popup-error {
+      display: none;
+      padding: 12px 14px;
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 8px;
+      margin: 12px 14px;
+      font-size: 0.78rem;
+      color: #fca5a5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Popup Header -->
+  <div class="popup-header">
+    <div class="popup-logo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+        <path d="M9 10h6" stroke-opacity="0.8"/>
+        <path d="M12 7v6" stroke-opacity="0.8"/>
+      </svg>
+    </div>
+    <div class="popup-brand">
+      <span class="popup-brand-name">BookmarkLab</span>
+      <span class="popup-brand-sub">
+        <span class="live-dot"></span>
+        Live Chrome Bookmarks
+      </span>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div id="popup-loading">
+    <div class="spinner"></div>
+    Loading your bookmarks…
+  </div>
+
+  <!-- Error State -->
+  <div id="popup-error"></div>
+
+  <!-- Main Content -->
+  <div id="popup-content">
+
+    <!-- Stats Cards -->
+    <div class="popup-stats">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-total">—</div>
+        <div class="stat-label">Total Bookmarks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-folders">—</div>
+        <div class="stat-label">Folders</div>
+      </div>
+      <div class="stat-card dupes">
+        <div class="stat-value" id="stat-dupes">—</div>
+        <div class="stat-label">Duplicates</div>
+      </div>
+      <div class="stat-card tracking">
+        <div class="stat-value" id="stat-tracking">—</div>
+        <div class="stat-label">Tracking Tags</div>
+      </div>
+    </div>
+
+    <div class="popup-divider"></div>
+
+    <!-- Quick Actions -->
+    <div class="popup-actions-label">Quick Actions</div>
+    <div class="popup-actions">
+      <button class="action-btn dedupe" id="btn-quick-dedupe">
+        <div class="action-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </div>
+        <div class="action-btn-text">
+          <span class="action-btn-title">Find & Remove Duplicates</span>
+          <span class="action-btn-sub">Detect all duplicate bookmarks</span>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <button class="action-btn cluster" id="btn-quick-cluster">
+        <div class="action-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="action-btn-text">
+          <span class="action-btn-title">Auto-Cluster by Category</span>
+          <span class="action-btn-sub">Organize bookmarks into folders</span>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <button class="action-btn clean" id="btn-quick-clean">
+        <div class="action-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </div>
+        <div class="action-btn-text">
+          <span class="action-btn-title">Clean Tracking URLs</span>
+          <span class="action-btn-sub">Strip utm_*, fbclid, gclid params</span>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Footer: Open Full Dashboard -->
+  <div class="popup-footer">
+    <button class="btn-launch" id="btn-open-dashboard">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Open Full Dashboard
+    </button>
+  </div>
+
+  <script src="js/popup.js"></script>
+</body>
+</html>
