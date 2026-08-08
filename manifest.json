@@ -8,9 +8,9 @@
 
   "permissions": [
     "bookmarks",
-    "storage",
-    "activeTab"
+    "storage"
   ],
+
 
   "action": {
     "default_popup": "popup.html",
