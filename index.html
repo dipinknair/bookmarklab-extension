@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookmarkLab — Chrome Bookmark Organizer</title>
+  <meta name="description" content="Organize, deduplicate, and clean your Chrome bookmarks. Review every change before it touches your browser.">
+  <meta property="og:title" content="BookmarkLab">
+  <meta property="og:description" content="A Chrome extension to organize, deduplicate, and clean your bookmarks safely.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0b0f1a;
+      --navy-2: #111827;
+      --navy-3: #1a2035;
+      --border: rgba(255,255,255,0.07);
+      --indigo: #6366f1;
+      --violet: #818cf8;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --sub: #94a3b8;
+      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ──────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(11,15,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.05rem; color: var(--text);
+      text-decoration: none;
+    }
+    .nav-brand svg { color: var(--indigo); }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      font-size: 0.875rem; color: var(--sub);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--indigo);
+      color: #fff; font-size: 0.85rem; font-weight: 600;
+      padding: 8px 20px; border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 60%, rgba(16,185,129,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.3);
+      color: var(--violet);
+      font-size: 0.75rem; font-weight: 600;
+      padding: 5px 14px; border-radius: 100px;
+      margin-bottom: 28px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .hero-badge span { width: 6px; height: 6px; background: var(--indigo); border-radius: 50%; display: inline-block; }
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 4.5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.03em;
+      max-width: 800px;
+      margin-bottom: 24px;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--indigo), var(--violet), var(--emerald));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--sub);
+      max-width: 540px; margin-bottom: 44px; line-height: 1.7;
+    }
+    .hero-buttons {
+      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--indigo), #7c3aed);
+      color: #fff; font-weight: 700; font-size: 0.95rem;
+      padding: 14px 28px; border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(99,102,241,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(99,102,241,0.5); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text); font-weight: 600; font-size: 0.95rem;
+      padding: 14px 28px; border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.09); transform: translateY(-2px); }
+
+    /* ── SCREENSHOT MOCKUP ────────────────────────── */
+    .mockup-wrap {
+      margin-top: 72px;
+      max-width: 960px; width: 100%;
+      position: relative;
+    }
+    .mockup-glow {
+      position: absolute; inset: -40px;
+      background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(99,102,241,0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .mockup-frame {
+      background: var(--navy-2);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+    .mockup-titlebar {
+      background: var(--navy-3);
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .mockup-inner {
+      display: grid;
+      grid-template-columns: 200px 1fr 200px;
+      height: 420px;
+    }
+    .mock-sidebar {
+      background: rgba(0,0,0,0.2);
+      border-right: 1px solid var(--border);
+      padding: 16px 12px;
+    }
+    .mock-sidebar-title { font-size: 0.65rem; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; padding: 0 4px; }
+    .mock-folder {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 8px; border-radius: 6px;
+      font-size: 0.78rem; color: var(--sub);
+      cursor: default; margin-bottom: 2px;
+    }
+    .mock-folder.active { background: rgba(99,102,241,0.15); color: var(--violet); }
+    .mock-folder-icon { font-size: 0.85rem; }
+    .mock-divider { height: 1px; background: var(--border); margin: 12px 0; }
+    .mock-view-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 5px 8px; border-radius: 5px;
+      font-size: 0.73rem; color: var(--muted); margin-bottom: 2px;
+      cursor: default;
+    }
+    .mock-view-item span { font-size: 0.65rem; background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px; }
+    .mock-view-item.warn span { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .mock-view-item.danger span { background: rgba(239,68,68,0.12); color: #fca5a5; }
+
+    .mock-main { display: flex; flex-direction: column; }
+    .mock-toolbar {
+      padding: 10px 14px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.1);
+    }
+    .mock-search {
+      flex: 1; height: 28px; border-radius: 6px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 7px; padding: 0 10px;
+      font-size: 0.72rem; color: var(--muted);
+    }
+    .mock-btn {
+      padding: 4px 10px; border-radius: 5px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      font-size: 0.68rem; color: var(--sub); white-space: nowrap;
+    }
+    .mock-btn.accent { background: linear-gradient(135deg, var(--indigo), #7c3aed); border: none; color: #fff; font-weight: 600; }
+    .mock-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; padding: 12px; flex: 1; overflow: hidden;
+    }
+    .mock-card {
+      background: var(--navy-3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px;
+    }
+    .mock-card-fav { width: 20px; height: 20px; border-radius: 4px; background: var(--border); margin-bottom: 7px; }
+    .mock-card-title { font-size: 0.68rem; font-weight: 600; color: var(--text); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mock-card-url { font-size: 0.62rem; color: var(--muted); font-family: var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mock-card.dup { border-color: rgba(245,158,11,0.25); }
+    .mock-card.broken { border-color: rgba(239,68,68,0.25); }
+
+    .mock-inspector {
+      border-left: 1px solid var(--border);
+      padding: 14px 12px;
+      background: rgba(0,0,0,0.15);
+    }
+    .mock-insp-title { font-size: 0.65rem; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+    .mock-insp-label { font-size: 0.65rem; color: var(--muted); margin-bottom: 4px; margin-top: 10px; }
+    .mock-insp-field { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 5px; padding: 6px 8px; font-size: 0.7rem; color: var(--sub); font-family: var(--mono); width: 100%; }
+    .mock-insp-badge { margin-top: 12px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); border-radius: 5px; padding: 6px 8px; font-size: 0.63rem; color: var(--violet); line-height: 1.4; }
+
+    /* ── FEATURES ─────────────────────────────────── */
+    section { padding: 100px 24px; max-width: 1080px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--indigo);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.02em;
+      margin-bottom: 18px; line-height: 1.15;
+    }
+    .section-sub { font-size: 1.05rem; color: var(--sub); max-width: 520px; line-height: 1.7; margin-bottom: 60px; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .feature-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(99,102,241,0.3); transform: translateY(-3px); }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+      font-size: 1.3rem;
+    }
+    .feature-icon.indigo { background: rgba(99,102,241,0.12); }
+    .feature-icon.emerald { background: rgba(16,185,129,0.12); }
+    .feature-icon.amber { background: rgba(245,158,11,0.12); }
+    .feature-icon.red { background: rgba(239,68,68,0.10); }
+    .feature-icon.violet { background: rgba(139,92,246,0.12); }
+    .feature-icon.blue { background: rgba(59,130,246,0.10); }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 0.875rem; color: var(--sub); line-height: 1.65; }
+
+    /* ── HOW IT WORKS ─────────────────────────────── */
+    .how-section { padding: 80px 24px; }
+    .how-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 52px; text-align: left; }
+    .step {
+      display: flex; gap: 20px; padding: 24px 0;
+      border-left: 2px solid var(--border); padding-left: 28px;
+      position: relative;
+    }
+    .step::before {
+      content: attr(data-n);
+      position: absolute; left: -14px; top: 24px;
+      width: 26px; height: 26px;
+      background: var(--indigo); color: #fff;
+      font-size: 0.75rem; font-weight: 800;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step:last-child { border-left-color: transparent; }
+    .step-body h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .step-body p { font-size: 0.875rem; color: var(--sub); line-height: 1.65; }
+
+    /* ── PRIVACY CALLOUT ──────────────────────────── */
+    .privacy-banner {
+      margin: 0 24px 80px;
+      max-width: 1080px;
+      margin-left: auto; margin-right: auto;
+      background: rgba(16,185,129,0.06);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 16px; padding: 40px 48px;
+      display: flex; align-items: flex-start; gap: 24px;
+    }
+    .privacy-icon { font-size: 2.2rem; flex-shrink: 0; margin-top: 2px; }
+    .privacy-banner h3 { font-size: 1.15rem; font-weight: 700; color: var(--emerald); margin-bottom: 8px; }
+    .privacy-banner p { font-size: 0.9rem; color: var(--sub); line-height: 1.7; }
+
+    /* ── CTA ──────────────────────────────────────── */
+    .cta-section {
+      text-align: center; padding: 100px 24px;
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(99,102,241,0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.05rem; color: var(--sub); margin-bottom: 40px; }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand { font-weight: 700; font-size: 0.9rem; color: var(--sub); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .mockup-inner { grid-template-columns: 1fr; }
+      .mock-sidebar, .mock-inspector { display: none; }
+      .privacy-banner { flex-direction: column; padding: 28px 24px; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-brand" href="#">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+      </svg>
+      BookmarkLab
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="https://github.com/dipinknair/bookmarklab-extension" target="_blank">GitHub</a>
+      <a href="https://github.com/dipinknair/bookmarklab-extension/blob/main/PRIVACY_POLICY.md" target="_blank">Privacy</a>
+    </div>
+    <a class="nav-cta" href="https://github.com/dipinknair/bookmarklab-extension/releases/latest" target="_blank">Download</a>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge"><span></span> Free Chrome Extension</div>
+    <h1>Your bookmarks, <em>finally organized</em></h1>
+    <p class="hero-sub">
+      BookmarkLab is a browser extension that helps you clean up years of accumulated bookmarks — remove duplicates, auto-sort by topic, and strip tracking clutter — without touching a single bookmark until you say so.
+    </p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="https://github.com/dipinknair/bookmarklab-extension/releases/latest" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Extension
+      </a>
+      <a class="btn-secondary" href="https://github.com/dipinknair/bookmarklab-extension" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        View on GitHub
+      </a>
+    </div>
+
+    <!-- UI Mockup -->
+    <div class="mockup-wrap">
+      <div class="mockup-glow"></div>
+      <div class="mockup-frame">
+        <div class="mockup-titlebar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+        </div>
+        <div class="mockup-inner">
+          <!-- Sidebar -->
+          <div class="mock-sidebar">
+            <div class="mock-sidebar-title">Folders</div>
+            <div class="mock-folder active"><span class="mock-folder-icon">📂</span> Work</div>
+            <div class="mock-folder"><span class="mock-folder-icon">📂</span> Research</div>
+            <div class="mock-folder"><span class="mock-folder-icon">📂</span> GitHub</div>
+            <div class="mock-folder"><span class="mock-folder-icon">📂</span> YouTube</div>
+            <div class="mock-folder"><span class="mock-folder-icon">📂</span> Reading</div>
+            <div class="mock-divider"></div>
+            <div class="mock-sidebar-title">Smart Views</div>
+            <div class="mock-view-item">All Bookmarks <span>847</span></div>
+            <div class="mock-view-item warn">Duplicates <span>12</span></div>
+            <div class="mock-view-item">Tracking Tags <span>34</span></div>
+            <div class="mock-view-item danger">Unreachable <span>5</span></div>
+          </div>
+
+          <!-- Main -->
+          <div class="mock-main">
+            <div class="mock-toolbar">
+              <div class="mock-search">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Search bookmarks…
+              </div>
+              <div class="mock-btn accent">Auto-Cluster</div>
+              <div class="mock-btn">Find Duplicates</div>
+              <div class="mock-btn">Check Links</div>
+              <div class="mock-btn">Clean Tracking</div>
+            </div>
+            <div class="mock-grid">
+              <div class="mock-card">
+                <div class="mock-card-fav" style="background:rgba(99,102,241,0.3);"></div>
+                <div class="mock-card-title">GitHub — dipinknair</div>
+                <div class="mock-card-url">github.com</div>
+              </div>
+              <div class="mock-card dup">
+                <div class="mock-card-fav" style="background:rgba(245,158,11,0.3);"></div>
+                <div class="mock-card-title">Notion — My Workspace</div>
+                <div class="mock-card-url">notion.so</div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-card-fav" style="background:rgba(16,185,129,0.3);"></div>
+                <div class="mock-card-title">MDN Web Docs</div>
+                <div class="mock-card-url">developer.mozilla.org</div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-card-fav" style="background:rgba(239,68,68,0.25);"></div>
+                <div class="mock-card-title">Linear — Issues</div>
+                <div class="mock-card-url">linear.app</div>
+              </div>
+              <div class="mock-card broken">
+                <div class="mock-card-fav" style="background:rgba(239,68,68,0.3);"></div>
+                <div class="mock-card-title">Old Blog Post</div>
+                <div class="mock-card-url">medium.com/…</div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-card-fav" style="background:rgba(139,92,246,0.3);"></div>
+                <div class="mock-card-title">Figma — Design System</div>
+                <div class="mock-card-url">figma.com</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inspector -->
+          <div class="mock-inspector">
+            <div class="mock-insp-title">Item Details</div>
+            <div class="mock-insp-label">Title</div>
+            <div class="mock-insp-field">GitHub — dipinknair</div>
+            <div class="mock-insp-label">URL</div>
+            <div class="mock-insp-field">github.com/dipinknair</div>
+            <div class="mock-insp-label">Folder</div>
+            <div class="mock-insp-field">Work</div>
+            <div class="mock-insp-badge">Edits are staged — click Sync Bookmarks to apply.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything your bookmarks need</h2>
+    <p class="section-sub">A full organizer toolkit built for people who have accumulated hundreds (or thousands) of bookmarks over the years.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon indigo">🔒</div>
+        <h3>Safe Staging Model</h3>
+        <p>All edits are made in memory first. A full diff summary shows exactly what will be deleted, moved, or renamed before a single thing changes in your browser.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon emerald">💾</div>
+        <h3>One-Click Backup</h3>
+        <p>Download your current Chrome bookmarks as an HTML file before making any changes. If something goes wrong, you can restore in seconds.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon amber">🔍</div>
+        <h3>Duplicate Finder</h3>
+        <p>Scans all bookmarks and groups identical URLs. Keep the one you want or let the auto-resolver keep the oldest copy and remove the rest.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon violet">✨</div>
+        <h3>Auto-Cluster</h3>
+        <p>Automatically sorts bookmarks into folders by domain or topic — GitHub, YouTube, Research, Finance, Shopping — in a single click.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon blue">🧹</div>
+        <h3>Clean Tracking URLs</h3>
+        <p>Strips utm_source, fbclid, gclid, and dozens of other marketing parameters from your saved URLs so bookmarks stay clean and shareable.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon red">🔗</div>
+        <h3>Link Health Check</h3>
+        <p>Checks every bookmarked URL to see if it is still reachable. Dead and broken links are flagged so you can delete or update them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <div class="how-section" id="how-it-works">
+    <div class="how-inner">
+      <div class="section-label" style="text-align:center;">How it works</div>
+      <h2 class="section-title">Nothing changes until you say so</h2>
+      <p class="section-sub" style="margin:0 auto 0;">BookmarkLab follows a safe stage-and-commit model so you are always in control.</p>
+
+      <div class="steps">
+        <div class="step" data-n="1">
+          <div class="step-body">
+            <h4>Open the extension</h4>
+            <p>BookmarkLab loads all your Chrome bookmarks into a local workspace. Your real bookmarks are not touched at this point.</p>
+          </div>
+        </div>
+        <div class="step" data-n="2">
+          <div class="step-body">
+            <h4>Organize freely</h4>
+            <p>Drag and drop folders, delete duplicates, run Auto-Cluster, clean tracking URLs, rename items — everything is staged in memory.</p>
+          </div>
+        </div>
+        <div class="step" data-n="3">
+          <div class="step-body">
+            <h4>Review the diff</h4>
+            <p>Click Sync Bookmarks to see a complete summary of every change — deletions, moves, renames — before anything is committed.</p>
+          </div>
+        </div>
+        <div class="step" data-n="4">
+          <div class="step-body">
+            <h4>Apply or cancel</h4>
+            <p>Confirm to apply the changes to Chrome, or cancel and keep editing. You can also take a Backup at any point before committing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy -->
+  <div style="max-width:1080px; margin:0 auto; padding:0 24px;">
+    <div class="privacy-banner">
+      <div class="privacy-icon">🔐</div>
+      <div>
+        <h3>Completely private, by design</h3>
+        <p>BookmarkLab runs entirely inside your browser. No bookmark data, URLs, or titles are ever sent to any server or third party. No account required. No analytics. No telemetry. Your bookmarks stay yours.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Ready to clean up your bookmarks?</h2>
+    <p>Free, open source, and private by design.</p>
+    <div class="hero-buttons" style="justify-content:center;">
+      <a class="btn-primary" href="https://github.com/dipinknair/bookmarklab-extension/releases/latest" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download for Chrome
+      </a>
+      <a class="btn-secondary" href="https://github.com/dipinknair/bookmarklab-extension" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        View Source
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-brand">BookmarkLab &mdash; MIT License</div>
+    <div class="footer-links">
+      <a href="https://github.com/dipinknair/bookmarklab-extension" target="_blank">GitHub</a>
+      <a href="https://github.com/dipinknair/bookmarklab-extension/releases" target="_blank">Releases</a>
+      <a href="https://github.com/dipinknair/bookmarklab-extension/blob/main/PRIVACY_POLICY.md" target="_blank">Privacy Policy</a>
+      <a href="https://github.com/dipinknair/bookmarklab-extension/issues" target="_blank">Support</a>
+    </div>
+  </footer>
+
+</body>
+</html>
