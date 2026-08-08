@@ -1,0 +1,55 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify release branch
+        run: |
+          commit_branches=$(git branch -r --contains ${{ github.sha }})
+          echo "Tag commit belongs to branches: $commit_branches"
+
+          if echo "$commit_branches" | grep -E -q 'origin/main|origin/release'; then
+            echo "Branch check passed (commit belongs to main or release branch)."
+          else
+            echo "::error::Releases are only allowed from 'main' or 'release/*' branches."
+            exit 1
+          fi
+
+      - name: Get tag version
+        id: get_version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - name: Package extension into ZIP
+        run: |
+          ZIP_NAME="bookmarklab-extension-${VERSION}.zip"
+          echo "ZIP_NAME=${ZIP_NAME}" >> $GITHUB_ENV
+          zip -r "${ZIP_NAME}" . -x "*.git*" -x "*.github*" -x "*.DS_Store*" -x "*.zip*" -x ".gitignore"
+
+      - name: Create GitHub Release & Upload Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.ZIP_NAME }}
+          name: Release ${{ env.VERSION }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
