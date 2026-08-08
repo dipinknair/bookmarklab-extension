@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // ── Sync to Chrome ─────────────────────────────────────────────────────────
+  // ── Sync Bookmarks ─────────────────────────────────────────────────────────
   if (btnSync) {
     btnSync.addEventListener('click', async () => {
       const currentNodes = flattenTree(state.tree);
@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const freshTree = await loadChromeBookmarks();
       originalChromeSnapshot = flattenTree(freshTree);
       state.setTree(freshTree, false);
-      showToast('All changes synced to Chrome successfully!', 'success');
+      showToast('All changes synced to your bookmarks successfully!', 'success');
     } catch (err) {
       showToast('Sync failed: ' + err.message, 'error');
     }

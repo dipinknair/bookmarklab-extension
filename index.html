@@ -127,10 +127,10 @@
           <span>Backup</span>
         </button>
 
-        <!-- Sync to Chrome -->
-        <button id="btn-sync" class="btn btn-sync" title="Review pending changes and apply them to your real Chrome bookmarks" disabled>
+        <!-- Sync Bookmarks -->
+        <button id="btn-sync" class="btn btn-sync" title="Review and apply your staged changes back to the browser" disabled>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-          <span>Sync to Chrome</span>
+          <span>Sync Bookmarks</span>
           <span id="sync-change-count"></span>
         </button>
       </div>
@@ -295,7 +295,7 @@
       <!-- Sync Confirmation Modal -->
       <div id="modal-sync" class="modal-dialog" style="display:none;">
         <div class="modal-header">
-          <h3 class="modal-title">Review Changes Before Syncing</h3>
+          <h3 class="modal-title">Review Changes Before Syncing Bookmarks</h3>
           <button class="modal-close">&times;</button>
         </div>
         <div class="modal-body">
@@ -303,7 +303,7 @@
           <div id="sync-summary"><!-- populated by JS --></div>
         </div>
         <div class="modal-footer">
-          <button id="btn-confirm-sync" class="btn btn-primary glow-button">Apply Changes to Chrome</button>
+          <button id="btn-confirm-sync" class="btn btn-primary glow-button">Apply Changes</button>
           <button class="btn btn-secondary modal-close-btn">Cancel</button>
         </div>
       </div>
