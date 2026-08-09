@@ -169,6 +169,147 @@ export function setupModals(showToast) {
       triggerCleanTrackingModal(showToast);
     });
   }
+
+  // ── 4. Batch Move Modal ───────────────────────────────────────────────────
+  const btnBatchMove = document.getElementById('btn-batch-move');
+  const btnConfirmMove = document.getElementById('btn-confirm-move');
+  const btnCreateMoveFolder = document.getElementById('btn-create-move-folder');
+  const selectMoveFolder = document.getElementById('inp-move-target-folder');
+  const inpNewFolderTitle = document.getElementById('inp-move-new-folder-title');
+
+  function openBatchMoveModal() {
+    const selectedIds = Array.from(state.selectedIds);
+    if (!selectedIds.length) {
+      showToast('Select at least one bookmark or folder to move.', 'info');
+      return;
+    }
+
+    const descEl = document.getElementById('move-modal-desc');
+    if (descEl) {
+      descEl.textContent = `Select target folder to move ${selectedIds.length} item${selectedIds.length > 1 ? 's' : ''}:`;
+    }
+
+    if (selectMoveFolder) {
+      const allFolders = state.getAllFolders();
+      selectMoveFolder.innerHTML = allFolders.map(f => {
+        const pathStr = f.path && f.path.length ? f.path.join(' / ') : (f.title || 'Root');
+        const isCurrentParent = selectedIds.some(id => {
+          const p = state.findParentNode(id);
+          return p && p.id === f.id;
+        });
+        return `<option value="${f.id}" ${isCurrentParent ? 'selected' : ''}>📁 ${esc(pathStr)}</option>`;
+      }).join('');
+    }
+
+    if (inpNewFolderTitle) inpNewFolderTitle.value = '';
+    openModal('modal-move');
+  }
+
+  if (btnBatchMove) {
+    btnBatchMove.addEventListener('click', openBatchMoveModal);
+  }
+
+  if (btnCreateMoveFolder) {
+    btnCreateMoveFolder.addEventListener('click', () => {
+      const name = inpNewFolderTitle ? inpNewFolderTitle.value.trim() : '';
+      if (!name) {
+        showToast('Please enter a folder name.', 'warning');
+        return;
+      }
+      const parentId = selectMoveFolder ? selectMoveFolder.value : 'root';
+      const newFolder = {
+        id: `folder-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
+        title: name,
+        type: 'folder',
+        children: []
+      };
+      state.addNode(parentId, newFolder);
+
+      const allFolders = state.getAllFolders();
+      if (selectMoveFolder) {
+        selectMoveFolder.innerHTML = allFolders.map(f => {
+          const pathStr = f.path && f.path.length ? f.path.join(' / ') : (f.title || 'Root');
+          return `<option value="${f.id}" ${f.id === newFolder.id ? 'selected' : ''}>📁 ${esc(pathStr)}</option>`;
+        }).join('');
+        selectMoveFolder.value = newFolder.id;
+      }
+      if (inpNewFolderTitle) inpNewFolderTitle.value = '';
+      showToast(`Created folder "${name}"`, 'success');
+    });
+  }
+
+  if (btnConfirmMove) {
+    btnConfirmMove.addEventListener('click', () => {
+      const targetFolderId = selectMoveFolder ? selectMoveFolder.value : 'root';
+      const targetFolder = state.findNode(targetFolderId);
+      const targetTitle = targetFolder ? targetFolder.title : 'Root';
+      const selectedIds = Array.from(state.selectedIds);
+
+      if (!selectedIds.length) {
+        closeModal();
+        return;
+      }
+
+      const moved = state.moveNodes(selectedIds, targetFolderId);
+      if (moved) {
+        showToast(`Moved ${selectedIds.length} item(s) to "${targetTitle}"`, 'success');
+        state.selectedIds.clear();
+        state.notify();
+      } else {
+        showToast('Could not move selected items (cannot move folder into itself)', 'warning');
+      }
+      closeModal();
+    });
+  }
+
+  // ── 5. Batch Tag Modal ────────────────────────────────────────────────────
+  const btnBatchTag = document.getElementById('btn-batch-tag');
+  const btnConfirmBatchTag = document.getElementById('btn-confirm-batch-tag');
+  const inpBatchTagInput = document.getElementById('inp-batch-tag-input');
+
+  if (btnBatchTag) {
+    btnBatchTag.addEventListener('click', () => {
+      const selectedIds = Array.from(state.selectedIds);
+      if (!selectedIds.length) {
+        showToast('Select at least one bookmark to tag.', 'info');
+        return;
+      }
+      const descEl = document.getElementById('tag-modal-desc');
+      if (descEl) {
+        descEl.textContent = `Add tag(s) to ${selectedIds.length} selected item${selectedIds.length > 1 ? 's' : ''}:`;
+      }
+      if (inpBatchTagInput) inpBatchTagInput.value = '';
+      openModal('modal-tag');
+    });
+  }
+
+  if (btnConfirmBatchTag) {
+    btnConfirmBatchTag.addEventListener('click', () => {
+      const rawTags = inpBatchTagInput ? inpBatchTagInput.value : '';
+      const newTags = rawTags.split(',').map(t => t.trim()).filter(Boolean);
+
+      if (!newTags.length) {
+        showToast('Please enter at least one tag.', 'warning');
+        return;
+      }
+
+      const selectedIds = Array.from(state.selectedIds);
+      let updatedCount = 0;
+
+      selectedIds.forEach(id => {
+        const node = state.findNode(id);
+        if (node && node.type === 'bookmark') {
+          const existingTags = node.tags || [];
+          const combined = Array.from(new Set([...existingTags, ...newTags]));
+          state.updateNode(id, { tags: combined });
+          updatedCount++;
+        }
+      });
+
+      showToast(`Added tag(s) to ${updatedCount} bookmark(s)!`, 'success');
+      closeModal();
+    });
+  }
 }
 
 export function triggerCleanTrackingModal(showToast) {
@@ -197,6 +338,8 @@ export function triggerCleanTrackingModal(showToast) {
   const descEl = document.getElementById('clean-diff-desc');
   const bodyEl = document.getElementById('clean-diff-body');
   const confirmBtn = document.getElementById('btn-confirm-clean-all');
+  const selectAllCb = document.getElementById('clean-select-all');
+  const selectedCountSpan = document.getElementById('clean-selected-count');
 
   if (!backdrop || !modal || !bodyEl) return;
 
@@ -204,9 +347,7 @@ export function triggerCleanTrackingModal(showToast) {
     descEl.innerHTML = `Found <strong>${dirtyItems.length}</strong> bookmark${dirtyItems.length > 1 ? 's' : ''} with tracking parameters (utm_*, fbclid, gclid, etc.):`;
   }
 
-  if (confirmBtn) {
-    confirmBtn.textContent = `Strip Parameters from ${dirtyItems.length} URL${dirtyItems.length > 1 ? 's' : ''}`;
-  }
+  if (selectAllCb) selectAllCb.checked = true;
 
   bodyEl.innerHTML = dirtyItems.map(item => {
     const original = esc(item.originalUrl);
@@ -224,9 +365,12 @@ export function triggerCleanTrackingModal(showToast) {
     const domain = getDomainName(item.originalUrl);
 
     return `
-      <div class="clean-diff-item">
+      <div class="clean-diff-item" data-id="${item.id}">
         <div class="clean-diff-header">
-          <strong>${esc(item.title)}</strong>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600;">
+            <input type="checkbox" class="clean-item-checkbox" data-id="${item.id}" checked>
+            <span>${esc(item.title)}</span>
+          </label>
           <span class="clean-diff-domain">${esc(domain)}</span>
         </div>
         <div class="clean-diff-row">
@@ -241,12 +385,60 @@ export function triggerCleanTrackingModal(showToast) {
     `;
   }).join('');
 
+  function updateCount() {
+    const checkboxes = bodyEl.querySelectorAll('.clean-item-checkbox');
+    const checked = Array.from(checkboxes).filter(cb => cb.checked);
+    const count = checked.length;
+
+    if (selectedCountSpan) {
+      selectedCountSpan.textContent = `${count} of ${dirtyItems.length} selected`;
+    }
+
+    if (confirmBtn) {
+      if (count > 0) {
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = `Strip Parameters from ${count} Selected URL${count > 1 ? 's' : ''}`;
+      } else {
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'No URLs Selected';
+      }
+    }
+
+    if (selectAllCb) {
+      selectAllCb.checked = count === dirtyItems.length;
+      selectAllCb.indeterminate = count > 0 && count < dirtyItems.length;
+    }
+  }
+
+  bodyEl.querySelectorAll('.clean-item-checkbox').forEach(cb => {
+    cb.addEventListener('change', updateCount);
+  });
+
+  if (selectAllCb) {
+    selectAllCb.onclick = () => {
+      const isChecked = selectAllCb.checked;
+      bodyEl.querySelectorAll('.clean-item-checkbox').forEach(cb => {
+        cb.checked = isChecked;
+      });
+      updateCount();
+    };
+  }
+
+  updateCount();
+
   const handleConfirm = () => {
-    dirtyItems.forEach(item => {
+    const checkedBoxes = bodyEl.querySelectorAll('.clean-item-checkbox:checked');
+    const selectedIds = new Set(Array.from(checkedBoxes).map(cb => cb.dataset.id));
+
+    const itemsToClean = dirtyItems.filter(item => selectedIds.has(item.id));
+    if (itemsToClean.length === 0) return;
+
+    itemsToClean.forEach(item => {
       state.updateNode(item.id, { url: item.cleanedUrl });
     });
+
     if (backdrop) backdrop.style.display = 'none';
-    showToast(`Stripped tracking parameters from ${dirtyItems.length} URLs!`, 'success');
+    showToast(`Stripped tracking parameters from ${itemsToClean.length} URL${itemsToClean.length > 1 ? 's' : ''}!`, 'success');
   };
 
   if (confirmBtn) {

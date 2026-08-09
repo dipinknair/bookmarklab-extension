@@ -382,10 +382,62 @@
         </div>
         <div class="modal-body">
           <p class="modal-desc" id="clean-diff-desc">The following bookmarks have tracking parameters (utm_*, fbclid, gclid, etc.) that will be stripped:</p>
+          <div style="display:flex; align-items:center; justify-space-between; background:rgba(255,255,255,0.04); border:1px solid var(--border-color); padding:8px 12px; border-radius:6px; margin-bottom:8px; font-size:0.8rem;">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600; color:var(--text-primary);">
+              <input type="checkbox" id="clean-select-all" checked>
+              <span>Select All / Deselect All</span>
+            </label>
+            <span id="clean-selected-count" style="color:var(--text-muted); font-size:0.75rem;"></span>
+          </div>
           <div id="clean-diff-body" class="clean-diff-list"></div>
         </div>
         <div class="modal-footer">
-          <button id="btn-confirm-clean-all" class="btn btn-primary glow-button">Strip Parameters from All URLs</button>
+          <button id="btn-confirm-clean-all" class="btn btn-primary glow-button">Strip Parameters from Selected URLs</button>
+          <button class="btn btn-secondary modal-close-btn">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Batch Move Modal -->
+      <div id="modal-move" class="modal-dialog" style="display:none;">
+        <div class="modal-header">
+          <h3 class="modal-title">Move Bookmarks</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc" id="move-modal-desc">Select destination folder for selected item(s):</p>
+          <div class="form-group">
+            <label class="form-label">Destination Folder</label>
+            <select id="inp-move-target-folder" class="form-select"></select>
+          </div>
+          <div class="form-group" style="margin-top:14px;">
+            <label class="form-label">Or create a new folder inside destination:</label>
+            <div style="display:flex; gap:8px;">
+              <input type="text" id="inp-move-new-folder-title" class="form-input" placeholder="New folder name..." />
+              <button id="btn-create-move-folder" class="btn btn-secondary" style="white-space:nowrap;">+ Create</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-confirm-move" class="btn btn-primary glow-button">Move Items</button>
+          <button class="btn btn-secondary modal-close-btn">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Batch Tag Modal -->
+      <div id="modal-tag" class="modal-dialog" style="display:none;">
+        <div class="modal-header">
+          <h3 class="modal-title">Add Tags to Bookmarks</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc" id="tag-modal-desc">Add tag(s) to selected item(s):</p>
+          <div class="form-group">
+            <label class="form-label">Tags (comma-separated)</label>
+            <input type="text" id="inp-batch-tag-input" class="form-input" placeholder="e.g. dev, article, reference" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-confirm-batch-tag" class="btn btn-primary glow-button">Add Tag(s)</button>
           <button class="btn btn-secondary modal-close-btn">Cancel</button>
         </div>
       </div>

@@ -182,24 +182,60 @@ class AppState {
   }
 
   /**
-   * Moves a node (bookmark or folder) to a target folder ID
+   * Checks if targetChildId is equal to or a descendant of parentId
+   */
+  isDescendantOf(targetChildId, parentId) {
+    if (targetChildId === parentId) return true;
+    const parentNode = this.findNode(parentId);
+    if (!parentNode || !parentNode.children) return false;
+
+    const search = (node) => {
+      if (!node || !node.children) return false;
+      for (const child of node.children) {
+        if (child.id === targetChildId) return true;
+        if (child.children && search(child)) return true;
+      }
+      return false;
+    };
+    return search(parentNode);
+  }
+
+  /**
+   * Moves multiple nodes (bookmarks or folders) to a target folder ID
+   */
+  moveNodes(nodeIds, targetFolderId) {
+    const targetFolder = this.findNode(targetFolderId);
+    if (!targetFolder || targetFolder.type !== 'folder') return false;
+
+    let movedAny = false;
+    for (const nodeId of nodeIds) {
+      if (nodeId === targetFolderId) continue;
+      // Skip if trying to move a folder into itself or its descendant
+      if (this.isDescendantOf(targetFolderId, nodeId)) continue;
+
+      const sourceParent = this.findParentNode(nodeId);
+      if (!sourceParent) continue;
+
+      const nodeIndex = sourceParent.children.findIndex(c => c.id === nodeId);
+      if (nodeIndex === -1) continue;
+
+      const [movedNode] = sourceParent.children.splice(nodeIndex, 1);
+      if (!targetFolder.children) targetFolder.children = [];
+      targetFolder.children.push(movedNode);
+      movedAny = true;
+    }
+
+    if (movedAny) {
+      this.setTree(this.tree);
+    }
+    return movedAny;
+  }
+
+  /**
+   * Moves a single node to target folder ID
    */
   moveNode(nodeId, targetFolderId) {
-    if (nodeId === targetFolderId) return;
-
-    const sourceParent = this.findParentNode(nodeId);
-    const targetFolder = this.findNode(targetFolderId);
-
-    if (!sourceParent || !targetFolder || targetFolder.type !== 'folder') return;
-
-    const nodeIndex = sourceParent.children.findIndex(c => c.id === nodeId);
-    if (nodeIndex === -1) return;
-
-    const [movedNode] = sourceParent.children.splice(nodeIndex, 1);
-    if (!targetFolder.children) targetFolder.children = [];
-    targetFolder.children.push(movedNode);
-
-    this.setTree(this.tree);
+    return this.moveNodes([nodeId], targetFolderId);
   }
 
   /**
