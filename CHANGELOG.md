@@ -6,7 +6,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 
 ---
 
-## [Unreleased]
+## [1.0.1] — 2026-08-10
 
 ### Added
 - Theme Accent Color selector — choose between Glassy Purple (Default), Glassy Emerald, Cyber Cyan, Muted Gold, and Neon Rose.

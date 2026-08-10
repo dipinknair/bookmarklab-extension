@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "BookmarkLab",
   "short_name": "BookmarkLab",
-  "version": "1.0.dev0",
+  "version": "1.0.1",
   "description": "Live browser bookmark organizer — deduplicate, auto-cluster, clean tracking URLs, and organize your bookmarks directly in Chrome.",
   "author": "BookmarkLab",
   "permissions": [
