@@ -1,5 +1,7 @@
 # BookmarkLab Extension
 
+[![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-BookmarkLab-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm)
+
 BookmarkLab is a Chrome extension designed to help you clean up, organize, and manage your browser bookmarks in a single workspace.
 
 Instead of making live edits immediately, BookmarkLab loads your bookmarks into an in-memory workspace where you can organize, deduplicate, and clean them. Once you are happy with the layout, you can review a summary of your changes and sync them to Chrome.
@@ -16,6 +18,12 @@ Instead of making live edits immediately, BookmarkLab loads your bookmarks into 
 - **Custom Accent Themes**: Choose your favorite color theme (Glassy Purple, Emerald, Cyan, Gold, Rose).
 
 ## Installation
+
+### Option 1: Chrome Web Store (Recommended)
+
+Get [BookmarkLab on the Chrome Web Store](https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm).
+
+### Option 2: From Source (Developer Mode)
 
 1. Open Google Chrome (or Edge/Brave) and go to `chrome://extensions`.
 2. Turn on **Developer mode** in the top right corner.
