@@ -3,11 +3,8 @@
 [![CI](https://github.com/dipinknair/bookmarklab-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/dipinknair/bookmarklab-extension/actions/workflows/ci.yml)
 [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-BookmarkLab-4285F4?style=flat-square&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-7d85d8?style=flat-square&logo=googlechrome&logoColor=white)
-![Version](https://img.shields.io/badge/version-1.0.1-d49f69?style=flat-square)
+[![GitHub Release](https://img.shields.io/github/v/release/dipinknair/bookmarklab-extension?style=flat-square&color=d49f69&label=version)](https://github.com/dipinknair/bookmarklab-extension/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-5fa88d?style=flat-square)](LICENSE)
-![Test Suite](https://img.shields.io/badge/tests-108%20passed-5fa88d?style=flat-square&logo=python&logoColor=white)
-![Architecture](https://img.shields.io/badge/Architecture-DRY%20%7C%20SOLID-c9788a?style=flat-square)
-![Dependencies](https://img.shields.io/badge/dependencies-0%20(Pure%20ESM)-5c97b8?style=flat-square)
 
 BookmarkLab is a fast, privacy-respecting browser extension designed to help you organize, deduplicate, and clean your browser bookmarks in a visual workspace.
 
