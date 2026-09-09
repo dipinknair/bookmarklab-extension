@@ -248,6 +248,8 @@ def test_theme_and_color_modes():
     assert_test("theme-selector" in index_html, "index.html contains theme-selector")
     assert_test("theme-mode-btn" in index_html, "index.html contains theme-mode-btn")
     assert_test("icon-sun" in index_html and "icon-moon" in index_html, "index.html contains sun and moon icons")
+    assert_test("Interactive Bookmark Manager" in index_html, "index.html brand tag is 'Interactive Bookmark Manager'")
+    assert_test("https://github.com/dipinknair/bookmarklab-extension" in index_html, "index.html has GitHub repository link")
 
     # Verify popup.html contains theme mode toggle
     popup_path = os.path.join(ROOT_DIR, 'popup.html')

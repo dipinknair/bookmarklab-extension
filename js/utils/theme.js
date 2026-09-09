@@ -1,7 +1,7 @@
 /**
  * Theme & Color Mode Manager for BookmarkLab
  * Supports 2 Color Modes: 'dark' (default) and 'light' (white)
- * Supports 5 Accent Colors: 'purple' (default), 'emerald', 'cyan', 'gold', 'rose'
+ * Supports 5 Muted Pastel Accents: 'purple' (Pastel Lavender, default), 'emerald' (Pastel Sage), 'cyan' (Pastel Mist Blue), 'gold' (Pastel Sand), 'rose' (Pastel Dusty Rose)
  * Follows SoC and DRY principles.
  */
 

@@ -20,7 +20,8 @@ Instead of making live edits immediately to your browser database, BookmarkLab l
 - **Link Health Check**: Verify bookmark availability via non-CORS background probes to identify broken or unreachable links.
 - **Full-Text Instant Search**: Search across titles, URLs, tags, and domain names in real time.
 - **Batch Operations**: Multi-select bookmarks to move, tag, or delete in bulk.
-- **Multi-Theme Accent Support**: Choose between Glassy Purple (Default), Emerald, Cyan, Gold, and Rose themes, persisted via `chrome.storage.local`.
+- **Dark & Light (White) Mode**: Toggle effortlessly between sleek dark mode and crisp light/white mode with full contrast adaptation.
+- **Muted Pastel Theme Accents**: Choose between 5 calming, aesthetic pastel tones (Pastel Lavender, Pastel Sage, Pastel Mist Blue, Pastel Sand, and Pastel Dusty Rose), persisted via `chrome.storage.local`.
 - **Offline / Standalone Preview**: Load built-in demo bookmarks when opened directly in a browser or test environment outside the extension runtime.
 
 ---

@@ -37,37 +37,37 @@
     }
 
     :root, [data-theme="purple"] {
-      --accent-primary: #6366f1;
-      --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
-      --accent-emerald: #10b981;
-      --accent-amber: #f59e0b;
-      --accent-violet: #818cf8;
+      --accent-primary: #7d85d8;
+      --accent-gradient: linear-gradient(135deg, #747ecf, #8b94df, #a2abed);
+      --accent-emerald: #5fa88d;
+      --accent-amber: #d49f69;
+      --accent-violet: #8890df;
       --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-      --shadow-glow: 0 0 16px rgba(99, 102, 241, 0.4);
+      --shadow-glow: 0 0 16px rgba(125, 133, 216, 0.28);
     }
 
     [data-theme="emerald"] {
-      --accent-primary: #10b981;
-      --accent-gradient: linear-gradient(135deg, #10b981, #059669, #14b8a6);
-      --shadow-glow: 0 0 16px rgba(16, 185, 129, 0.4);
+      --accent-primary: #5fa88d;
+      --accent-gradient: linear-gradient(135deg, #589f85, #6eb49b, #87c7b0);
+      --shadow-glow: 0 0 16px rgba(95, 168, 141, 0.28);
     }
 
     [data-theme="cyan"] {
-      --accent-primary: #06b6d4;
-      --accent-gradient: linear-gradient(135deg, #06b6d4, #0284c7, #3b82f6);
-      --shadow-glow: 0 0 16px rgba(6, 182, 212, 0.4);
+      --accent-primary: #5c97b8;
+      --accent-gradient: linear-gradient(135deg, #5590b0, #6ba3c2, #84bad6);
+      --shadow-glow: 0 0 16px rgba(92, 151, 184, 0.28);
     }
 
     [data-theme="gold"] {
-      --accent-primary: #f59e0b;
-      --accent-gradient: linear-gradient(135deg, #f59e0b, #d97706, #b45309);
-      --shadow-glow: 0 0 16px rgba(245, 158, 11, 0.4);
+      --accent-primary: #c9935d;
+      --accent-gradient: linear-gradient(135deg, #c28952, #d49f69, #e5b686);
+      --shadow-glow: 0 0 16px rgba(201, 147, 93, 0.28);
     }
 
     [data-theme="rose"] {
-      --accent-primary: #f43f5e;
-      --accent-gradient: linear-gradient(135deg, #f43f5e, #e11d48, #c026d3);
-      --shadow-glow: 0 0 16px rgba(244, 63, 94, 0.4);
+      --accent-primary: #c9788a;
+      --accent-gradient: linear-gradient(135deg, #c06d80, #d28394, #e39dac);
+      --shadow-glow: 0 0 16px rgba(201, 120, 138, 0.28);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -276,9 +276,9 @@
     }
 
     .action-btn:hover {
-      background: rgba(99, 102, 241, 0.12);
-      border-color: rgba(99, 102, 241, 0.4);
-      color: var(--accent-violet);
+      background: var(--bg-badge);
+      border-color: var(--border-color-hover);
+      color: var(--accent-primary);
       transform: translateX(2px);
     }
 
@@ -292,9 +292,9 @@
       flex-shrink: 0;
     }
 
-    .action-btn.dedupe .action-icon { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
-    .action-btn.cluster .action-icon { background: rgba(99, 102, 241, 0.15); color: var(--accent-primary); }
-    .action-btn.clean .action-icon { background: rgba(129, 140, 248, 0.15); color: var(--accent-violet); }
+    .action-btn.dedupe .action-icon { background: rgba(201, 147, 93, 0.15); color: var(--accent-amber); }
+    .action-btn.cluster .action-icon { background: rgba(125, 133, 216, 0.15); color: var(--accent-primary); }
+    .action-btn.clean .action-icon { background: rgba(136, 144, 223, 0.15); color: var(--accent-violet); }
 
     .action-btn-text {
       flex: 1;
@@ -407,11 +407,11 @@
     </div>
     <!-- Theme Accent Picker -->
     <div class="theme-selector" title="Choose Accent Theme">
-      <button class="theme-dot active" data-theme="purple" style="--dot-color: #6366f1;" title="Glassy Purple"></button>
-      <button class="theme-dot" data-theme="emerald" style="--dot-color: #10b981;" title="Glassy Emerald"></button>
-      <button class="theme-dot" data-theme="cyan" style="--dot-color: #06b6d4;" title="Cyber Cyan"></button>
-      <button class="theme-dot" data-theme="gold" style="--dot-color: #f59e0b;" title="Muted Gold"></button>
-      <button class="theme-dot" data-theme="rose" style="--dot-color: #f43f5e;" title="Neon Rose"></button>
+      <button class="theme-dot active" data-theme="purple" style="--dot-color: #858ee0;" title="Pastel Lavender (Default)"></button>
+      <button class="theme-dot" data-theme="emerald" style="--dot-color: #6eb49b;" title="Pastel Sage"></button>
+      <button class="theme-dot" data-theme="cyan" style="--dot-color: #6ba3c2;" title="Pastel Mist Blue"></button>
+      <button class="theme-dot" data-theme="gold" style="--dot-color: #d49f69;" title="Pastel Sand"></button>
+      <button class="theme-dot" data-theme="rose" style="--dot-color: #d28394;" title="Pastel Dusty Rose"></button>
     </div>
 
     <!-- Mode Toggle (Dark / Light) -->

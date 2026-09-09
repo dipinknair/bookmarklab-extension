@@ -96,10 +96,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Color-code warnings
     if (dupeCount > 0 && statDupes) {
-      statDupes.style.color = '#f59e0b';
+      statDupes.style.color = 'var(--accent-amber, #d49f69)';
     }
     if (trackingCount > 0 && statTracking) {
-      statTracking.style.color = '#818cf8';
+      statTracking.style.color = 'var(--accent-violet, #8890df)';
     }
 
   } catch (err) {

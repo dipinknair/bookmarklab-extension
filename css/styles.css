@@ -30,13 +30,13 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.7);
   --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.85);
-  --shadow-glow: 0 0 18px rgba(99, 102, 241, 0.35);
+  --shadow-glow: 0 0 16px rgba(125, 133, 216, 0.28);
 
-  --ambient-glow-1: rgba(99, 102, 241, 0.12);
-  --ambient-glow-2: rgba(139, 92, 246, 0.08);
+  --ambient-glow-1: rgba(125, 133, 216, 0.08);
+  --ambient-glow-2: rgba(157, 164, 232, 0.05);
 
   --tree-row-hover: rgba(255, 255, 255, 0.05);
-  --tree-row-active: rgba(99, 102, 241, 0.15);
+  --tree-row-active: rgba(125, 133, 216, 0.14);
   --brand-grad-start: #ffffff;
   --brand-grad-end: #cbd5e1;
 }
@@ -59,8 +59,8 @@
   --bg-badge: rgba(0, 0, 0, 0.05);
 
   --border-color: rgba(0, 0, 0, 0.08);
-  --border-color-hover: rgba(99, 102, 241, 0.4);
-  --border-glow: rgba(99, 102, 241, 0.25);
+  --border-color-hover: rgba(125, 133, 216, 0.35);
+  --border-glow: rgba(125, 133, 216, 0.25);
 
   --text-primary: #0f172a;
   --text-secondary: #334155;
@@ -69,13 +69,13 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 16px rgba(99, 102, 241, 0.2);
+  --shadow-glow: 0 0 16px rgba(125, 133, 216, 0.2);
 
-  --ambient-glow-1: rgba(99, 102, 241, 0.05);
-  --ambient-glow-2: rgba(16, 185, 129, 0.04);
+  --ambient-glow-1: rgba(125, 133, 216, 0.04);
+  --ambient-glow-2: rgba(95, 168, 141, 0.03);
 
   --tree-row-hover: rgba(0, 0, 0, 0.04);
-  --tree-row-active: rgba(99, 102, 241, 0.1);
+  --tree-row-active: rgba(125, 133, 216, 0.1);
   --brand-grad-start: #0f172a;
   --brand-grad-end: #334155;
 }
@@ -92,70 +92,76 @@
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --accent-teal: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-red: #ef4444;
+  /* Base Accent Helpers (Muted / Pastel) */
+  --accent-teal: #5fa88d;
+  --accent-amber: #d49f69;
+  --accent-red: #e06c75;
 
-  /* Default Accent Palette (Purple) */
-  --accent-primary: #6366f1;
-  --accent-primary-hover: #4f46e5;
-  --accent-secondary: #8b5cf6;
-  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  /* Default Accent Palette (Pastel Lavender) */
+  --accent-primary: #7d85d8;
+  --accent-primary-hover: #6c74cb;
+  --accent-secondary: #9da4e8;
+  --accent-gradient: linear-gradient(135deg, #747ecf 0%, #8b94df 50%, #a2abed 100%);
 }
 
-/* Glassy Purple Theme */
+/* Pastel Lavender Theme */
 [data-theme="purple"] {
-  --accent-primary: #6366f1;
-  --accent-primary-hover: #4f46e5;
-  --accent-secondary: #8b5cf6;
-  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-  --border-color-hover: rgba(99, 102, 241, 0.35);
-  --border-glow: rgba(99, 102, 241, 0.4);
-  --shadow-glow: 0 0 18px rgba(99, 102, 241, 0.35);
+  --accent-primary: #7d85d8;
+  --accent-primary-hover: #6c74cb;
+  --accent-secondary: #9da4e8;
+  --accent-gradient: linear-gradient(135deg, #747ecf 0%, #8b94df 50%, #a2abed 100%);
+  --border-color-hover: rgba(125, 133, 216, 0.35);
+  --border-glow: rgba(125, 133, 216, 0.35);
+  --shadow-glow: 0 0 16px rgba(125, 133, 216, 0.28);
+  --tree-row-active: rgba(125, 133, 216, 0.14);
 }
 
-/* Glassy Emerald Theme */
+/* Pastel Sage Theme */
 [data-theme="emerald"] {
-  --accent-primary: #10b981;
-  --accent-primary-hover: #059669;
-  --accent-secondary: #34d399;
-  --accent-gradient: linear-gradient(135deg, #10b981 0%, #059669 50%, #14b8a6 100%);
-  --border-color-hover: rgba(16, 185, 129, 0.35);
-  --border-glow: rgba(16, 185, 129, 0.4);
-  --shadow-glow: 0 0 18px rgba(16, 185, 129, 0.35);
+  --accent-primary: #5fa88d;
+  --accent-primary-hover: #50977d;
+  --accent-secondary: #7fbeaa;
+  --accent-gradient: linear-gradient(135deg, #589f85 0%, #6eb49b 50%, #87c7b0 100%);
+  --border-color-hover: rgba(95, 168, 141, 0.35);
+  --border-glow: rgba(95, 168, 141, 0.35);
+  --shadow-glow: 0 0 16px rgba(95, 168, 141, 0.28);
+  --tree-row-active: rgba(95, 168, 141, 0.14);
 }
 
-/* Cyber Cyan Theme */
+/* Pastel Mist Blue Theme */
 [data-theme="cyan"] {
-  --accent-primary: #06b6d4;
-  --accent-primary-hover: #0891b2;
-  --accent-secondary: #38bdf8;
-  --accent-gradient: linear-gradient(135deg, #06b6d4 0%, #0284c7 50%, #3b82f6 100%);
-  --border-color-hover: rgba(6, 182, 212, 0.35);
-  --border-glow: rgba(6, 182, 212, 0.4);
-  --shadow-glow: 0 0 18px rgba(6, 182, 212, 0.35);
+  --accent-primary: #5c97b8;
+  --accent-primary-hover: #4e88a8;
+  --accent-secondary: #7eb3ce;
+  --accent-gradient: linear-gradient(135deg, #5590b0 0%, #6ba3c2 50%, #84bad6 100%);
+  --border-color-hover: rgba(92, 151, 184, 0.35);
+  --border-glow: rgba(92, 151, 184, 0.35);
+  --shadow-glow: 0 0 16px rgba(92, 151, 184, 0.28);
+  --tree-row-active: rgba(92, 151, 184, 0.14);
 }
 
-/* Muted Gold Theme */
+/* Pastel Sand Theme */
 [data-theme="gold"] {
-  --accent-primary: #f59e0b;
-  --accent-primary-hover: #d97706;
-  --accent-secondary: #fbbf24;
-  --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
-  --border-color-hover: rgba(245, 158, 11, 0.35);
-  --border-glow: rgba(245, 158, 11, 0.4);
-  --shadow-glow: 0 0 18px rgba(245, 158, 11, 0.35);
+  --accent-primary: #c9935d;
+  --accent-primary-hover: #b9824c;
+  --accent-secondary: #dfae7d;
+  --accent-gradient: linear-gradient(135deg, #c28952 0%, #d49f69 50%, #e5b686 100%);
+  --border-color-hover: rgba(201, 147, 93, 0.35);
+  --border-glow: rgba(201, 147, 93, 0.35);
+  --shadow-glow: 0 0 16px rgba(201, 147, 93, 0.28);
+  --tree-row-active: rgba(201, 147, 93, 0.14);
 }
 
-/* Neon Rose Theme */
+/* Pastel Dusty Rose Theme */
 [data-theme="rose"] {
-  --accent-primary: #f43f5e;
-  --accent-primary-hover: #e11d48;
-  --accent-secondary: #fb7185;
-  --accent-gradient: linear-gradient(135deg, #f43f5e 0%, #e11d48 50%, #c026d3 100%);
-  --border-color-hover: rgba(244, 63, 94, 0.35);
-  --border-glow: rgba(244, 63, 94, 0.4);
-  --shadow-glow: 0 0 18px rgba(244, 63, 94, 0.35);
+  --accent-primary: #c9788a;
+  --accent-primary-hover: #b86779;
+  --accent-secondary: #dc92a2;
+  --accent-gradient: linear-gradient(135deg, #c06d80 0%, #d28394 50%, #e39dac 100%);
+  --border-color-hover: rgba(201, 120, 138, 0.35);
+  --border-glow: rgba(201, 120, 138, 0.35);
+  --shadow-glow: 0 0 16px rgba(201, 120, 138, 0.28);
+  --tree-row-active: rgba(201, 120, 138, 0.14);
 }
 
 /* ── Theme Accent Selector UI ────────────────────── */
@@ -186,7 +192,7 @@
 }
 
 .theme-dot.active {
-  border-color: #ffffff;
+  border-color: var(--text-primary);
   box-shadow: 0 0 8px var(--dot-color);
   transform: scale(1.15);
 }
@@ -326,11 +332,21 @@ body::after {
 }
 
 .brand-tag {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.btn-github {
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+.btn-github:hover {
+  color: var(--text-primary);
+  border-color: var(--border-color-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-1px);
 }
 
 .save-status {
