@@ -225,6 +225,49 @@ def test_undo_redo_invariants():
     assert_test(len(history) == max_history, f"History clamped to max_history ({max_history})")
     assert_test(history_index == max_history - 1, f"historyIndex clamped to {max_history - 1}")
 
+def test_theme_and_color_modes():
+    print("\n--- Testing Dark/Light Theme & Accent Color Modes ---")
+    theme_js_path = os.path.join(ROOT_DIR, 'js', 'utils', 'theme.js')
+    assert_test(os.path.isfile(theme_js_path), "theme.js exists")
+
+    with open(theme_js_path, 'r', encoding='utf-8') as f:
+        theme_js = f.read()
+
+    assert_test("export async function initTheme" in theme_js, "theme.js exports initTheme")
+    assert_test("export function applyTheme" in theme_js, "theme.js exports applyTheme")
+    assert_test("export function applyMode" in theme_js, "theme.js exports applyMode")
+    assert_test("export function toggleMode" in theme_js, "theme.js exports toggleMode")
+    assert_test("export function setupThemeSelector" in theme_js, "theme.js exports setupThemeSelector")
+    assert_test("'dark'" in theme_js and "'light'" in theme_js, "theme.js supports dark and light modes")
+
+    # Verify index.html contains theme mode toggle
+    index_path = os.path.join(ROOT_DIR, 'index.html')
+    with open(index_path, 'r', encoding='utf-8') as f:
+        index_html = f.read()
+
+    assert_test("theme-selector" in index_html, "index.html contains theme-selector")
+    assert_test("theme-mode-btn" in index_html, "index.html contains theme-mode-btn")
+    assert_test("icon-sun" in index_html and "icon-moon" in index_html, "index.html contains sun and moon icons")
+
+    # Verify popup.html contains theme mode toggle
+    popup_path = os.path.join(ROOT_DIR, 'popup.html')
+    with open(popup_path, 'r', encoding='utf-8') as f:
+        popup_html = f.read()
+
+    assert_test("theme-selector" in popup_html, "popup.html contains theme-selector")
+    assert_test("theme-mode-btn" in popup_html, "popup.html contains theme-mode-btn")
+    assert_test("icon-sun" in popup_html and "icon-moon" in popup_html, "popup.html contains sun and moon icons")
+    assert_test('[data-mode="dark"]' in popup_html and '[data-mode="light"]' in popup_html, "popup.html styles dark and light tokens")
+
+    # Verify styles.css contains dark and light tokens
+    styles_path = os.path.join(ROOT_DIR, 'css', 'styles.css')
+    with open(styles_path, 'r', encoding='utf-8') as f:
+        styles_css = f.read()
+
+    assert_test('[data-mode="dark"]' in styles_css, "styles.css has data-mode='dark' definitions")
+    assert_test('[data-mode="light"]' in styles_css, "styles.css has data-mode='light' definitions")
+    assert_test(".theme-mode-btn" in styles_css, "styles.css styles theme-mode-btn")
+
 def main():
     print("==================================================")
     print("BookmarkLab Extension Test Suite")
@@ -235,6 +278,7 @@ def main():
     test_demo_bookmarks_html()
     test_javascript_integrity()
     test_undo_redo_invariants()
+    test_theme_and_color_modes()
 
     print("\n==================================================")
     print(f"Results: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")

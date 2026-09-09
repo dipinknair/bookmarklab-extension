@@ -8,19 +8,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root, [data-theme="purple"] {
+    :root, [data-mode="dark"] {
       --bg-primary: #0f1117;
       --bg-secondary: #161b27;
       --bg-card: #1a2035;
-      --border-color: rgba(255,255,255,0.08);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-color-hover: rgba(255, 255, 255, 0.18);
+      --text-primary: #e2e8f0;
+      --text-muted: #64748b;
+      --text-secondary: #94a3b8;
+      --header-bg: linear-gradient(135deg, #0f1117 0%, #161b27 100%);
+      --bg-badge: rgba(255, 255, 255, 0.05);
+      --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-mode="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-color-hover: rgba(0, 0, 0, 0.18);
+      --text-primary: #0f172a;
+      --text-muted: #64748b;
+      --text-secondary: #334155;
+      --header-bg: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+      --bg-badge: rgba(0, 0, 0, 0.05);
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+
+    :root, [data-theme="purple"] {
       --accent-primary: #6366f1;
       --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
       --accent-emerald: #10b981;
       --accent-amber: #f59e0b;
       --accent-violet: #818cf8;
-      --text-primary: #e2e8f0;
-      --text-muted: #64748b;
-      --text-secondary: #94a3b8;
       --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
       --shadow-glow: 0 0 16px rgba(99, 102, 241, 0.4);
     }
@@ -61,12 +82,12 @@
 
     /* Header */
     .popup-header {
-      background: linear-gradient(135deg, #0f1117 0%, #161b27 100%);
+      background: var(--header-bg);
       border-bottom: 1px solid var(--border-color);
       padding: 14px 16px 12px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .popup-logo {
@@ -86,7 +107,7 @@
       align-items: center;
       gap: 5px;
       padding: 3px 6px;
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--bg-badge);
       border: 1px solid var(--border-color);
       border-radius: 16px;
     }
@@ -103,7 +124,34 @@
     }
 
     .theme-dot:hover { transform: scale(1.2); }
-    .theme-dot.active { border-color: #ffffff; transform: scale(1.1); }
+    .theme-dot.active { border-color: var(--text-primary); transform: scale(1.1); }
+
+    .theme-mode-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--bg-badge);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-mode-btn:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      transform: scale(1.1);
+    }
+
+    [data-mode="dark"] .theme-mode-btn .icon-sun { display: block; }
+    [data-mode="dark"] .theme-mode-btn .icon-moon { display: none; }
+    [data-mode="light"] .theme-mode-btn .icon-sun { display: none; }
+    [data-mode="light"] .theme-mode-btn .icon-moon { display: block; }
 
     .popup-logo svg {
       color: white;
@@ -365,6 +413,24 @@
       <button class="theme-dot" data-theme="gold" style="--dot-color: #f59e0b;" title="Muted Gold"></button>
       <button class="theme-dot" data-theme="rose" style="--dot-color: #f43f5e;" title="Neon Rose"></button>
     </div>
+
+    <!-- Mode Toggle (Dark / Light) -->
+    <button class="theme-mode-btn" title="Switch Theme Mode" aria-label="Switch Theme Mode">
+      <svg class="icon-sun" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg class="icon-moon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
   </div>
 
   <!-- Loading State -->
