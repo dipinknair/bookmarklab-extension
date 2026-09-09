@@ -1,4 +1,11 @@
+/**
+ * BookmarkLab Extension — Popup Controller
+ * Displays live stats and provides quick action links into full workspace.
+ * Follows DRY principles by reusing urlUtils functions.
+ */
+
 import { initTheme, setupThemeSelector } from './utils/theme.js';
+import { cleanTrackingParameters, findDuplicateGroups } from './utils/urlUtils.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   await initTheme();
@@ -52,34 +59,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     });
 
-    // Flatten the tree
-    let totalBookmarks = 0;
+    const bookmarks = [];
     let totalFolders = 0;
     let trackingCount = 0;
-    const urlMap = new Map();
-
-    const TRACKING_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'ref', '_ga'];
 
     function flattenNode(node) {
       if (!node) return;
       if (node.url) {
-        totalBookmarks++;
-        // Check for tracking parameters
-        try {
-          const parsed = new URL(node.url);
-          for (const param of TRACKING_PARAMS) {
-            if (parsed.searchParams.has(param)) {
-              trackingCount++;
-              break;
-            }
-          }
-          // Normalized URL for duplicate check
-          const norm = node.url.toLowerCase().replace(/^https?:\/\//, '').replace(/\/$/, '');
-          urlMap.set(norm, (urlMap.get(norm) || 0) + 1);
-        } catch (e) {}
+        bookmarks.push(node);
+        if (cleanTrackingParameters(node.url).hasChanges) {
+          trackingCount++;
+        }
       } else {
-        // It's a folder
-        if (node.id !== '0' && node.id !== '1' && node.id !== '2' && node.id !== '3') {
+        // Exclude virtual container roots
+        if (!['0', '1', '2', '3'].includes(node.id)) {
           totalFolders++;
         }
       }
@@ -88,12 +81,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     tree.forEach(flattenNode);
 
-    // Count duplicates
-    let dupeCount = 0;
-    urlMap.forEach(count => { if (count > 1) dupeCount += count; });
+    // Count duplicates using single source of truth (DRY)
+    const duplicateGroups = findDuplicateGroups(bookmarks);
+    const dupeCount = duplicateGroups.reduce((acc, g) => acc + g.items.length, 0);
 
     // Update UI
-    if (statTotal) statTotal.textContent = totalBookmarks.toLocaleString();
+    if (statTotal) statTotal.textContent = bookmarks.length.toLocaleString();
     if (statDupes) statDupes.textContent = dupeCount.toLocaleString();
     if (statTracking) statTracking.textContent = trackingCount.toLocaleString();
     if (statFolders) statFolders.textContent = totalFolders.toLocaleString();

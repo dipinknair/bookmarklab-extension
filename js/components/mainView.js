@@ -3,7 +3,8 @@
  */
 
 import { state } from '../state.js';
-import { getDomainName, getFaviconUrl, cleanTrackingParameters, normalizeUrlForDedupe } from '../utils/urlUtils.js';
+import { getDomainName, getFaviconUrl, cleanTrackingParameters, findDuplicateGroups } from '../utils/urlUtils.js';
+import { escapeHTML } from '../utils/domUtils.js';
 
 export function renderMainView(containerEl, dropZoneEl, breadcrumbsEl, batchBarEl, selectedCountEl) {
   if (!state.tree) {
@@ -104,18 +105,8 @@ function getFilteredBookmarks() {
       list = folder.children;
     }
   } else if (state.activeView === 'duplicates') {
-    // Find URL duplicates
-    const urlMap = new Map();
-    allBookmarks.forEach(bm => {
-      const norm = normalizeUrlForDedupe(bm.url);
-      if (!urlMap.has(norm)) urlMap.set(norm, []);
-      urlMap.get(norm).push(bm);
-    });
-    urlMap.forEach(group => {
-      if (group.length > 1) {
-        list = list.concat(group);
-      }
-    });
+    const groups = findDuplicateGroups(allBookmarks);
+    list = groups.flatMap(g => g.items);
   } else if (state.activeView === 'uncategorized') {
     // Sitting in root or unsorted folder
     list = allBookmarks.filter(bm => {
@@ -443,7 +434,3 @@ function renderBatchBar(batchBarEl, countEl) {
   }
 }
 
-function escapeHTML(str) {
-  if (!str) return '';
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}

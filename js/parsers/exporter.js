@@ -3,6 +3,8 @@
  * Netscape HTML, Markdown, and JSON exporters
  */
 
+import { escapeHTML } from '../utils/domUtils.js';
+
 /**
  * Generates 100% compliant Netscape Bookmark HTML format
  */
@@ -114,14 +116,4 @@ export function exportToMarkdown(treeNode) {
  */
 export function exportToJSON(treeNode) {
   return JSON.stringify(treeNode, null, 2);
-}
-
-function escapeHTML(str) {
-  if (!str) return '';
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
 }

@@ -4,7 +4,8 @@
  */
 
 import { state } from '../state.js';
-import { getDomainName, getFaviconUrl, cleanTrackingParameters } from '../utils/urlUtils.js';
+import { getDomainName, getFaviconUrl, cleanTrackingParameters, validateLink } from '../utils/urlUtils.js';
+import { escapeHTML } from '../utils/domUtils.js';
 import { showToast } from '../app.js';
 
 export function renderInspector(containerEl) {
@@ -148,15 +149,11 @@ function renderBookmarkInspector(containerEl, node) {
       e.preventDefault();
       e.stopPropagation();
       state.updateNode(node.id, { status: 'checking' });
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 4500);
-        await fetch(node.url, { method: 'HEAD', mode: 'no-cors', signal: controller.signal });
-        clearTimeout(timeoutId);
-        state.updateNode(node.id, { status: 'valid' });
+      const isValid = await validateLink(node.url);
+      state.updateNode(node.id, { status: isValid ? 'valid' : 'invalid' });
+      if (isValid) {
         showToast('Link is valid!', 'success');
-      } catch (e) {
-        state.updateNode(node.id, { status: 'invalid' });
+      } else {
         showToast('Link unreachable via background check', 'warning');
       }
     });
@@ -265,7 +262,3 @@ function renderFolderInspector(containerEl, node) {
   }
 }
 
-function escapeHTML(str) {
-  if (!str) return '';
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}

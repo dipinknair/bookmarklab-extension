@@ -1,16 +1,28 @@
 /**
  * BookmarkLab Extension — Main Application Controller
  * Stage-and-commit model: edits are in-memory only; sync to Chrome is explicit.
+ * Follows SoC, DRY, and SOLID principles.
  */
 
 import { state } from './state.js';
-import { cleanTrackingParameters } from './utils/urlUtils.js';
+import {
+  cleanTrackingParameters,
+  findDuplicateGroups,
+  validateLink
+} from './utils/urlUtils.js';
 import { initTheme, setupThemeSelector } from './utils/theme.js';
+import { downloadFile } from './utils/domUtils.js';
+import { DEMO_BOOKMARK_TREE } from './utils/demoData.js';
 
 import { renderTreeView } from './components/treeView.js';
 import { renderMainView } from './components/mainView.js';
 import { renderInspector } from './components/inspector.js';
-import { setupModals, triggerCleanTrackingModal } from './components/modals.js';
+import {
+  setupModals,
+  triggerCleanTrackingModal,
+  triggerDedupeModal,
+  triggerClusterModal
+} from './components/modals.js';
 
 import { exportToNetscapeHTML } from './parsers/exporter.js';
 import {
@@ -103,7 +115,7 @@ async function applySyncToChrome(diff) {
   for (const node of deleteSorted) {
     if (PROTECTED.has(node.id)) continue;
     try {
-      await chromeRemoveNode(node.id); // chromeRemoveNode handles both leafs and folders
+      await chromeRemoveNode(node.id);
     } catch (e) {
       console.warn('[BookmarkLab] delete failed:', node.id, e.message);
     }
@@ -174,6 +186,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnBackup    = document.getElementById('btn-backup');
   const btnSync      = document.getElementById('btn-sync');
   const btnRetryLoad = document.getElementById('btn-retry-load');
+  const btnLoadDemo  = document.getElementById('btn-load-demo');
 
   setupModals(showToast);
 
@@ -186,6 +199,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateUndoRedoButtons();
     updateSyncButton();
   });
+
+  // ── Deep-Link Hash Navigation Router (#clean, #dedupe, #cluster) ──────────
+  function handleHashAction() {
+    const hash = location.hash;
+    if (!hash || !state.tree) return;
+    if (hash === '#clean') {
+      setTimeout(() => triggerCleanTrackingModal(showToast), 200);
+    } else if (hash === '#dedupe') {
+      setTimeout(() => triggerDedupeModal(showToast), 200);
+    } else if (hash === '#cluster') {
+      setTimeout(() => triggerClusterModal(showToast), 200);
+    }
+  }
+  window.addEventListener('hashchange', handleHashAction);
 
   // ── Sidebar drag-to-resize ────────────────────────────────────────────────
   const sidebarEl = document.getElementById('sidebar');
@@ -225,21 +252,32 @@ document.addEventListener('DOMContentLoaded', async () => {
       hideSpinner();
       state.setTree(tree, false);
       showToast(`Loaded ${state.getAllBookmarks().length} bookmarks from Chrome.`, 'success');
-
-      if (location.hash === '#clean') {
-        setTimeout(() => triggerCleanTrackingModal(showToast), 200);
-      }
+      handleHashAction();
     } catch (err) {
       hideSpinner();
       showError('Could not load Chrome bookmarks: ' + err.message);
     }
   }
 
+  // ── Load Demo Dataset (Offline / Standalone preview) ──────────────────────
+  function loadDemoBookmarks() {
+    originalChromeSnapshot = flattenTree(DEMO_BOOKMARK_TREE);
+    state.liveSync = false;
+    state.activeFolderId = 'root';
+    state.activeView = 'all';
+    state.selectedIds.clear();
+    state.searchQuery = '';
+    resetSmartViewHighlight();
+    hideSpinner();
+    state.setTree(DEMO_BOOKMARK_TREE, false);
+    showToast('Loaded demo dataset (offline preview mode).', 'info');
+    handleHashAction();
+  }
+
   function hideSpinner() {
     const spinner = document.getElementById('loading-spinner');
     if (spinner) spinner.style.display = 'none';
   }
-
 
   if (isChromeExtensionContext()) {
     await loadFromChrome();
@@ -250,6 +288,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (btnRetryLoad) {
     btnRetryLoad.addEventListener('click', loadFromChrome);
+  }
+
+  if (btnLoadDemo) {
+    btnLoadDemo.addEventListener('click', loadDemoBookmarks);
   }
 
   function showError(msg) {
@@ -270,7 +312,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     btnBackup.addEventListener('click', async () => {
       showToast('Creating backup from live Chrome bookmarks…', 'info');
       try {
-        const freshTree = await loadChromeBookmarks(); // always back up the REAL Chrome state
+        const freshTree = isChromeExtensionContext()
+          ? await loadChromeBookmarks()
+          : state.tree;
         const html = exportToNetscapeHTML(freshTree);
         const date = new Date().toISOString().slice(0, 10);
         downloadFile(html, `bookmarks_backup_${date}.html`, 'text/html');
@@ -334,11 +378,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     const diff = JSON.parse(e.target.dataset.diff || '{}');
     showToast('Applying changes to Chrome…', 'info');
     try {
-      await applySyncToChrome(diff);
-      // Reload fresh from Chrome to reset the snapshot
-      const freshTree = await loadChromeBookmarks();
-      originalChromeSnapshot = flattenTree(freshTree);
-      state.setTree(freshTree, false);
+      if (isChromeExtensionContext()) {
+        await applySyncToChrome(diff);
+        const freshTree = await loadChromeBookmarks();
+        originalChromeSnapshot = flattenTree(freshTree);
+        state.setTree(freshTree, false);
+      } else {
+        originalChromeSnapshot = flattenTree(state.tree);
+        state.markSaved();
+      }
       showToast('All changes synced to your bookmarks successfully!', 'success');
     } catch (err) {
       showToast('Sync failed: ' + err.message, 'error');
@@ -417,18 +465,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  async function validateLink(url) {
-    if (!url) return false;
-    try {
-      const parsed = new URL(url);
-      if (!['http:', 'https:'].includes(parsed.protocol)) return false;
-      const ctrl = new AbortController();
-      setTimeout(() => ctrl.abort(), 4500);
-      await fetch(url, { method: 'HEAD', mode: 'no-cors', signal: ctrl.signal });
-      return true;
-    } catch { return false; }
-  }
-
   // ── Clean Tracking Parameters ─────────────────────────────────────────────
   if (btnCleanParams) {
     btnCleanParams.addEventListener('click', () => {
@@ -477,12 +513,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // ── Undo / Redo ───────────────────────────────────────────────────────────
+  // ── Undo / Redo (with input safety guard) ──────────────────────────────────
   if (btnUndo) btnUndo.addEventListener('click', () => state.undo());
   if (btnRedo) btnRedo.addEventListener('click', () => state.redo());
   document.addEventListener('keydown', (e) => {
     if (!(e.metaKey || e.ctrlKey)) return;
-    if (e.key.toLowerCase() === 'z') { e.shiftKey ? state.redo() : state.undo(); }
+    const activeEl = document.activeElement;
+    if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable)) {
+      return; // Do not intercept native text editing undo/redo
+    }
+    if (e.key.toLowerCase() === 'z') {
+      e.preventDefault();
+      e.shiftKey ? state.redo() : state.undo();
+    }
   });
 
   // ── Batch Bar ─────────────────────────────────────────────────────────────
@@ -553,13 +596,9 @@ function updateSmartViewCounts() {
   const all = state.getAllBookmarks();
   if (countAll) countAll.textContent = all.length;
 
-  const urlMap = new Map();
-  let dupeCount = 0;
-  all.forEach(bm => {
-    const norm = (bm.url || '').toLowerCase().replace(/^https?:\/\//, '').replace(/\/$/, '');
-    urlMap.set(norm, (urlMap.get(norm) || 0) + 1);
-  });
-  urlMap.forEach(c => { if (c > 1) dupeCount += c; });
+  // Single source of truth for duplicates (DRY)
+  const duplicateGroups = findDuplicateGroups(all);
+  const dupeCount = duplicateGroups.reduce((acc, g) => acc + g.items.length, 0);
   if (countDupes) countDupes.textContent = dupeCount;
 
   const uncatCount = all.filter(bm => {
@@ -573,13 +612,4 @@ function updateSmartViewCounts() {
 
   const brokenCount = all.filter(bm => bm.status === 'invalid').length;
   if (countBroken) countBroken.textContent = brokenCount;
-}
-
-function downloadFile(content, filename, mimeType = 'text/html') {
-  const blob = new Blob([content], { type: mimeType });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url; a.download = filename;
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a); URL.revokeObjectURL(url);
 }

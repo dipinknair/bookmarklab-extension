@@ -270,10 +270,16 @@
           <h2>Could Not Load Bookmarks</h2>
           <p>Make sure this page is running inside the BookmarkLab Chrome extension (not as a regular web page).</p>
           <div id="load-error-msg"></div>
-          <button id="btn-retry-load" class="btn btn-primary" style="margin-top:8px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            Retry
-          </button>
+          <div style="display:flex; gap:10px; margin-top:8px;">
+            <button id="btn-retry-load" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              Retry
+            </button>
+            <button id="btn-load-demo" class="btn btn-secondary" title="Explore BookmarkLab with sample bookmarks">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Load Demo Bookmarks
+            </button>
+          </div>
         </div>
 
         <!-- Loading spinner (shown briefly on open) -->

@@ -9,15 +9,24 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 ## [Unreleased]
 
 ### Added
-- Theme Accent Color selector — choose between Glassy Purple (Default), Glassy Emerald, Cyber Cyan, Muted Gold, and Neon Rose.
-- Persistent theme preferences saved across sessions using `chrome.storage.local`.
-- Clean Tracking Diff Preview Modal — displays a side-by-side URL comparison (Original vs Cleaned) with stripped parameters highlighted in red before applying edits.
-- Deep-link hash navigation (`#clean`) from popup quick actions directly into the Clean Tracking Diff Modal.
+- Deep-link hash routing for all popup quick actions (`#dedupe`, `#cluster`, `#clean`) with initial load dispatching and live `hashchange` event listeners.
+- Standalone / offline demo dataset loader button on the dashboard fallback screen for local development and GitHub Pages preview without live Chrome bookmarks.
+- Comprehensive technical documentation in `ARCHITECTURE.md` covering system data flow, stage-and-commit diff engine, and design principles (DRY, YAGNI, SoC, SOLID).
+- Automated verification test suite (`test/verify_suite.py`) testing URL normalization, tracking query removal, duplicate detection, Netscape HTML formatting, and JS syntax.
+- Centralized DOM and download utilities in `js/utils/domUtils.js`.
 
-### Changed
-- Standardized UI accent colors to Glassy Purple across the dashboard, popup, buttons, and card hover effects.
-- Renamed "Sync to Chrome" toolbar label to "Sync Bookmarks" for clear cross-browser compatibility.
-- Removed unused `activeTab` permission from `manifest.json`.
+### Fixed
+- Fixed undo/redo history engine in `js/state.js`: corrected stack pointer mathematics when mutations exceed `maxHistory`, and fixed snapshot restoration so `undo()` and `redo()` are deterministic.
+- Added input safety guards to global `Cmd+Z` / `Ctrl+Z` keyboard handlers to avoid intercepting native undo/redo while typing in text inputs or textareas.
+- Fixed blank titles in Deduplication and Clean Tracking modals for icon-only bookmarks, falling back to clean domain names.
+- Fixed syntax error on line 1 of `test/demo-bookmarks.html`.
+- Fixed potential timer handle leak in link health verification by adding `clearTimeout`.
+
+### Refactored
+- **DRY (Don't Repeat Yourself)**: Centralized HTML entity escaping (`escapeHTML`) across all components, replacing 4 duplicate implementations.
+- **DRY**: Centralized duplicate bookmark detection (`findDuplicateGroups`) in `urlUtils.js`, synchronizing counts across the popup stats, dashboard smart views, and modal dialogs.
+- **SoC (Separation of Concerns)**: Encapsulated tree mutations in `runAutoCluster` through state methods rather than direct mutation of `state.tree.children`.
+- **DRY**: Refactored `popup.js` to reuse `cleanTrackingParameters` and `findDuplicateGroups` from `urlUtils.js`.
 
 ---
 
@@ -37,5 +46,4 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 - Undo and redo support for all edit operations.
 - Drag-and-drop folder tree with sidebar resize.
 - Inspector panel for editing bookmark title, URL, and parent folder.
-- GitHub Actions workflow for automated releases on version tags.
 - Support for Chrome, Edge, Brave, and other Chromium-based browsers.

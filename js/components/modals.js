@@ -1,101 +1,194 @@
 /**
- * Modals Controller — Deduplication, Auto-Cluster & Clean Tracking Diff
+ * Modals Controller — Deduplication, Auto-Cluster, Clean Tracking Diff, Batch Move & Batch Tag
+ * Follows Single Responsibility Principle (SRP) and DRY principles.
  */
 
 import { state } from '../state.js';
 import {
-  normalizeUrlForDedupe,
   categorizeBookmark,
   getDomainName,
   getBrandName,
-  cleanTrackingParameters
+  cleanTrackingParameters,
+  findDuplicateGroups
 } from '../utils/urlUtils.js';
+import { escapeHTML } from '../utils/domUtils.js';
 
+/**
+ * Opens a modal dialog by ID within the global backdrop.
+ *
+ * @param {string} modalId - Target modal element ID
+ */
+export function openModal(modalId) {
+  const backdrop = document.getElementById('modal-backdrop');
+  if (!backdrop) return;
+  backdrop.style.display = 'flex';
+  backdrop.querySelectorAll('.modal-dialog').forEach(d => d.style.display = 'none');
+  const target = document.getElementById(modalId);
+  if (target) target.style.display = 'flex';
+}
+
+/**
+ * Closes any open modal dialog.
+ */
+export function closeModal() {
+  const backdrop = document.getElementById('modal-backdrop');
+  if (backdrop) backdrop.style.display = 'none';
+}
+
+/**
+ * Renders duplicate bookmark groups inside the deduplication modal dialog.
+ *
+ * @param {Array<object>} groups - Duplicate groups returned by findDuplicateGroups
+ * @param {Function} showToast - Toast notification callback
+ */
+function renderDedupeModal(groups, showToast) {
+  const dedupeBody = document.getElementById('dedupe-modal-body');
+  if (!dedupeBody) return;
+  dedupeBody.innerHTML = '';
+
+  groups.forEach(group => {
+    const groupTitle = group.title && group.title.trim()
+      ? group.title.trim()
+      : (getDomainName(group.url) || group.url);
+
+    const groupEl = document.createElement('div');
+    groupEl.className = 'dedupe-group';
+    groupEl.innerHTML = `
+      <div class="dedupe-header">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span>${escapeHTML(groupTitle)} (${group.items.length} copies)</span>
+      </div>
+      ${group.items.map(item => {
+        const itemTitle = item.title && item.title.trim()
+          ? item.title.trim()
+          : `${getDomainName(item.url) || 'Bookmark'} (Icon only)`;
+
+        return `
+          <div class="dedupe-item">
+            <div>
+              <strong>${escapeHTML(itemTitle)}</strong>
+              <div class="dedupe-path">📂 ${escapeHTML(item.path && item.path.length ? item.path.join(' / ') : 'Root')}</div>
+            </div>
+            <button class="btn-sm btn-danger btn-keep-this" data-id="${item.id}">Keep This, Delete Others</button>
+          </div>
+        `;
+      }).join('')}
+    `;
+
+    groupEl.querySelectorAll('.btn-keep-this').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const keepId = btn.dataset.id;
+        const deleteIds = group.items.map(i => i.id).filter(id => id !== keepId);
+        state.deleteNodes(deleteIds);
+        if (showToast) showToast(`Removed ${deleteIds.length} duplicate(s)`, 'info');
+        closeModal();
+      });
+    });
+
+    dedupeBody.appendChild(groupEl);
+  });
+}
+
+/**
+ * Triggers the deduplication modal programmatically or via button/hash click.
+ *
+ * @param {Function} showToast - Toast notification callback
+ */
+export function triggerDedupeModal(showToast) {
+  const groups = findDuplicateGroups(state.getAllBookmarks());
+  if (!groups.length) {
+    if (showToast) showToast('No duplicates found — your bookmarks are clean!', 'success');
+    return;
+  }
+  renderDedupeModal(groups, showToast);
+  openModal('modal-dedupe');
+}
+
+/**
+ * Triggers the auto-cluster modal programmatically or via button/hash click.
+ *
+ * @param {Function} [showToast] - Optional toast callback
+ */
+export function triggerClusterModal(showToast) {
+  openModal('modal-cluster');
+}
+
+/**
+ * Executes the auto-cluster algorithm.
+ * Groups bookmarks by domain brand or topic category.
+ *
+ * @param {'domain'|'category'} mode - Clustering strategy
+ * @param {boolean} onlyUncategorized - Whether to only group root/uncategorized bookmarks
+ */
+function runAutoCluster(mode, onlyUncategorized) {
+  let bookmarks = state.getAllBookmarks();
+
+  if (onlyUncategorized) {
+    bookmarks = bookmarks.filter(bm => {
+      const parent = state.findParentNode(bm.id);
+      return !parent || parent.id === 'root';
+    });
+  }
+
+  const folderMap = new Map();
+  bookmarks.forEach(bm => {
+    let folderName = mode === 'domain'
+      ? getBrandName(getDomainName(bm.url))
+      : categorizeBookmark(bm.url, bm.title);
+    if (!folderMap.has(folderName)) folderMap.set(folderName, []);
+    folderMap.get(folderName).push(bm);
+  });
+
+  folderMap.forEach((items, folderName) => {
+    let existingFolder = (state.tree.children || []).find(
+      c => c.type === 'folder' && c.title.toLowerCase() === folderName.toLowerCase()
+    );
+    if (!existingFolder) {
+      existingFolder = {
+        id: `folder-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
+        title: folderName,
+        type: 'folder',
+        children: []
+      };
+      state.addNode('root', existingFolder);
+    }
+    const targetFolderId = existingFolder.id;
+    items.forEach(bm => state.moveNode(bm.id, targetFolderId));
+  });
+}
+
+/**
+ * Configures all modal triggers, close handlers, and submission events.
+ *
+ * @param {Function} showToast - Toast notification callback
+ */
 export function setupModals(showToast) {
   const backdrop = document.getElementById('modal-backdrop');
-
-  function openModal(modalId) {
-    if (!backdrop) return;
-    backdrop.style.display = 'flex';
-    backdrop.querySelectorAll('.modal-dialog').forEach(d => d.style.display = 'none');
-    const target = document.getElementById(modalId);
-    if (target) target.style.display = 'flex';
-  }
-
-  function closeModal() {
-    if (backdrop) backdrop.style.display = 'none';
-  }
 
   document.querySelectorAll('.modal-close, .modal-close-btn').forEach(btn => {
     btn.addEventListener('click', closeModal);
   });
-  if (backdrop) backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+
+  if (backdrop) {
+    backdrop.addEventListener('click', e => {
+      if (e.target === backdrop) closeModal();
+    });
+  }
 
   // ── 1. Deduplication ───────────────────────────────────────────────────────
-  const btnDedupe         = document.getElementById('btn-dedupe');
-  const dedupeBody        = document.getElementById('dedupe-modal-body');
+  const btnDedupe = document.getElementById('btn-dedupe');
   const btnAutoResolveDedupe = document.getElementById('btn-auto-resolve-dedupe');
 
-  function findDuplicateGroups() {
-    const all = state.getAllBookmarks();
-    const urlMap = new Map();
-    all.forEach(bm => {
-      const norm = normalizeUrlForDedupe(bm.url);
-      if (!urlMap.has(norm)) urlMap.set(norm, []);
-      urlMap.get(norm).push(bm);
-    });
-    return [...urlMap.values()].filter(items => items.length > 1)
-      .map(items => ({ title: items[0].title, url: items[0].url, items }));
-  }
-
-  function renderDedupeModal(groups) {
-    if (!dedupeBody) return;
-    dedupeBody.innerHTML = '';
-    groups.forEach(group => {
-      const groupEl = document.createElement('div');
-      groupEl.className = 'dedupe-group';
-      groupEl.innerHTML = `
-        <div class="dedupe-header">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-          <span>${esc(group.title)} (${group.items.length} copies)</span>
-        </div>
-        ${group.items.map(item => `
-          <div class="dedupe-item">
-            <div>
-              <strong>${esc(item.title)}</strong>
-              <div class="dedupe-path">📂 ${esc(item.path ? item.path.join(' / ') : 'Root')}</div>
-            </div>
-            <button class="btn-sm btn-danger btn-keep-this" data-id="${item.id}">Keep This, Delete Others</button>
-          </div>
-        `).join('')}
-      `;
-      groupEl.querySelectorAll('.btn-keep-this').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const keepId = btn.dataset.id;
-          const deleteIds = group.items.map(i => i.id).filter(id => id !== keepId);
-          state.deleteNodes(deleteIds);
-          showToast(`Removed ${deleteIds.length} duplicate(s)`, 'info');
-          closeModal();
-        });
-      });
-      dedupeBody.appendChild(groupEl);
-    });
-  }
-
   if (btnDedupe) {
-    btnDedupe.addEventListener('click', () => {
-      const groups = findDuplicateGroups();
-      if (!groups.length) { showToast('No duplicates found — your bookmarks are clean!', 'success'); return; }
-      renderDedupeModal(groups);
-      openModal('modal-dedupe');
-    });
+    btnDedupe.addEventListener('click', () => triggerDedupeModal(showToast));
   }
 
   if (btnAutoResolveDedupe) {
     btnAutoResolveDedupe.addEventListener('click', () => {
-      const groups = findDuplicateGroups();
+      const groups = findDuplicateGroups(state.getAllBookmarks());
       const deleteIds = [];
       groups.forEach(g => {
+        // Keep oldest by dateAdded
         const sorted = [...g.items].sort((a, b) => (a.dateAdded || 0) - (b.dateAdded || 0));
         sorted.slice(1).forEach(r => deleteIds.push(r.id));
       });
@@ -111,7 +204,9 @@ export function setupModals(showToast) {
   const btnAutoCluster = document.getElementById('btn-auto-cluster');
   const btnRunCluster  = document.getElementById('btn-run-cluster');
 
-  if (btnAutoCluster) btnAutoCluster.addEventListener('click', () => openModal('modal-cluster'));
+  if (btnAutoCluster) {
+    btnAutoCluster.addEventListener('click', () => triggerClusterModal(showToast));
+  }
 
   if (btnRunCluster) {
     btnRunCluster.addEventListener('click', () => {
@@ -124,42 +219,6 @@ export function setupModals(showToast) {
       closeModal();
       showToast('Bookmarks auto-clustered into category folders!', 'success');
     });
-  }
-
-  function runAutoCluster(mode, onlyUncategorized) {
-    let bookmarks = state.getAllBookmarks();
-
-    if (onlyUncategorized) {
-      bookmarks = bookmarks.filter(bm => {
-        const parent = state.findParentNode(bm.id);
-        return !parent || parent.id === 'root';
-      });
-    }
-
-    const folderMap = new Map();
-    bookmarks.forEach(bm => {
-      let folderName = mode === 'domain'
-        ? getBrandName(getDomainName(bm.url))
-        : categorizeBookmark(bm.url, bm.title);
-      if (!folderMap.has(folderName)) folderMap.set(folderName, []);
-      folderMap.get(folderName).push(bm);
-    });
-
-    folderMap.forEach((items, folderName) => {
-      let existingFolder = state.tree.children.find(
-        c => c.type === 'folder' && c.title.toLowerCase() === folderName.toLowerCase()
-      );
-      if (!existingFolder) {
-        existingFolder = {
-          id: `folder-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
-          title: folderName, type: 'folder', children: []
-        };
-        state.tree.children.push(existingFolder);
-      }
-      items.forEach(bm => state.moveNode(bm.id, existingFolder.id));
-    });
-
-    state.setTree(state.tree);
   }
 
   // ── 3. Clean Tracking Diff Trigger ─────────────────────────────────────────
@@ -197,7 +256,7 @@ export function setupModals(showToast) {
           const p = state.findParentNode(id);
           return p && p.id === f.id;
         });
-        return `<option value="${f.id}" ${isCurrentParent ? 'selected' : ''}>📁 ${esc(pathStr)}</option>`;
+        return `<option value="${f.id}" ${isCurrentParent ? 'selected' : ''}>📁 ${escapeHTML(pathStr)}</option>`;
       }).join('');
     }
 
@@ -229,7 +288,7 @@ export function setupModals(showToast) {
       if (selectMoveFolder) {
         selectMoveFolder.innerHTML = allFolders.map(f => {
           const pathStr = f.path && f.path.length ? f.path.join(' / ') : (f.title || 'Root');
-          return `<option value="${f.id}" ${f.id === newFolder.id ? 'selected' : ''}>📁 ${esc(pathStr)}</option>`;
+          return `<option value="${f.id}" ${f.id === newFolder.id ? 'selected' : ''}>📁 ${escapeHTML(pathStr)}</option>`;
         }).join('');
         selectMoveFolder.value = newFolder.id;
       }
@@ -312,6 +371,12 @@ export function setupModals(showToast) {
   }
 }
 
+/**
+ * Prepares and displays the Clean Tracking Diff modal dialog.
+ * Shows original URL vs cleaned URL with stripped parameters highlighted.
+ *
+ * @param {Function} showToast - Toast notification callback
+ */
 export function triggerCleanTrackingModal(showToast) {
   const dirtyItems = [];
   const bookmarks = state.getAllBookmarks();
@@ -321,7 +386,7 @@ export function triggerCleanTrackingModal(showToast) {
     if (hasChanges) {
       dirtyItems.push({
         id: bm.id,
-        title: bm.title || 'Untitled',
+        title: bm.title || '',
         originalUrl: bm.url,
         cleanedUrl: cleanedUrl
       });
@@ -329,7 +394,7 @@ export function triggerCleanTrackingModal(showToast) {
   });
 
   if (dirtyItems.length === 0) {
-    showToast('All URLs are clean — no tracking parameters found!', 'info');
+    if (showToast) showToast('All URLs are clean — no tracking parameters found!', 'info');
     return;
   }
 
@@ -350,28 +415,31 @@ export function triggerCleanTrackingModal(showToast) {
   if (selectAllCb) selectAllCb.checked = true;
 
   bodyEl.innerHTML = dirtyItems.map(item => {
-    const original = esc(item.originalUrl);
-    const cleaned = esc(item.cleanedUrl);
+    const domain = getDomainName(item.originalUrl);
+    const displayTitle = item.title && item.title.trim()
+      ? item.title.trim()
+      : `${domain || 'Bookmark'} (Icon only)`;
+
+    const original = escapeHTML(item.originalUrl);
+    const cleaned = escapeHTML(item.cleanedUrl);
 
     // Highlight parameters removed
     let highlightedOriginal = original;
     const qIdx = item.originalUrl.indexOf('?');
     if (qIdx !== -1) {
-      const base = esc(item.originalUrl.substring(0, qIdx));
-      const query = esc(item.originalUrl.substring(qIdx));
+      const base = escapeHTML(item.originalUrl.substring(0, qIdx));
+      const query = escapeHTML(item.originalUrl.substring(qIdx));
       highlightedOriginal = `${base}<span class="url-removed">${query}</span>`;
     }
-
-    const domain = getDomainName(item.originalUrl);
 
     return `
       <div class="clean-diff-item" data-id="${item.id}">
         <div class="clean-diff-header">
           <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600;">
             <input type="checkbox" class="clean-item-checkbox" data-id="${item.id}" checked>
-            <span>${esc(item.title)}</span>
+            <span>${escapeHTML(displayTitle)}</span>
           </label>
-          <span class="clean-diff-domain">${esc(domain)}</span>
+          <span class="clean-diff-domain">${escapeHTML(domain)}</span>
         </div>
         <div class="clean-diff-row">
           <span class="diff-tag old">Original</span>
@@ -437,20 +505,15 @@ export function triggerCleanTrackingModal(showToast) {
       state.updateNode(item.id, { url: item.cleanedUrl });
     });
 
-    if (backdrop) backdrop.style.display = 'none';
-    showToast(`Stripped tracking parameters from ${itemsToClean.length} URL${itemsToClean.length > 1 ? 's' : ''}!`, 'success');
+    closeModal();
+    if (showToast) {
+      showToast(`Stripped tracking parameters from ${itemsToClean.length} URL${itemsToClean.length > 1 ? 's' : ''}!`, 'success');
+    }
   };
 
   if (confirmBtn) {
     confirmBtn.onclick = handleConfirm;
   }
 
-  backdrop.style.display = 'flex';
-  backdrop.querySelectorAll('.modal-dialog').forEach(d => d.style.display = 'none');
-  modal.style.display = 'flex';
-}
-
-function esc(str) {
-  if (!str) return '';
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  openModal('modal-clean-diff');
 }
