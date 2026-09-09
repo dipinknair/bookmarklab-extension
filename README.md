@@ -1,7 +1,13 @@
-# BookmarkLab Extension
+# BookmarkLab
 
-[![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-BookmarkLab-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![CI](https://github.com/dipinknair/bookmarklab-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/dipinknair/bookmarklab-extension/actions/workflows/ci.yml)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-BookmarkLab-4285F4?style=flat-square&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm)
+![Manifest V3](https://img.shields.io/badge/Manifest-V3-7d85d8?style=flat-square&logo=googlechrome&logoColor=white)
+![Version](https://img.shields.io/badge/version-1.0.1-d49f69?style=flat-square)
+[![License: MIT](https://img.shields.io/badge/License-MIT-5fa88d?style=flat-square)](LICENSE)
+![Test Suite](https://img.shields.io/badge/tests-108%20passed-5fa88d?style=flat-square&logo=python&logoColor=white)
+![Architecture](https://img.shields.io/badge/Architecture-DRY%20%7C%20SOLID-c9788a?style=flat-square)
+![Dependencies](https://img.shields.io/badge/dependencies-0%20(Pure%20ESM)-5c97b8?style=flat-square)
 
 BookmarkLab is a fast, privacy-respecting browser extension designed to help you organize, deduplicate, and clean your browser bookmarks in a visual workspace.
 
@@ -69,14 +75,29 @@ Get [BookmarkLab on the Chrome Web Store](https://chromewebstore.google.com/deta
 
 ---
 
-## Development & Verification
+## Development, Testing & CI/CD
 
-Because BookmarkLab uses native ES modules, no build or compilation step is required.
+Because BookmarkLab uses standard ES modules and vanilla CSS, no bundlers or compilation steps are required.
 
-To run automated verification tests:
+### Automated Test Suite
+Run the test suite locally with:
 ```bash
 python3 test/verify_suite.py
 ```
+
+The test suite validates:
+- **Manifest V3 Specification**: Required fields, version format, minimal permissions (`bookmarks`, `storage`), and module service worker.
+- **URL Engine & Normalization**: Strips tracking query parameters (`utm_*`, `fbclid`, `gclid`, `ref`, etc.) while preserving valid parameters and computes consistent deduplication keys.
+- **HTML Export Balance**: Netscape bookmark file compliance with balanced `<DL>` and `<H3>` tags.
+- **JavaScript Structural Integrity**: Validates balanced brackets, braces, parentheses, and syntax across all 16 modules.
+- **Undo / Redo Engine Invariants**: History stack branching, sliding-window depth clamping (40 states), and state restoration.
+- **Theme Modes & Pastel Palettes**: Dark and Light mode tokens and 5 muted pastel accent themes.
+
+### Continuous Integration (CI/CD)
+GitHub Actions workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) executes on every `push` and `pull_request` to `main`:
+- Matrix validation across **Python 3.10, 3.11, and 3.12**.
+- Validates JSON schemas and executes the 108 automated verification tests.
+- Semantic release workflow ([`.github/workflows/release.yml`](.github/workflows/release.yml)) verifies the test suite before packaging and publishing tagged releases (`v*`).
 
 ---
 
