@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BookmarkLab — Chrome Bookmark Organizer</title>
-  <meta name="description" content="Organize, deduplicate, and clean your Chrome bookmarks. Review every change before it touches your browser.">
-  <meta property="og:title" content="BookmarkLab">
-  <meta property="og:description" content="A Chrome extension to organize, deduplicate, and clean your bookmarks safely.">
+  <title>BookmarkLab — Interactive Bookmark Manager</title>
+  <meta name="description" content="Organize, import, deduplicate, and clean your browser bookmarks with a safe stage-and-commit workflow in a clean minimalist interface.">
+  <meta property="og:title" content="BookmarkLab — Interactive Bookmark Manager">
+  <meta property="og:description" content="Fast, privacy-respecting browser extension to import, organize, deduplicate, and clean bookmarks safely.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,14 +15,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy: #0b0f1a;
-      --navy-2: #111827;
-      --navy-3: #1a2035;
-      --border: rgba(255,255,255,0.07);
-      --indigo: #6366f1;
-      --violet: #818cf8;
-      --emerald: #10b981;
-      --amber: #f59e0b;
+      --bg: #090a0f;
+      --surface: #10121a;
+      --surface-2: #161924;
+      --border: rgba(255,255,255,0.08);
+      --border-subtle: rgba(255,255,255,0.04);
+      --pastel-primary: #7d85d8;
+      --pastel-sage: #5fa88d;
+      --pastel-mist: #6897bb;
+      --pastel-sand: #d49f69;
+      --pastel-rose: #c4798e;
       --text: #e2e8f0;
       --muted: #64748b;
       --sub: #94a3b8;
@@ -34,7 +36,7 @@
 
     body {
       font-family: var(--font);
-      background: var(--navy);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -45,31 +47,31 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 48px;
-      height: 64px;
-      background: rgba(11,15,26,0.85);
+      height: 56px;
+      background: rgba(9,10,15,0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
     .nav-brand {
       display: flex; align-items: center; gap: 10px;
-      font-weight: 700; font-size: 1.05rem; color: var(--text);
+      font-weight: 700; font-size: 1.02rem; color: var(--text);
       text-decoration: none;
     }
-    .nav-brand svg { color: var(--indigo); }
+    .nav-brand svg { color: var(--pastel-primary); }
     .nav-links { display: flex; gap: 28px; }
     .nav-links a {
-      font-size: 0.875rem; color: var(--sub);
+      font-size: 0.85rem; color: var(--sub);
       text-decoration: none; transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--text); }
     .nav-cta {
-      background: var(--indigo);
-      color: #fff; font-size: 0.85rem; font-weight: 600;
-      padding: 8px 20px; border-radius: 8px;
+      background: var(--pastel-primary);
+      color: #fff; font-size: 0.82rem; font-weight: 600;
+      padding: 7px 18px; border-radius: 7px;
       text-decoration: none;
       transition: opacity 0.2s, transform 0.2s;
     }
-    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
 
     /* ── HERO ─────────────────────────────────────── */
     .hero {
@@ -77,106 +79,89 @@
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       text-align: center;
-      padding: 120px 24px 80px;
+      padding: 110px 24px 70px;
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,0.18) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 30% at 80% 60%, rgba(16,185,129,0.08) 0%, transparent 60%);
-      pointer-events: none;
-    }
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(99,102,241,0.12);
-      border: 1px solid rgba(99,102,241,0.3);
-      color: var(--violet);
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(125,133,216,0.1);
+      border: 1px solid rgba(125,133,216,0.25);
+      color: var(--pastel-primary);
       font-size: 0.75rem; font-weight: 600;
       padding: 5px 14px; border-radius: 100px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       letter-spacing: 0.04em; text-transform: uppercase;
     }
-    .hero-badge span { width: 6px; height: 6px; background: var(--indigo); border-radius: 50%; display: inline-block; }
+    .hero-badge span { width: 6px; height: 6px; background: var(--pastel-primary); border-radius: 50%; display: inline-block; }
     h1 {
-      font-size: clamp(2.6rem, 6vw, 4.5rem);
-      font-weight: 800; line-height: 1.1;
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 800; line-height: 1.12;
       letter-spacing: -0.03em;
-      max-width: 800px;
-      margin-bottom: 24px;
+      max-width: 820px;
+      margin-bottom: 20px;
     }
     h1 em {
       font-style: normal;
-      background: linear-gradient(135deg, var(--indigo), var(--violet), var(--emerald));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--pastel-primary);
     }
     .hero-sub {
-      font-size: 1.15rem; color: var(--sub);
-      max-width: 540px; margin-bottom: 44px; line-height: 1.7;
+      font-size: 1.1rem; color: var(--sub);
+      max-width: 580px; margin-bottom: 38px; line-height: 1.7;
     }
     .hero-buttons {
       display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
     }
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, var(--indigo), #7c3aed);
-      color: #fff; font-weight: 700; font-size: 0.95rem;
-      padding: 14px 28px; border-radius: 10px;
+      background: var(--pastel-primary);
+      color: #fff; font-weight: 600; font-size: 0.9rem;
+      padding: 12px 24px; border-radius: 8px;
       text-decoration: none;
-      box-shadow: 0 8px 24px rgba(99,102,241,0.35);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: opacity 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(99,102,241,0.5); }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
     .btn-secondary {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.05);
+      background: var(--surface);
       border: 1px solid var(--border);
-      color: var(--text); font-weight: 600; font-size: 0.95rem;
-      padding: 14px 28px; border-radius: 10px;
+      color: var(--text); font-weight: 600; font-size: 0.9rem;
+      padding: 12px 24px; border-radius: 8px;
       text-decoration: none;
       transition: background 0.2s, transform 0.2s;
     }
-    .btn-secondary:hover { background: rgba(255,255,255,0.09); transform: translateY(-2px); }
+    .btn-secondary:hover { background: var(--surface-2); transform: translateY(-1px); }
 
     /* ── SCREENSHOT MOCKUP ────────────────────────── */
     .mockup-wrap {
-      margin-top: 72px;
+      margin-top: 60px;
       max-width: 960px; width: 100%;
       position: relative;
     }
-    .mockup-glow {
-      position: absolute; inset: -40px;
-      background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(99,102,241,0.15), transparent 70%);
-      pointer-events: none;
-    }
     .mockup-frame {
-      background: var(--navy-2);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.5);
     }
     .mockup-titlebar {
-      background: var(--navy-3);
-      padding: 12px 16px;
+      background: var(--surface-2);
+      padding: 10px 14px;
       display: flex; align-items: center; gap: 8px;
       border-bottom: 1px solid var(--border);
     }
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
-    .dot-r { background: #ff5f57; }
-    .dot-y { background: #febc2e; }
-    .dot-g { background: #28c840; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ef4444; opacity: 0.8; }
+    .dot-y { background: #f59e0b; opacity: 0.8; }
+    .dot-g { background: #10b981; opacity: 0.8; }
     .mockup-inner {
       display: grid;
       grid-template-columns: 200px 1fr 200px;
       height: 420px;
     }
     .mock-sidebar {
-      background: rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.18);
       border-right: 1px solid var(--border);
       padding: 16px 12px;
     }
@@ -187,7 +172,7 @@
       font-size: 0.78rem; color: var(--sub);
       cursor: default; margin-bottom: 2px;
     }
-    .mock-folder.active { background: rgba(99,102,241,0.15); color: var(--violet); }
+    .mock-folder.active { background: rgba(125,133,216,0.12); color: var(--pastel-primary); font-weight: 600; }
     .mock-folder-icon { font-size: 0.85rem; }
     .mock-divider { height: 1px; background: var(--border); margin: 12px 0; }
     .mock-view-item {
@@ -196,138 +181,131 @@
       font-size: 0.73rem; color: var(--muted); margin-bottom: 2px;
       cursor: default;
     }
-    .mock-view-item span { font-size: 0.65rem; background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px; }
-    .mock-view-item.warn span { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .mock-view-item span { font-size: 0.65rem; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 4px; color: var(--sub); }
+    .mock-view-item.warn span { background: rgba(212,159,105,0.15); color: var(--pastel-sand); }
     .mock-view-item.danger span { background: rgba(239,68,68,0.12); color: #fca5a5; }
 
-    .mock-main { display: flex; flex-direction: column; }
+    .mock-main { display: flex; flex-direction: column; background: var(--bg); }
     .mock-toolbar {
-      padding: 10px 14px;
-      display: flex; align-items: center; gap: 8px;
+      padding: 9px 12px;
+      display: flex; align-items: center; gap: 7px;
       border-bottom: 1px solid var(--border);
-      background: rgba(0,0,0,0.1);
+      background: var(--surface);
     }
     .mock-search {
       flex: 1; height: 28px; border-radius: 6px;
-      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      background: var(--surface-2); border: 1px solid var(--border);
       display: flex; align-items: center; gap: 7px; padding: 0 10px;
       font-size: 0.72rem; color: var(--muted);
     }
     .mock-btn {
-      padding: 4px 10px; border-radius: 5px;
-      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      padding: 4px 9px; border-radius: 5px;
+      background: var(--surface-2); border: 1px solid var(--border);
       font-size: 0.68rem; color: var(--sub); white-space: nowrap;
     }
-    .mock-btn.accent { background: linear-gradient(135deg, var(--indigo), #7c3aed); border: none; color: #fff; font-weight: 600; }
+    .mock-btn.accent { background: var(--pastel-primary); border: 1px solid transparent; color: #fff; font-weight: 600; }
     .mock-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 8px; padding: 12px; flex: 1; overflow: hidden;
     }
     .mock-card {
-      background: var(--navy-3); border: 1px solid var(--border);
-      border-radius: 8px; padding: 10px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 7px; padding: 10px;
     }
-    .mock-card-fav { width: 20px; height: 20px; border-radius: 4px; background: var(--border); margin-bottom: 7px; }
+    .mock-card-fav { width: 18px; height: 18px; border-radius: 4px; background: rgba(255,255,255,0.08); margin-bottom: 7px; }
     .mock-card-title { font-size: 0.68rem; font-weight: 600; color: var(--text); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .mock-card-url { font-size: 0.62rem; color: var(--muted); font-family: var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .mock-card.dup { border-color: rgba(245,158,11,0.25); }
+    .mock-card.dup { border-color: rgba(212,159,105,0.3); }
     .mock-card.broken { border-color: rgba(239,68,68,0.25); }
 
     .mock-inspector {
       border-left: 1px solid var(--border);
       padding: 14px 12px;
-      background: rgba(0,0,0,0.15);
+      background: rgba(0,0,0,0.18);
     }
     .mock-insp-title { font-size: 0.65rem; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
     .mock-insp-label { font-size: 0.65rem; color: var(--muted); margin-bottom: 4px; margin-top: 10px; }
-    .mock-insp-field { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 5px; padding: 6px 8px; font-size: 0.7rem; color: var(--sub); font-family: var(--mono); width: 100%; }
-    .mock-insp-badge { margin-top: 12px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); border-radius: 5px; padding: 6px 8px; font-size: 0.63rem; color: var(--violet); line-height: 1.4; }
+    .mock-insp-field { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 6px 8px; font-size: 0.7rem; color: var(--sub); font-family: var(--mono); width: 100%; }
+    .mock-insp-badge { margin-top: 12px; background: rgba(125,133,216,0.08); border: 1px solid rgba(125,133,216,0.2); border-radius: 5px; padding: 6px 8px; font-size: 0.63rem; color: var(--pastel-primary); line-height: 1.4; }
 
     /* ── FEATURES ─────────────────────────────────── */
-    section { padding: 100px 24px; max-width: 1080px; margin: 0 auto; }
+    section { padding: 90px 24px; max-width: 1080px; margin: 0 auto; }
     .section-label {
       font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--indigo);
-      margin-bottom: 16px;
+      text-transform: uppercase; color: var(--pastel-primary);
+      margin-bottom: 14px;
     }
     .section-title {
       font-size: clamp(1.8rem, 4vw, 2.8rem);
       font-weight: 800; letter-spacing: -0.02em;
-      margin-bottom: 18px; line-height: 1.15;
+      margin-bottom: 16px; line-height: 1.15;
     }
-    .section-sub { font-size: 1.05rem; color: var(--sub); max-width: 520px; line-height: 1.7; margin-bottom: 60px; }
+    .section-sub { font-size: 1.02rem; color: var(--sub); max-width: 540px; line-height: 1.7; margin-bottom: 52px; }
 
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
     .feature-card {
-      background: var(--navy-2);
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px; padding: 28px;
+      border-radius: 12px; padding: 26px;
       transition: border-color 0.2s, transform 0.2s;
     }
-    .feature-card:hover { border-color: rgba(99,102,241,0.3); transform: translateY(-3px); }
+    .feature-card:hover { border-color: rgba(125,133,216,0.35); transform: translateY(-2px); }
     .feature-icon {
-      width: 44px; height: 44px; border-radius: 10px;
+      width: 42px; height: 42px; border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      margin-bottom: 18px;
-      font-size: 1.3rem;
+      margin-bottom: 16px;
+      font-size: 1.25rem;
     }
-    .feature-icon.indigo { background: rgba(99,102,241,0.12); }
-    .feature-icon.emerald { background: rgba(16,185,129,0.12); }
-    .feature-icon.amber { background: rgba(245,158,11,0.12); }
-    .feature-icon.red { background: rgba(239,68,68,0.10); }
-    .feature-icon.violet { background: rgba(139,92,246,0.12); }
-    .feature-icon.blue { background: rgba(59,130,246,0.10); }
-    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
-    .feature-card p { font-size: 0.875rem; color: var(--sub); line-height: 1.65; }
+    .feature-icon.lavender { background: rgba(125,133,216,0.12); }
+    .feature-icon.sage { background: rgba(95,168,141,0.12); }
+    .feature-icon.mist { background: rgba(104,151,187,0.12); }
+    .feature-icon.sand { background: rgba(212,159,105,0.12); }
+    .feature-icon.rose { background: rgba(196,121,142,0.12); }
+    .feature-card h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .feature-card p { font-size: 0.86rem; color: var(--sub); line-height: 1.65; }
 
     /* ── HOW IT WORKS ─────────────────────────────── */
-    .how-section { padding: 80px 24px; }
+    .how-section { padding: 70px 24px; }
     .how-inner { max-width: 680px; margin: 0 auto; text-align: center; }
-    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 52px; text-align: left; }
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 48px; text-align: left; }
     .step {
-      display: flex; gap: 20px; padding: 24px 0;
-      border-left: 2px solid var(--border); padding-left: 28px;
+      display: flex; gap: 20px; padding: 22px 0;
+      border-left: 2px solid var(--border); padding-left: 26px;
       position: relative;
     }
     .step::before {
       content: attr(data-n);
-      position: absolute; left: -14px; top: 24px;
-      width: 26px; height: 26px;
-      background: var(--indigo); color: #fff;
-      font-size: 0.75rem; font-weight: 800;
+      position: absolute; left: -13px; top: 22px;
+      width: 24px; height: 24px;
+      background: var(--pastel-primary); color: #fff;
+      font-size: 0.72rem; font-weight: 800;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
     }
     .step:last-child { border-left-color: transparent; }
-    .step-body h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
-    .step-body p { font-size: 0.875rem; color: var(--sub); line-height: 1.65; }
+    .step-body h4 { font-size: 0.98rem; font-weight: 700; margin-bottom: 5px; color: var(--text); }
+    .step-body p { font-size: 0.86rem; color: var(--sub); line-height: 1.65; }
 
     /* ── PRIVACY CALLOUT ──────────────────────────── */
     .privacy-banner {
-      margin: 0 24px 80px;
+      margin: 0 24px 70px;
       max-width: 1080px;
       margin-left: auto; margin-right: auto;
-      background: rgba(16,185,129,0.06);
-      border: 1px solid rgba(16,185,129,0.2);
-      border-radius: 16px; padding: 40px 48px;
+      background: rgba(95,168,141,0.06);
+      border: 1px solid rgba(95,168,141,0.2);
+      border-radius: 14px; padding: 36px 44px;
       display: flex; align-items: flex-start; gap: 24px;
     }
-    .privacy-icon { font-size: 2.2rem; flex-shrink: 0; margin-top: 2px; }
-    .privacy-banner h3 { font-size: 1.15rem; font-weight: 700; color: var(--emerald); margin-bottom: 8px; }
-    .privacy-banner p { font-size: 0.9rem; color: var(--sub); line-height: 1.7; }
+    .privacy-icon { font-size: 2rem; flex-shrink: 0; margin-top: 2px; }
+    .privacy-banner h3 { font-size: 1.1rem; font-weight: 700; color: var(--pastel-sage); margin-bottom: 8px; }
+    .privacy-banner p { font-size: 0.88rem; color: var(--sub); line-height: 1.7; }
 
     /* ── CTA ──────────────────────────────────────── */
     .cta-section {
-      text-align: center; padding: 100px 24px;
-      position: relative; overflow: hidden;
+      text-align: center; padding: 90px 24px;
+      position: relative;
     }
-    .cta-section::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(99,102,241,0.12), transparent 70%);
-      pointer-events: none;
-    }
-    .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; }
     .cta-section p { font-size: 1.05rem; color: var(--sub); margin-bottom: 40px; }
 
     /* ── FOOTER ───────────────────────────────────── */
@@ -373,10 +351,10 @@
 
   <!-- Hero -->
   <div class="hero">
-    <div class="hero-badge"><span></span> Free Chrome Extension</div>
+    <div class="hero-badge"><span></span> Interactive Bookmark Manager</div>
     <h1>Your bookmarks, <em>finally organized</em></h1>
     <p class="hero-sub">
-      BookmarkLab is a browser extension that helps you clean up years of accumulated bookmarks — remove duplicates, auto-sort by topic, and strip tracking clutter — without touching a single bookmark until you say so.
+      BookmarkLab is a fast, visual workspace for your browser bookmarks. Import from Safari, Firefox, Edge, Arc, or Chrome, auto-cluster into smart folders, remove duplicates, and strip marketing tracking — with a safe stage-and-commit model.
     </p>
     <div class="hero-buttons">
       <a class="btn-primary" href="https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm" target="_blank">
@@ -391,7 +369,6 @@
 
     <!-- UI Mockup -->
     <div class="mockup-wrap">
-      <div class="mockup-glow"></div>
       <div class="mockup-frame">
         <div class="mockup-titlebar">
           <div class="dot dot-r"></div>
@@ -423,23 +400,24 @@
                 Search bookmarks…
               </div>
               <div class="mock-btn accent">Auto-Cluster</div>
+              <div class="mock-btn" style="background:rgba(125,133,216,0.12); border-color:rgba(125,133,216,0.25); color:var(--pastel-primary); font-weight:600;">Import</div>
               <div class="mock-btn">Find Duplicates</div>
               <div class="mock-btn">Check Links</div>
               <div class="mock-btn">Clean Tracking</div>
             </div>
             <div class="mock-grid">
               <div class="mock-card">
-                <div class="mock-card-fav" style="background:rgba(99,102,241,0.3);"></div>
+                <div class="mock-card-fav" style="background:rgba(125,133,216,0.3);"></div>
                 <div class="mock-card-title">GitHub — dipinknair</div>
                 <div class="mock-card-url">github.com</div>
               </div>
               <div class="mock-card dup">
-                <div class="mock-card-fav" style="background:rgba(245,158,11,0.3);"></div>
+                <div class="mock-card-fav" style="background:rgba(212,159,105,0.3);"></div>
                 <div class="mock-card-title">Notion — My Workspace</div>
                 <div class="mock-card-url">notion.so</div>
               </div>
               <div class="mock-card">
-                <div class="mock-card-fav" style="background:rgba(16,185,129,0.3);"></div>
+                <div class="mock-card-fav" style="background:rgba(95,168,141,0.3);"></div>
                 <div class="mock-card-title">MDN Web Docs</div>
                 <div class="mock-card-url">developer.mozilla.org</div>
               </div>
@@ -454,7 +432,7 @@
                 <div class="mock-card-url">medium.com/…</div>
               </div>
               <div class="mock-card">
-                <div class="mock-card-fav" style="background:rgba(139,92,246,0.3);"></div>
+                <div class="mock-card-fav" style="background:rgba(196,121,142,0.3);"></div>
                 <div class="mock-card-title">Figma — Design System</div>
                 <div class="mock-card-url">figma.com</div>
               </div>
@@ -485,37 +463,47 @@
 
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon indigo">🔒</div>
+        <div class="feature-icon sage">📥</div>
+        <h3>Cross-Browser Import</h3>
+        <p>Migrate bookmarks effortlessly from Safari, Firefox, Edge, Arc, Brave, Opera, or Chrome using standard HTML or JSON files with drag-and-drop support.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon lavender">🔒</div>
         <h3>Safe Staging Model</h3>
         <p>All edits are made in memory first. A full diff summary shows exactly what will be deleted, moved, or renamed before a single thing changes in your browser.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon indigo">🖐️</div>
+        <div class="feature-icon rose">🎨</div>
+        <h3>Minimalist Pastel Design</h3>
+        <p>Crafted with calm obsidian surfaces, crisp 1px borders, zero flashy neon glows, 5 aesthetic pastel accents, and high-contrast dark and light modes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon mist">🖐️</div>
         <h3>Drag & Drop Organization</h3>
         <p>Reorganize bookmarks and folders visually using smooth drag-and-drop support across both the folder tree and main grid workspace.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon emerald">💾</div>
+        <div class="feature-icon sage">💾</div>
         <h3>One-Click Backup</h3>
         <p>Download your current Chrome bookmarks as an HTML file before making any changes. If something goes wrong, you can restore in seconds.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon amber">🔍</div>
+        <div class="feature-icon sand">🔍</div>
         <h3>Duplicate Finder</h3>
         <p>Scans all bookmarks and groups identical URLs. Keep the one you want or let the auto-resolver keep the oldest copy and remove the rest.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon violet">✨</div>
+        <div class="feature-icon lavender">✨</div>
         <h3>Auto-Cluster</h3>
         <p>Automatically sorts bookmarks into folders by domain or topic — GitHub, YouTube, Research, Finance, Shopping — in a single click.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon blue">🧹</div>
+        <div class="feature-icon mist">🧹</div>
         <h3>Clean Tracking URLs</h3>
         <p>Strips utm_source, fbclid, gclid, and dozens of other marketing parameters from your saved URLs so bookmarks stay clean and shareable.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon red">🔗</div>
+        <div class="feature-icon rose">🔗</div>
         <h3>Link Health Check</h3>
         <p>Checks every bookmarked URL to see if it is still reachable. Dead and broken links are flagged so you can delete or update them.</p>
       </div>
@@ -532,8 +520,8 @@
       <div class="steps">
         <div class="step" data-n="1">
           <div class="step-body">
-            <h4>Open the extension</h4>
-            <p>BookmarkLab loads all your Chrome bookmarks into a local workspace. Your real bookmarks are not touched at this point.</p>
+            <h4>Open or Import</h4>
+            <p>BookmarkLab loads your browser bookmarks into an in-memory workspace, or you can import bookmarks from Safari, Firefox, Edge, Arc, or Chrome.</p>
           </div>
         </div>
         <div class="step" data-n="2">
@@ -592,7 +580,10 @@
       <a href="https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm" target="_blank">Chrome Web Store</a>
       <a href="https://github.com/dipinknair/bookmarklab-extension" target="_blank">GitHub</a>
       <a href="https://github.com/dipinknair/bookmarklab-extension/releases" target="_blank">Releases</a>
+      <a href="https://github.com/dipinknair/bookmarklab-extension/blob/main/ARCHITECTURE.md" target="_blank">Architecture</a>
+      <a href="https://github.com/dipinknair/bookmarklab-extension/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
       <a href="https://github.com/dipinknair/bookmarklab-extension/blob/main/PRIVACY_POLICY.md" target="_blank">Privacy Policy</a>
+      <a href="https://github.com/dipinknair/bookmarklab-extension/blob/main/SECURITY.md" target="_blank">Security</a>
       <a href="https://github.com/dipinknair/bookmarklab-extension/issues" target="_blank">Support</a>
     </div>
   </footer>

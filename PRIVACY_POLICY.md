@@ -1,8 +1,8 @@
 # Privacy Policy
 
-**Last updated: August 2026**
+**Last updated: September 2026**
 
-BookmarkLab is a Chrome browser extension that helps you organize, clean, and manage your bookmarks.
+BookmarkLab is a browser extension that helps you organize, clean, and manage your bookmarks.
 
 ## Data Collection
 
@@ -21,11 +21,15 @@ When you use the "Sync Bookmarks" feature, changes are applied directly from you
 
 ## Local Storage
 
-The extension uses `chrome.storage` to save minor UI preferences — such as your current view mode (grid or list) and which folders are expanded in the sidebar. This data is stored locally on your device and is never transmitted anywhere.
+The extension uses `chrome.storage` to save minor UI preferences — such as your current view mode (grid or list), selected theme accent color, dark/light mode preference, and which folders are expanded in the sidebar. This data is stored locally on your device and is never transmitted anywhere.
 
-## Backup Feature
+## Backup & Export Feature
 
-When you use the Backup feature, an HTML file is downloaded to your computer. This file is generated locally in your browser and is not uploaded or sent anywhere.
+When you use the Backup or Export feature, an HTML, Markdown, or JSON file is generated locally in your browser and downloaded to your computer. This file is not uploaded or sent anywhere.
+
+## Bookmark Import Feature
+
+When you import bookmarks from another browser (e.g. Safari, Firefox, Microsoft Edge, Arc, Chrome), files are selected locally via your operating system's file picker or dragged directly onto the workspace. BookmarkLab parses the file entirely in-memory using your browser's local `DOMParser` or `JSON.parse`. The contents of your imported files are never uploaded, sent over the network, or stored outside your local session.
 
 ## Third Parties
 

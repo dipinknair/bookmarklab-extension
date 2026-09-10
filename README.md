@@ -14,7 +14,9 @@ Instead of making live edits immediately to your browser database, BookmarkLab l
 
 ## Key Features
 
+- **Cross-Browser Import (Safari, Firefox, Edge, Arc & More)**: Import bookmark files (`.html`, `.json`) from any browser. Choose between creating an isolated **Dedicated Folder** (keeping your existing tree 100% clean), **Merging** into matching folders, or **Replacing** the workspace. Supports drag-and-drop file imports directly onto the window.
 - **Safe Stage-and-Commit Model**: Preview all proposed deletions, moves, renames, and creations before committing them to your browser.
+- **Clean Minimalist Design**: Modern, high-craft interface inspired by tools like Linear and Raycast, featuring calm neutral surfaces, crisp 1px borders, and solid pastel buttons with zero distracting neon glows.
 - **Drag-and-Drop Organization**: Reorganize bookmarks and folders effortlessly across the tree view and main workbench.
 - **One-Click Backup**: Export a 100% compliant Netscape HTML backup of your live Chrome bookmarks before making changes.
 - **Duplicate Detection & Auto-Resolution**: Find duplicate bookmarks sharing normalized URLs and remove excess copies while keeping the oldest or chosen bookmark.
@@ -26,6 +28,29 @@ Instead of making live edits immediately to your browser database, BookmarkLab l
 - **Dark & Light (White) Mode**: Toggle effortlessly between sleek dark mode and crisp light/white mode with full contrast adaptation.
 - **Muted Pastel Theme Accents**: Choose between 5 calming, aesthetic pastel tones (Pastel Lavender, Pastel Sage, Pastel Mist Blue, Pastel Sand, and Pastel Dusty Rose), persisted via `chrome.storage.local`.
 - **Offline / Standalone Preview**: Load built-in demo bookmarks when opened directly in a browser or test environment outside the extension runtime.
+
+---
+
+## Cross-Browser Import Guide
+
+BookmarkLab makes migrating bookmarks from any browser effortless and safe:
+
+| Browser | Export Format from Source Browser | Supported in BookmarkLab |
+|---|---|:---:|
+| **Apple Safari** | File → Export → Bookmarks (`.html`) | ✅ Full Support |
+| **Mozilla Firefox** | Library (`Cmd+Shift+O`) → Import and Backup → Export Bookmarks to HTML (`.html`) | ✅ Full Support |
+| **Microsoft Edge** | Settings → Favorites → Manage Favorites → Export Favorites (`.html`) | ✅ Full Support |
+| **Arc Browser** | Help → Export Bookmarks HTML (`.html`) | ✅ Full Support |
+| **Google Chrome / Chromium / Brave / Opera** | Bookmark Manager (`Cmd+Option+B`) → Export Bookmarks (`.html` or `.json`) | ✅ Full Support |
+
+### How Import Works:
+1. **Choose File**: Click **Import** in the header or drag-and-drop any `.html`, `.htm`, or `.json` file directly onto the dashboard window.
+2. **Select Destination Strategy**:
+   - **Dedicated Folder (Default)**: Nests imported bookmarks in a new folder named `Imported - [Date]` under Other Bookmarks. Your existing folder structure is completely untouched.
+   - **Merge into Existing Folders**: Matches top-level folders (e.g., Bookmarks Bar) and appends imported bookmarks without duplicating existing structure.
+   - **Replace Active Workspace**: Clears the in-memory tree and loads the imported bookmarks for a clean slate.
+3. **Optional Pre-Cleaning**: Check **Clean tracking parameters** to automatically strip marketing parameters (`utm_*`, `fbclid`, etc.) and **Deduplicate bookmarks** to keep only unique URLs.
+4. **Stage and Review**: All imported bookmarks are loaded into memory first. Review your tree, make manual adjustments, and click **Sync Bookmarks** only when ready.
 
 ---
 
@@ -85,15 +110,16 @@ python3 test/verify_suite.py
 The test suite validates:
 - **Manifest V3 Specification**: Required fields, version format, minimal permissions (`bookmarks`, `storage`), and module service worker.
 - **URL Engine & Normalization**: Strips tracking query parameters (`utm_*`, `fbclid`, `gclid`, `ref`, etc.) while preserving valid parameters and computes consistent deduplication keys.
-- **HTML Export Balance**: Netscape bookmark file compliance with balanced `<DL>` and `<H3>` tags.
+- **HTML Export & Import Balance**: Netscape bookmark file compliance with balanced `<DL>` and `<H3>` tags.
 - **JavaScript Structural Integrity**: Validates balanced brackets, braces, parentheses, and syntax across all 16 modules.
 - **Undo / Redo Engine Invariants**: History stack branching, sliding-window depth clamping (40 states), and state restoration.
 - **Theme Modes & Pastel Palettes**: Dark and Light mode tokens and 5 muted pastel accent themes.
+- **Bookmark Import Engine (Issue #1)**: Cross-browser HTML/JSON parsing, destination routing (dedicated folder, merge, replace), and parent-child Chrome creation ID resolution.
 
 ### Continuous Integration (CI/CD)
 GitHub Actions workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) executes on every `push` and `pull_request` to `main`:
 - Matrix validation across **Python 3.10, 3.11, and 3.12**.
-- Validates JSON schemas and executes the 108 automated verification tests.
+- Validates JSON schemas and executes the 126 automated verification tests.
 - Semantic release workflow ([`.github/workflows/release.yml`](.github/workflows/release.yml)) verifies the test suite before packaging and publishing tagged releases (`v*`).
 
 ---
@@ -103,6 +129,17 @@ GitHub Actions workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) e
 BookmarkLab runs 100% locally within your browser:
 - **Zero data transmission**: No bookmark titles, URLs, or browsing histories are transmitted externally.
 - **Minimal permissions**: Requests only `bookmarks` (to read and update bookmarks) and `storage` (to persist user theme preferences).
+
+---
+
+## Documentation & References
+
+- [ARCHITECTURE.md](ARCHITECTURE.md) — Detailed technical specifications, data flow, stage-and-commit model, and state engine invariants.
+- [CHANGELOG.md](CHANGELOG.md) — Release notes and chronological history of all features, fixes, and improvements.
+- [PRIVACY_POLICY.md](PRIVACY_POLICY.md) — Plain-English declaration of data handling, permissions, and local storage.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Guidelines for reporting issues, contributing features, and development practices.
+- [SECURITY.md](SECURITY.md) — Vulnerability reporting policy and security scope.
+- [Web Documentation](https://dipinknair.github.io/bookmarklab-extension/) — GitHub Pages landing page.
 
 ---
 

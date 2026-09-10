@@ -6,14 +6,36 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 
 ---
 
-## [Unreleased]
+## [1.1.0] — 2026-09-09
 
 ### Added
+- **Cross-Browser Bookmark Import (#1)**:
+  - Added support for importing bookmarks exported from **Safari, Firefox, Microsoft Edge, Arc Browser, Brave, Opera, and Google Chrome**.
+  - Supports both standard Netscape HTML (`.html`, `.htm`) and Chromium JSON (`.json`) formats.
+  - Three distinct destination strategies:
+    - **Dedicated Folder (Default)**: Stages imported hierarchy inside an isolated `Imported - [Date]` folder to protect existing bookmark structure.
+    - **Merge into Existing Folders**: Reconciles top-level folder names and appends bookmarks to matching folders.
+    - **Replace Active Workspace**: Clears the workspace and imports bookmarks for a clean slate.
+  - Direct file drag-and-drop support onto the workspace with drop-zone overlay.
+  - Optional pre-import sanitization: automatic tracking parameter stripping (`cleanTrackingParameters`) and duplicate resolution.
+- **Hierarchical Creation Resolution (`idMap`)**:
+  - Implemented client-to-Chrome synthetic ID mapping in `applySyncToChrome`, guaranteeing nested imported folders and child bookmarks sync cleanly to Chrome without parent ID lookup errors.
+- **Dark & White (Light) Theme Toggle**:
+  - Instant toggle button with Sun and Moon icons across dashboard and popup.
+  - High-contrast, crisp white light mode with neutral slate borders and surface layers.
+- **Calm Pastel Accent Palette**:
+  - Replaced high-saturation accents with 5 curated, aesthetic pastel tones: **Pastel Lavender** (`#7d85d8`), **Pastel Sage** (`#5fa88d`), **Pastel Mist Blue** (`#6897bb`), **Pastel Sand** (`#d49f69`), and **Pastel Dusty Rose** (`#c4798e`).
+- **Comprehensive Automated Test Suite**:
+  - Expanded `test/verify_suite.py` to **126 automated verification tests** covering Manifest V3, URL cleaning, Netscape HTML/JSON parsing, JS structural integrity, state machine undo/redo invariants, theme tokens, and the import engine.
 - Deep-link hash routing for all popup quick actions (`#dedupe`, `#cluster`, `#clean`) with initial load dispatching and live `hashchange` event listeners.
 - Standalone / offline demo dataset loader button on the dashboard fallback screen for local development and GitHub Pages preview without live Chrome bookmarks.
-- Comprehensive technical documentation in `ARCHITECTURE.md` covering system data flow, stage-and-commit diff engine, and design principles (DRY, YAGNI, SoC, SOLID).
-- Automated verification test suite (`test/verify_suite.py`) testing URL normalization, tracking query removal, duplicate detection, Netscape HTML formatting, and JS syntax.
 - Centralized DOM and download utilities in `js/utils/domUtils.js`.
+
+### Changed
+- **Minimalist Design System Refinement**:
+  - Removed flashy ambient glow blobs (`body::before`, `body::after`), distracting neon box-shadows (`--shadow-glow`), and bouncy hover scale transforms.
+  - Refined layout with compact 52px header, crisp 1px neutral borders (`rgba(255,255,255,0.07)` / `rgba(0,0,0,0.08)`), calm obsidian/slate surfaces, and solid flat pastel buttons.
+  - Updated branding header to "BookmarkLab — Interactive Bookmark Manager" and added repository link.
 
 ### Fixed
 - Fixed undo/redo history engine in `js/state.js`: corrected stack pointer mathematics when mutations exceed `maxHistory`, and fixed snapshot restoration so `undo()` and `redo()` are deterministic.

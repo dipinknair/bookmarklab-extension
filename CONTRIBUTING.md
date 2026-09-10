@@ -17,7 +17,12 @@ Open an issue using the **Feature Request** template. Describe the problem you a
 1. Fork the repository and create a branch from `main`.
 2. Make your changes. Keep commits focused and descriptive.
 3. Test your changes by loading the extension as an unpacked extension in Chrome (`chrome://extensions` → Developer mode → Load unpacked).
-4. Open a pull request against `main` with a clear description of what you changed and why.
+4. Run the automated verification test suite:
+   ```bash
+   python3 test/verify_suite.py
+   ```
+   Ensure all 126 tests pass without regressions.
+5. Open a pull request against `main` with a clear description of what you changed and why.
 
 ## Branch and Release Model
 
