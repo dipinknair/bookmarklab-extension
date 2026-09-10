@@ -250,6 +250,8 @@ def test_theme_and_color_modes():
     assert_test("icon-sun" in index_html and "icon-moon" in index_html, "index.html contains sun and moon icons")
     assert_test("Interactive Bookmark Manager" in index_html, "index.html brand tag is 'Interactive Bookmark Manager'")
     assert_test("https://github.com/dipinknair/bookmarklab-extension" in index_html, "index.html has GitHub repository link")
+    assert_test("buymeacoffee.com/dipinknair619" in index_html, "index.html has Buy Me a Coffee link on left header")
+    assert_test("btn-coffee" in index_html, "index.html contains btn-coffee element")
 
     # Verify popup.html contains theme mode toggle
     popup_path = os.path.join(ROOT_DIR, 'popup.html')
@@ -268,7 +270,9 @@ def test_theme_and_color_modes():
 
     assert_test('[data-mode="dark"]' in styles_css, "styles.css has data-mode='dark' definitions")
     assert_test('[data-mode="light"]' in styles_css, "styles.css has data-mode='light' definitions")
-    assert_test(".theme-mode-btn" in styles_css, "styles.css styles theme-mode-btn")
+    assert_test("theme-mode-btn" in styles_css, "styles.css styles theme-mode-btn")
+    assert_test(".header-left" in styles_css, "styles.css styles header-left layout")
+    assert_test(".btn-coffee" in styles_css, "styles.css styles btn-coffee hover state")
 
 def test_bookmark_import():
     print("\n--- Testing Bookmark Import Feature (Issue #1) ---")

@@ -279,6 +279,12 @@ body::before, body::after {
   z-index: 10;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .brand {
   display: flex;
   align-items: center;
@@ -316,14 +322,46 @@ body::before, body::after {
   letter-spacing: 0.01em;
 }
 
-.btn-github {
-  color: var(--text-secondary);
-  transition: all var(--transition-fast);
+.header-left-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 14px;
+  border-left: 1px solid var(--border-color);
 }
-.btn-github:hover {
+
+.header-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.header-link-btn:hover {
   color: var(--text-primary);
   border-color: var(--border-color-hover);
   background: var(--bg-card-hover);
+}
+
+.header-link-btn.btn-coffee:hover {
+  color: #d49f69;
+  border-color: rgba(212, 159, 105, 0.45);
+  background: rgba(212, 159, 105, 0.08);
+}
+
+.header-link-btn.btn-github:hover {
+  color: var(--text-primary);
+  border-color: var(--border-color-hover);
 }
 
 .save-status {

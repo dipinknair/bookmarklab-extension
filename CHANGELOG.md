@@ -26,7 +26,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 - **Calm Pastel Accent Palette**:
   - Replaced high-saturation accents with 5 curated, aesthetic pastel tones: **Pastel Lavender** (`#7d85d8`), **Pastel Sage** (`#5fa88d`), **Pastel Mist Blue** (`#6897bb`), **Pastel Sand** (`#d49f69`), and **Pastel Dusty Rose** (`#c4798e`).
 - **Comprehensive Automated Test Suite**:
-  - Expanded `test/verify_suite.py` to **126 automated verification tests** covering Manifest V3, URL cleaning, Netscape HTML/JSON parsing, JS structural integrity, state machine undo/redo invariants, theme tokens, and the import engine.
+  - Expanded `test/verify_suite.py` to **130 automated verification tests** covering Manifest V3, URL cleaning, Netscape HTML/JSON parsing, JS structural integrity, state machine undo/redo invariants, theme tokens, the import engine, and Buy Me a Coffee header badges.
+- **Buy Me a Coffee & Creator Sponsorship Integration**:
+  - Added Buy Me a Coffee donation badge (`#btn-coffee`) directly next to the main left top banner in the dashboard header, followed by the GitHub creator badge (`#btn-github`).
+  - Added repository funding metadata in `.github/FUNDING.yml`.
+  - Added Buy Me a Coffee badges and support sections across `README.md` and `docs/index.html`.
 - Deep-link hash routing for all popup quick actions (`#dedupe`, `#cluster`, `#clean`) with initial load dispatching and live `hashchange` event listeners.
 - Standalone / offline demo dataset loader button on the dashboard fallback screen for local development and GitHub Pages preview without live Chrome bookmarks.
 - Centralized DOM and download utilities in `js/utils/domUtils.js`.

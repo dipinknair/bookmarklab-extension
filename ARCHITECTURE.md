@@ -191,7 +191,7 @@ bookmarklab-extension/
 │       └── demoData.js        # Sample dataset for testing & offline mode
 ├── test/
 │   ├── demo-bookmarks.html    # Netscape HTML test dataset
-│   └── verify_suite.py        # 126 automated verification tests
+│   └── verify_suite.py        # 130 automated verification tests
 ├── store-assets/
 │   └── screenshots.html       # Web Store marketing screenshot generator (1280x800)
 ├── docs/                      # GitHub Pages landing page (docs/index.html)

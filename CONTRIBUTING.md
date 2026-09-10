@@ -21,7 +21,7 @@ Open an issue using the **Feature Request** template. Describe the problem you a
    ```bash
    python3 test/verify_suite.py
    ```
-   Ensure all 126 tests pass without regressions.
+   Ensure all 130 tests pass without regressions.
 5. Open a pull request against `main` with a clear description of what you changed and why.
 
 ## Branch and Release Model

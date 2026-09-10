@@ -4,6 +4,7 @@
 [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-BookmarkLab-4285F4?style=flat-square&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-7d85d8?style=flat-square&logo=googlechrome&logoColor=white)
 [![GitHub Release](https://img.shields.io/github/v/release/dipinknair/bookmarklab-extension?style=flat-square&color=d49f69&label=version)](https://github.com/dipinknair/bookmarklab-extension/releases)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-FFDD00?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/dipinknair619)
 [![License: MIT](https://img.shields.io/badge/License-MIT-5fa88d?style=flat-square)](LICENSE)
 
 BookmarkLab is a fast, privacy-respecting browser extension designed to help you organize, deduplicate, and clean your browser bookmarks in a visual workspace.
@@ -119,7 +120,7 @@ The test suite validates:
 ### Continuous Integration (CI/CD)
 GitHub Actions workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) executes on every `push` and `pull_request` to `main`:
 - Matrix validation across **Python 3.10, 3.11, and 3.12**.
-- Validates JSON schemas and executes the 126 automated verification tests.
+- Validates JSON schemas and executes the 130 automated verification tests.
 - Semantic release workflow ([`.github/workflows/release.yml`](.github/workflows/release.yml)) verifies the test suite before packaging and publishing tagged releases (`v*`).
 
 ---
@@ -140,6 +141,17 @@ BookmarkLab runs 100% locally within your browser:
 - [CONTRIBUTING.md](CONTRIBUTING.md) — Guidelines for reporting issues, contributing features, and development practices.
 - [SECURITY.md](SECURITY.md) — Vulnerability reporting policy and security scope.
 - [Web Documentation](https://dipinknair.github.io/bookmarklab-extension/) — GitHub Pages landing page.
+
+---
+
+## Support & Donations
+
+If BookmarkLab saves you time, simplifies your workflow, and keeps your bookmarks cleanly organized, consider supporting its independent development:
+
+<a href="https://buymeacoffee.com/dipinknair619" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 48px !important;width: 174px !important;" ></a>
+
+- ☕ **Buy Me a Coffee**: [buymeacoffee.com/dipinknair619](https://buymeacoffee.com/dipinknair619)
+- ⭐ **Star this repository**: If you find BookmarkLab helpful, giving it a star on GitHub helps other users discover it.
 
 ---
 
