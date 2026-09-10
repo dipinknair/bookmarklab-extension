@@ -25,6 +25,8 @@ import {
 } from './components/modals.js';
 
 import { exportToNetscapeHTML } from './parsers/exporter.js';
+import { parseBookmarkHTML } from './parsers/htmlParser.js';
+import { parseBookmarkJSON } from './parsers/jsonParser.js';
 import {
   loadChromeBookmarks,
   isChromeExtensionContext,
@@ -145,18 +147,64 @@ async function applySyncToChrome(diff) {
     }
   }
 
-  // 4. Creations (user created new folders/bookmarks in the UI)
+  // 4. Creations (user created or imported new folders/bookmarks in the UI)
+  const idMap = new Map();
+  idMap.set('root', '1');
+
   for (const node of diff.toCreate) {
-    const parentId = node.parentId === 'root' ? '1' : node.parentId;
+    const rawParentId = node.parentId === 'root' ? '1' : node.parentId;
+    const parentId = idMap.get(rawParentId) || rawParentId;
     try {
       if (node.type === 'folder') {
-        await chromeCreateFolder(parentId, node.title);
+        const created = await chromeCreateFolder(parentId, node.title);
+        if (created && created.id) {
+          idMap.set(node.id, created.id);
+        }
       } else {
         await chromeCreateBookmark(parentId, node);
       }
     } catch (e) {
       console.warn('[BookmarkLab] create failed:', node.title, e.message);
     }
+  }
+}
+
+// ─── Import Helpers ──────────────────────────────────────────────────────────
+function reIdTree(node, prefix = `imp-${Date.now()}`) {
+  let counter = 1;
+  function traverse(n) {
+    n.id = `${prefix}-${counter++}`;
+    if (n.children && Array.isArray(n.children)) {
+      n.children.forEach(traverse);
+    }
+  }
+  traverse(node);
+  return node;
+}
+
+function countTreeMetrics(node) {
+  let bookmarks = 0;
+  let folders = 0;
+  function traverse(n) {
+    if (n.type === 'bookmark') bookmarks++;
+    if (n.type === 'folder' && n.id !== 'root') folders++;
+    if (n.children && Array.isArray(n.children)) {
+      n.children.forEach(traverse);
+    }
+  }
+  traverse(node);
+  return { bookmarks, folders };
+}
+
+function cleanTreeTracking(node) {
+  if (node.type === 'bookmark' && node.url) {
+    const res = cleanTrackingParameters(node.url);
+    if (res.hasChanges) {
+      node.url = res.cleanedUrl;
+    }
+  }
+  if (node.children && Array.isArray(node.children)) {
+    node.children.forEach(cleanTreeTracking);
   }
 }
 
@@ -183,6 +231,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnNewFolder    = document.getElementById('btn-new-folder');
   const btnExpandAll    = document.getElementById('btn-expand-all');
   const btnCollapseAll  = document.getElementById('btn-collapse-all');
+  const btnImport       = document.getElementById('btn-import');
+  const fileImportInput = document.getElementById('file-import-input');
   const btnBackup    = document.getElementById('btn-backup');
   const btnSync      = document.getElementById('btn-sync');
   const btnRetryLoad = document.getElementById('btn-retry-load');
@@ -305,6 +355,180 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelectorAll('.smart-view-item').forEach(i => i.classList.remove('active'));
     const allItem = document.querySelector('.smart-view-item[data-view="all"]');
     if (allItem) allItem.classList.add('active');
+  }
+
+  // ── Import Bookmarks ───────────────────────────────────────────────────────
+  let pendingImportTree = null;
+  let pendingImportFileName = '';
+
+  function openImportModal(parsedTree, fileName) {
+    pendingImportTree = parsedTree;
+    pendingImportFileName = fileName;
+
+    const metrics = countTreeMetrics(parsedTree);
+    const fileNameEl = document.getElementById('import-file-name');
+    const fileCountsEl = document.getElementById('import-file-counts');
+    const folderNameInp = document.getElementById('import-folder-name');
+
+    if (fileNameEl) fileNameEl.textContent = fileName;
+    if (fileCountsEl) {
+      fileCountsEl.textContent = `${metrics.bookmarks} bookmark${metrics.bookmarks !== 1 ? 's' : ''}, ${metrics.folders} folder${metrics.folders !== 1 ? 's' : ''}`;
+    }
+
+    const cleanBaseName = fileName.replace(/\.(html|htm|json)$/i, '');
+    const dateStr = new Date().toISOString().slice(0, 10);
+    if (folderNameInp) {
+      folderNameInp.value = `Imported (${cleanBaseName}) - ${dateStr}`;
+    }
+
+    const confirmBtn = document.getElementById('btn-confirm-import');
+    if (confirmBtn) {
+      confirmBtn.textContent = `Import ${metrics.bookmarks} Bookmark${metrics.bookmarks !== 1 ? 's' : ''}`;
+    }
+
+    const backdrop = document.getElementById('modal-backdrop');
+    if (backdrop) {
+      backdrop.style.display = 'flex';
+      backdrop.querySelectorAll('.modal-dialog').forEach(d => d.style.display = 'none');
+      const importModal = document.getElementById('modal-import');
+      if (importModal) importModal.style.display = 'flex';
+    }
+  }
+
+  function handleImportFile(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target.result;
+      let parsedTree;
+      try {
+        if (file.name.toLowerCase().endsWith('.json')) {
+          parsedTree = parseBookmarkJSON(content);
+        } else {
+          parsedTree = parseBookmarkHTML(content);
+        }
+      } catch (err) {
+        showToast('Failed to parse bookmarks: ' + err.message, 'error');
+        return;
+      }
+
+      if (!parsedTree || (!parsedTree.children && parsedTree.type !== 'folder')) {
+        showToast('No bookmarks found in selected file.', 'warning');
+        return;
+      }
+
+      openImportModal(parsedTree, file.name);
+    };
+    reader.onerror = () => {
+      showToast('Could not read file.', 'error');
+    };
+    reader.readAsText(file);
+  }
+
+  if (btnImport && fileImportInput) {
+    btnImport.addEventListener('click', () => {
+      fileImportInput.value = '';
+      fileImportInput.click();
+    });
+    fileImportInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        handleImportFile(e.target.files[0]);
+      }
+    });
+  }
+
+  // Window drag & drop file listener for HTML/JSON bookmark files
+  window.addEventListener('dragover', (e) => {
+    if (e.dataTransfer && e.dataTransfer.types && Array.from(e.dataTransfer.types).includes('Files')) {
+      e.preventDefault();
+    }
+  });
+
+  window.addEventListener('drop', (e) => {
+    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const file = e.dataTransfer.files[0];
+      const name = file.name.toLowerCase();
+      if (name.endsWith('.html') || name.endsWith('.htm') || name.endsWith('.json')) {
+        e.preventDefault();
+        handleImportFile(file);
+      }
+    }
+  });
+
+  const btnConfirmImport = document.getElementById('btn-confirm-import');
+  if (btnConfirmImport) {
+    btnConfirmImport.addEventListener('click', () => {
+      if (!pendingImportTree) return;
+
+      const destMode = document.querySelector('input[name="import-dest"]:checked')?.value || 'folder';
+      const folderNameInp = document.getElementById('import-folder-name');
+      const cleanTrackingCb = document.getElementById('import-clean-tracking');
+      const openDedupeCb = document.getElementById('import-open-dedupe');
+
+      const shouldCleanTracking = cleanTrackingCb ? cleanTrackingCb.checked : false;
+      const shouldOpenDedupe = openDedupeCb ? openDedupeCb.checked : false;
+
+      // Re-ID to ensure unique non-colliding IDs
+      const importedTree = reIdTree(pendingImportTree, `imp-${Date.now()}`);
+      if (shouldCleanTracking) {
+        cleanTreeTracking(importedTree);
+      }
+
+      const metrics = countTreeMetrics(importedTree);
+
+      if (destMode === 'folder') {
+        const folderTitle = (folderNameInp && folderNameInp.value.trim()) || `Imported Bookmarks - ${new Date().toISOString().slice(0, 10)}`;
+        const importedFolder = {
+          id: `folder-imp-${Date.now()}`,
+          title: folderTitle,
+          type: 'folder',
+          dateAdded: Date.now(),
+          children: importedTree.children || []
+        };
+
+        if (!state.tree) {
+          state.setTree({ id: 'root', title: 'Bookmarks Bar', type: 'folder', children: [importedFolder] });
+        } else {
+          state.addNode('root', importedFolder);
+        }
+      } else if (destMode === 'merge') {
+        if (!state.tree) {
+          state.setTree(importedTree);
+        } else {
+          function mergeChildren(targetFolder, sourceChildren) {
+            for (const item of sourceChildren) {
+              if (item.type === 'folder') {
+                const existingMatch = (targetFolder.children || []).find(c =>
+                  c.type === 'folder' && (c.title || '').trim().toLowerCase() === (item.title || '').trim().toLowerCase()
+                );
+                if (existingMatch) {
+                  mergeChildren(existingMatch, item.children || []);
+                } else {
+                  if (!targetFolder.children) targetFolder.children = [];
+                  targetFolder.children.push(item);
+                }
+              } else {
+                if (!targetFolder.children) targetFolder.children = [];
+                targetFolder.children.push(item);
+              }
+            }
+          }
+          mergeChildren(state.tree, importedTree.children || []);
+          state.setTree(state.tree);
+        }
+      } else if (destMode === 'replace') {
+        state.setTree(importedTree);
+      }
+
+      const backdrop = document.getElementById('modal-backdrop');
+      if (backdrop) backdrop.style.display = 'none';
+
+      showToast(`Imported ${metrics.bookmarks} bookmark(s) successfully!`, 'success');
+
+      if (shouldOpenDedupe) {
+        setTimeout(() => triggerDedupeModal(showToast), 400);
+      }
+    });
   }
 
   // ── Backup ─────────────────────────────────────────────────────────────────

@@ -168,6 +168,15 @@
 
         <div class="divider-v"></div>
 
+        <!-- Hidden file input for import -->
+        <input type="file" id="file-import-input" accept=".html,.htm,.json" style="display:none;" />
+
+        <!-- Import -->
+        <button id="btn-import" class="btn btn-secondary" title="Import bookmarks from Safari, Firefox, Edge, Arc, or an HTML/JSON file">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Import</span>
+        </button>
+
         <!-- Backup -->
         <button id="btn-backup" class="btn btn-backup" title="Download your current Chrome bookmarks as an HTML backup file — do this before making changes">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -480,6 +489,67 @@
         </div>
         <div class="modal-footer">
           <button id="btn-confirm-batch-tag" class="btn btn-primary glow-button">Add Tag(s)</button>
+          <button class="btn btn-secondary modal-close-btn">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Import Bookmarks Modal -->
+      <div id="modal-import" class="modal-dialog" style="display:none; max-width: 520px;">
+        <div class="modal-header">
+          <h3 class="modal-title">Import Bookmarks</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="import-stats-summary" style="margin-bottom: 16px; padding: 12px 14px; background: var(--bg-surface-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span id="import-file-name" style="font-weight:600; font-size:0.86rem; color:var(--text-primary);">bookmarks.html</span>
+              <span id="import-file-counts" style="font-size:0.75rem; color:var(--text-muted);">0 bookmarks, 0 folders</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label class="form-label" style="display:block; margin-bottom: 8px;">Destination</label>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <label style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer;">
+                <input type="radio" name="import-dest" value="folder" checked style="margin-top: 3px;" />
+                <div style="flex: 1;">
+                  <span style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Dedicated Folder (Recommended)</span>
+                  <p style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">Keeps existing bookmarks untouched. Places all imported links into a new folder.</p>
+                  <input type="text" id="import-folder-name" class="form-input" style="margin-top: 8px; font-size: 0.82rem; padding: 6px 10px;" placeholder="Folder name" />
+                </div>
+              </label>
+
+              <label style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer;">
+                <input type="radio" name="import-dest" value="merge" style="margin-top: 3px;" />
+                <div style="flex: 1;">
+                  <span style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Merge into Existing Folders</span>
+                  <p style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">Combines matching folder names at the root level and appends items.</p>
+                </div>
+              </label>
+
+              <label style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer;">
+                <input type="radio" name="import-dest" value="replace" style="margin-top: 3px;" />
+                <div style="flex: 1;">
+                  <span style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Replace Current Workspace</span>
+                  <p style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">Overwrites the active staging tree with the imported file.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div style="padding-top: 8px; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-secondary); cursor: pointer;">
+              <input type="checkbox" id="import-clean-tracking" checked />
+              <span>Automatically strip tracking parameters (utm_*, fbclid, etc.)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-secondary); cursor: pointer;">
+              <input type="checkbox" id="import-open-dedupe" />
+              <span>Find and resolve duplicates immediately after import</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-confirm-import" class="btn btn-primary">Import Bookmarks</button>
           <button class="btn btn-secondary modal-close-btn">Cancel</button>
         </div>
       </div>

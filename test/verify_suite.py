@@ -270,6 +270,56 @@ def test_theme_and_color_modes():
     assert_test('[data-mode="light"]' in styles_css, "styles.css has data-mode='light' definitions")
     assert_test(".theme-mode-btn" in styles_css, "styles.css styles theme-mode-btn")
 
+def test_bookmark_import():
+    print("\n--- Testing Bookmark Import Feature (Issue #1) ---")
+    index_path = os.path.join(ROOT_DIR, 'index.html')
+    with open(index_path, 'r', encoding='utf-8') as f:
+        index_html = f.read()
+
+    assert_test("btn-import" in index_html, "index.html contains Import button (btn-import)")
+    assert_test("file-import-input" in index_html, "index.html contains file input (file-import-input)")
+    assert_test("modal-import" in index_html, "index.html contains Import modal (modal-import)")
+    assert_test('value="folder"' in index_html, "Import modal supports Dedicated Folder destination")
+    assert_test('value="merge"' in index_html, "Import modal supports Merge destination")
+    assert_test('value="replace"' in index_html, "Import modal supports Replace Workspace destination")
+    assert_test("import-clean-tracking" in index_html, "Import modal provides auto-clean tracking checkbox")
+    assert_test("import-open-dedupe" in index_html, "Import modal provides auto-dedupe checkbox")
+
+    app_path = os.path.join(ROOT_DIR, 'js', 'app.js')
+    with open(app_path, 'r', encoding='utf-8') as f:
+        app_js = f.read()
+
+    assert_test("parseBookmarkHTML" in app_js, "app.js imports parseBookmarkHTML")
+    assert_test("parseBookmarkJSON" in app_js, "app.js imports parseBookmarkJSON")
+    assert_test("openImportModal" in app_js, "app.js implements openImportModal")
+    assert_test("btn-confirm-import" in app_js, "app.js binds btn-confirm-import click handler")
+    assert_test("idMap" in app_js, "app.js uses idMap in applySyncToChrome for nested creations")
+
+    # Simulation test: hierarchical creation ID resolution
+    id_map = {'root': '1'}
+    to_create = [
+        {'id': 'folder-1', 'parentId': 'root', 'type': 'folder', 'title': 'Imported'},
+        {'id': 'folder-2', 'parentId': 'folder-1', 'type': 'folder', 'title': 'Subfolder'},
+        {'id': 'bm-1', 'parentId': 'folder-2', 'type': 'bookmark', 'title': 'Link 1', 'url': 'https://example.com'}
+    ]
+
+    simulated_chrome_tree = {'1': []}
+    chrome_id_counter = 100
+
+    for node in to_create:
+        raw_parent = node['parentId']
+        resolved_parent = id_map.get(raw_parent, raw_parent)
+        assert_test(resolved_parent in simulated_chrome_tree, f"Parent ID resolved correctly for {node['title']} ('{resolved_parent}')")
+        chrome_id_counter += 1
+        new_chrome_id = str(chrome_id_counter)
+        if node['type'] == 'folder':
+            id_map[node['id']] = new_chrome_id
+            simulated_chrome_tree[new_chrome_id] = []
+        simulated_chrome_tree[resolved_parent].append(new_chrome_id)
+
+    assert_test(len(simulated_chrome_tree['1']) == 1, "Root received single top-level folder")
+    assert_test(id_map.get('folder-2') in simulated_chrome_tree[id_map['folder-1']], "Subfolder nested inside parent Chrome folder")
+
 def main():
     print("==================================================")
     print("BookmarkLab Extension Test Suite")
@@ -281,6 +331,7 @@ def main():
     test_javascript_integrity()
     test_undo_redo_invariants()
     test_theme_and_color_modes()
+    test_bookmark_import()
 
     print("\n==================================================")
     print(f"Results: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
