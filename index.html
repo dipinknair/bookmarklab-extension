@@ -45,7 +45,7 @@
     .diff-icon { font-size: 1.1rem; width: 22px; text-align: center; flex-shrink: 0; }
     .diff-delete { border-left: 3px solid #ef4444; }
     .diff-move   { border-left: 3px solid #f59e0b; }
-    .diff-update { border-left: 3px solid #6366f1; }
+    .diff-update { border-left: 3px solid var(--accent-primary); }
     .diff-create { border-left: 3px solid #10b981; }
     .diff-warn {
       font-size: 0.78rem;
@@ -73,23 +73,33 @@
 
     /* ── Backup button styling ──────────────────────── */
     .btn-backup {
-      background: rgba(16,185,129,0.1);
-      border: 1px solid rgba(16,185,129,0.3);
-      color: #10b981;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
     }
     .btn-backup:hover {
-      background: rgba(16,185,129,0.18);
-      border-color: rgba(16,185,129,0.5);
+      background: var(--bg-card-hover);
+      border-color: var(--border-color-hover);
     }
 
     /* ── Sync button styling ────────────────────────── */
     .btn-sync {
-      background: var(--accent-gradient);
-      border: none; color: white;
-      box-shadow: 0 4px 14px var(--border-glow);
+      background: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
     }
-    .btn-sync:hover { box-shadow: 0 6px 20px var(--shadow-glow); transform: translateY(-1px); }
-    .btn-sync:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-sync:hover {
+      background: var(--accent-primary-hover);
+      border-color: var(--accent-primary-hover);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-sync:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
   </style>
 </head>
 <body class="dark-theme">
