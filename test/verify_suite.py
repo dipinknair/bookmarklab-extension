@@ -273,6 +273,10 @@ def test_theme_and_color_modes():
     assert_test("theme-mode-btn" in styles_css, "styles.css styles theme-mode-btn")
     assert_test(".header-left" in styles_css, "styles.css styles header-left layout")
     assert_test(".btn-coffee" in styles_css, "styles.css styles btn-coffee hover state")
+    assert_test("logo-ribbon" in index_html and "logo-tile" in index_html, "index.html contains squircle logo tile and ribbon")
+    assert_test("logo-ribbon" in popup_html and "logo-tile" in popup_html, "popup.html contains squircle logo tile and ribbon")
+    assert_test(".logo-ribbon" in styles_css, "styles.css styles theme-reactive logo-ribbon")
+    assert_test(os.path.exists(os.path.join(ROOT_DIR, 'icons', 'app-icon.svg')), "icons/app-icon.svg exists")
 
 def test_bookmark_import():
     print("\n--- Testing Bookmark Import Feature (Issue #1) ---")
