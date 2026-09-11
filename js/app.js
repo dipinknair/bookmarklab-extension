@@ -320,8 +320,218 @@ document.addEventListener('DOMContentLoaded', async () => {
     resetSmartViewHighlight();
     hideSpinner();
     state.setTree(DEMO_BOOKMARK_TREE, false);
-    showToast('Loaded demo dataset (offline preview mode).', 'info');
-    handleHashAction();
+
+    const shot = urlParams.get('shot');
+    if (!urlParams.get('notoast') && !shot) {
+      showToast('Loaded demo dataset (offline preview mode).', 'info');
+    }
+
+    if (shot) {
+      applyScreenshotScenario(shot);
+    } else {
+      handleHashAction();
+    }
+  }
+
+  const SCREENSHOT_CONFIGS = {
+    '1': {
+      tag: 'FEATURE 01 • PRIVACY & CLEANING',
+      tagColor: '#818cf8',
+      tagBg: 'rgba(99, 102, 241, 0.16)',
+      tagBorder: 'rgba(99, 102, 241, 0.35)',
+      title: 'Remove Tracking Parameters & Clean URLs',
+      desc: 'Strip utm_*, fbclid, gclid & analytics bloat with live side-by-side diff review',
+      badgeText: '🔒 100% Client-Side',
+      dotColor: '#818cf8',
+      gradient: 'linear-gradient(90deg, #6366f1, #818cf8, #a78bfa)'
+    },
+    'clean': '1',
+    '2': {
+      tag: 'FEATURE 02 • DRAG & DROP WORKBENCH',
+      tagColor: '#38bdf8',
+      tagBg: 'rgba(56, 189, 248, 0.16)',
+      tagBorder: 'rgba(56, 189, 248, 0.35)',
+      title: 'Visual Drag & Drop & Hierarchy Organization',
+      desc: 'Reorder bookmarks, organize nested folders, and batch-move collections easily',
+      badgeText: '⚡ Smooth Drag & Drop',
+      dotColor: '#38bdf8',
+      gradient: 'linear-gradient(90deg, #0284c7, #38bdf8, #818cf8)'
+    },
+    'drag': '2',
+    '3': {
+      tag: 'FEATURE 03 • LINK VALIDATION & HEALTH',
+      tagColor: '#34d399',
+      tagBg: 'rgba(16, 185, 129, 0.16)',
+      tagBorder: 'rgba(16, 185, 129, 0.35)',
+      title: 'Link Health Check & Dead Link Scanner',
+      desc: 'Detect broken links, HTTP 404s, timeouts, and redirect loops across all bookmarks',
+      badgeText: '🔍 Live Status Scanner',
+      dotColor: '#34d399',
+      gradient: 'linear-gradient(90deg, #059669, #34d399, #5eead4)'
+    },
+    'health': '3',
+    '4': {
+      tag: 'FEATURE 04 • SMART DEDUPLICATION',
+      tagColor: '#fbbf24',
+      tagBg: 'rgba(245, 158, 11, 0.16)',
+      tagBorder: 'rgba(245, 158, 11, 0.35)',
+      title: 'Smart Duplicate Bookmark Resolver',
+      desc: 'Identify duplicate URLs across nested folders and merge with one-click resolution',
+      badgeText: '✨ 1-Click Auto Merge',
+      dotColor: '#fbbf24',
+      gradient: 'linear-gradient(90deg, #d97706, #fbbf24, #fde047)'
+    },
+    'dedupe': '4',
+    '5': {
+      tag: 'FEATURE 05 • SAFE STAGED SYNC',
+      tagColor: '#a78bfa',
+      tagBg: 'rgba(139, 92, 246, 0.16)',
+      tagBorder: 'rgba(139, 92, 246, 0.35)',
+      title: 'Safe Staged Sync with Diff Review',
+      desc: 'Review every deletion, folder move, and URL edit before committing changes to Chrome',
+      badgeText: '🛡️ Zero Data Loss Sandbox',
+      dotColor: '#a78bfa',
+      gradient: 'linear-gradient(90deg, #7c3aed, #a78bfa, #c084fc)'
+    },
+    'sync': '5'
+  };
+
+  function injectScreenshotFeatureHeader(shot) {
+    let key = shot;
+    if (typeof SCREENSHOT_CONFIGS[key] === 'string') {
+      key = SCREENSHOT_CONFIGS[key];
+    }
+    const cfg = SCREENSHOT_CONFIGS[key];
+    if (!cfg) return;
+
+    document.body.classList.add('has-screenshot-header');
+
+    const header = document.createElement('header');
+    header.className = 'screenshot-feature-header';
+    header.style.setProperty('--sf-accent-gradient', cfg.gradient);
+    header.style.setProperty('--sf-tag-color', cfg.tagColor);
+    header.style.setProperty('--sf-tag-bg', cfg.tagBg);
+    header.style.setProperty('--sf-tag-border', cfg.tagBorder);
+    header.style.setProperty('--sf-dot-color', cfg.dotColor);
+
+    header.innerHTML = `
+      <div class="sf-left">
+        <div class="sf-brand-icon">
+          <svg viewBox="130 130 768 768" fill="none">
+            <path fill="#2B2D2A" d="M282.151 141.207C291.786 140.545 305.557 140.889 315.428 140.889L374.283 140.906L556.369 140.911L684.73 140.918L720.703 140.888C733.162 140.879 745.12 140.648 757.49 142.655C829.034 154.265 883.894 216.582 885.049 289.354C885.207 299.277 885.3 309.178 885.362 319.092C885.482 342.14 885.484 365.189 885.371 388.237L885.338 561.174L885.184 686.166C885.093 717.323 887.623 748.333 877.836 778.272C857.794 839.587 809.516 876.657 746.101 884.379C745.172 884.476 744.241 884.56 743.309 884.631C733.605 885.382 720.912 885.021 710.948 885.017L658.028 885.012L488.055 885.005L348.899 884.964L309.32 885.005C294.341 885.023 281.655 885.378 266.755 882.79C239.149 877.929 213.397 865.614 192.284 847.176C162.414 821.168 143.986 784.444 140.986 744.952C140.168 733.709 140.499 719.841 140.496 708.399L140.49 649.413L140.461 464.135L140.448 340.745L140.424 304.613C140.421 290.909 140.038 280.915 142.358 267.214C146.88 240.1 158.763 214.748 176.709 193.926C204.284 162.084 240.189 144.252 282.151 141.207Z"/>
+            <path fill="var(--sf-tag-color, #7d85d8)" d="M361.332 298.153L361.987 298.119C381.853 297.185 407.778 297.865 427.893 297.864L550.249 297.869L625.846 297.95C638.609 297.932 651.955 297.72 664.716 298.158C669.124 298.66 673.466 300.885 676.7 303.877C680.948 307.807 683.087 313.669 683.154 319.409C683.511 350.145 683.293 380.885 683.227 411.623L683.262 560.206L683.295 656.699L683.318 685.905C683.36 696.396 685.26 710.953 677.613 718.856C674.049 722.606 669.08 724.695 663.907 724.618C661.588 724.589 657.568 723.694 655.869 722.209C649.002 716.206 641.742 708.657 635.274 702.213L588.973 655.9L547.448 614.42C535.871 602.961 523.61 591.196 512.515 579.285C488.486 604.37 461.586 630.302 436.843 655.103L398.052 693.898C389.472 702.524 376.566 716.526 366.401 724.008C363.896 725.852 355.822 724.192 352.841 722.341C341.635 715.384 342.211 703.881 342.582 692.385C342.705 686.355 342.592 679.934 342.598 673.847L342.579 596.349L342.566 412.368L342.673 350.435C342.686 340.638 342.516 330.833 342.621 321.036C342.753 308.648 349.025 300.509 361.332 298.153Z"/>
+          </svg>
+        </div>
+        <div class="sf-content">
+          <div class="sf-title-row">
+            <span class="sf-tag">${cfg.tag}</span>
+            <h1 class="sf-heading">${cfg.title}</h1>
+          </div>
+          <p class="sf-desc">${cfg.desc}</p>
+        </div>
+      </div>
+      <div class="sf-right">
+        <div class="sf-pill">
+          <span class="sf-pill-dot"></span>
+          <span>${cfg.badgeText}</span>
+        </div>
+      </div>
+    `;
+
+    document.body.insertBefore(header, document.body.firstChild);
+  }
+
+  function applyScreenshotScenario(shot) {
+    injectScreenshotFeatureHeader(shot);
+
+    if (shot === '1' || shot === 'clean') {
+      setTimeout(() => triggerCleanTrackingModal(), 120);
+    } else if (shot === '2' || shot === 'drag') {
+      state.getAllFolders().forEach(f => state.expandedFolderIds.add(f.id));
+      state.notify();
+      setTimeout(() => {
+        const devFolderCard = document.querySelector('.folder-card[data-id="folder-dev"]');
+        if (devFolderCard) {
+          devFolderCard.classList.add('drag-over');
+          const ghost = document.createElement('div');
+          ghost.className = 'screenshot-drag-indicator';
+          const rect = devFolderCard.getBoundingClientRect();
+          ghost.style.cssText = `
+            position: absolute;
+            top: ${Math.round(rect.top - 20)}px;
+            left: ${Math.round(rect.left + 30)}px;
+            z-index: 1000;
+            background: #1c2128;
+            border: 2px solid var(--accent-primary);
+            border-radius: 10px;
+            padding: 10px 18px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 24px rgba(125, 133, 216, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            transform: rotate(-1.5deg);
+            pointer-events: none;
+          `;
+          ghost.innerHTML = `
+            <span style="font-size: 1.3rem;">📂</span>
+            <span>Moving <strong>TypeScript Syntax</strong> &rarr; <em>Development & Engineering</em></span>
+            <span style="background: var(--accent-primary); color: white; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; margin-left: 6px;">Drop into Folder</span>
+          `;
+          document.body.appendChild(ghost);
+        }
+        state.selectedIds.clear();
+        state.selectedIds.add('folder-dev');
+        state.notify();
+      }, 120);
+    } else if (shot === '3' || shot === 'health') {
+      state.updateNode('bm-icon-1', { status: 'valid' });
+      state.updateNode('bm-icon-2', { status: 'valid' });
+      state.updateNode('bm-1', { status: 'valid' });
+      state.updateNode('bm-2', { status: 'valid' });
+      state.updateNode('bm-3', { status: 'valid' });
+      state.updateNode('bm-4', { status: 'valid' });
+      state.updateNode('bm-5', { status: 'valid' });
+      state.updateNode('bm-6', { status: 'valid' });
+      state.updateNode('bm-icon-3', { status: 'invalid' });
+      state.updateNode('bm-icon-4', { status: 'invalid' });
+      state.updateNode('bm-7', { status: 'valid' });
+      state.updateNode('bm-8', { status: 'valid' });
+      state.updateNode('bm-11', { status: 'invalid' });
+      updateSmartViewCounts();
+      showToast('Link Health Check: 10 reachable, 3 broken links detected', 'warning');
+    } else if (shot === '4' || shot === 'dedupe') {
+      setTimeout(() => triggerDedupeModal(), 120);
+    } else if (shot === '5' || shot === 'sync') {
+      const syncSummary = document.getElementById('sync-summary');
+      if (syncSummary) {
+        syncSummary.innerHTML = `
+          <div class="diff-summary">
+            <div class="diff-row diff-delete"><span class="diff-icon">🗑</span><span><strong>1</strong> duplicate bookmark will be deleted</span></div>
+            <div class="diff-row diff-move"><span class="diff-icon">📂</span><span><strong>2</strong> bookmarks will be moved to "Development &amp; Engineering"</span></div>
+            <div class="diff-row diff-update"><span class="diff-icon">✏️</span><span><strong>2</strong> bookmarks will have tracking parameters stripped</span></div>
+            <div class="diff-row diff-create"><span class="diff-icon">✨</span><span><strong>1</strong> new bookmark will be created</span></div>
+          </div>
+          <p class="diff-warn">These changes will be applied to your real Chrome bookmarks. This cannot be undone without a backup.</p>
+        `;
+      }
+      const confirmBtn = document.getElementById('btn-confirm-sync');
+      if (confirmBtn) confirmBtn.textContent = 'Apply 6 Changes to Chrome';
+      const badge = document.getElementById('sync-change-count');
+      if (badge) { badge.textContent = '6'; badge.style.display = 'inline-flex'; }
+      const btnSync = document.getElementById('btn-sync');
+      if (btnSync) btnSync.disabled = false;
+      const backdrop = document.getElementById('modal-backdrop');
+      if (backdrop) {
+        backdrop.style.display = 'flex';
+        backdrop.querySelectorAll('.modal-dialog').forEach(d => d.style.display = 'none');
+        const syncModal = document.getElementById('modal-sync');
+        if (syncModal) syncModal.style.display = 'flex';
+      }
+    }
   }
 
   function hideSpinner() {
@@ -329,7 +539,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (spinner) spinner.style.display = 'none';
   }
 
-  if (isChromeExtensionContext()) {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('demo') === '1' || urlParams.get('demo') === 'true') {
+    loadDemoBookmarks();
+  } else if (isChromeExtensionContext()) {
     await loadFromChrome();
   } else {
     hideSpinner();

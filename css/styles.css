@@ -1731,3 +1731,144 @@ kbd {
   0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
   50% { box-shadow: 0 0 0 4px rgba(16,185,129,0); }
 }
+
+/* ==========================================================================
+   Chrome Web Store Screenshot Feature Header Banner
+   ========================================================================== */
+
+.screenshot-feature-header {
+  position: relative;
+  z-index: 100000;
+  height: 72px;
+  background: #080b12;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-sans);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.screenshot-feature-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--sf-accent-gradient, linear-gradient(90deg, #7d85d8, #5fa88d));
+}
+
+.sf-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sf-brand-icon {
+  width: 42px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.sf-brand-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.sf-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sf-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sf-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--sf-tag-bg, rgba(125, 133, 216, 0.15));
+  color: var(--sf-tag-color, #a5b4fc);
+  border: 1px solid var(--sf-tag-border, rgba(125, 133, 216, 0.3));
+  white-space: nowrap;
+}
+
+.sf-heading {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sf-desc {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sf-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sf-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  white-space: nowrap;
+}
+
+.sf-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sf-dot-color, #10b981);
+  box-shadow: 0 0 10px var(--sf-dot-color, #10b981);
+}
+
+body.has-screenshot-header {
+  overflow: hidden !important;
+  height: 800px !important;
+  max-height: 800px !important;
+}
+
+body.has-screenshot-header .app-container {
+  height: calc(800px - 72px) !important;
+  max-height: calc(800px - 72px) !important;
+  overflow: hidden;
+}
+
+body.has-screenshot-header .modal-backdrop {
+  top: 72px !important;
+  height: calc(800px - 72px) !important;
+  background: rgba(0, 0, 0, 0.58) !important;
+}
+

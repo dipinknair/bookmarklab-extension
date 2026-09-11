@@ -50,14 +50,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Load stats from chrome.bookmarks
+  // Load stats from chrome.bookmarks (or demo fallback if standalone preview)
   try {
-    const tree = await new Promise((resolve, reject) => {
-      chrome.bookmarks.getTree((tree) => {
-        if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
-        else resolve(tree);
+    let tree;
+    if (typeof chrome !== 'undefined' && chrome.bookmarks && typeof chrome.bookmarks.getTree === 'function') {
+      tree = await new Promise((resolve, reject) => {
+        chrome.bookmarks.getTree((t) => {
+          if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+          else resolve(t);
+        });
       });
-    });
+    } else {
+      const { DEMO_BOOKMARK_TREE } = await import('./utils/demoData.js');
+      tree = [DEMO_BOOKMARK_TREE];
+    }
 
     const bookmarks = [];
     let totalFolders = 0;

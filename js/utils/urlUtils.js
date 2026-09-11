@@ -97,7 +97,8 @@ export function cleanTrackingParameters(url) {
 export function normalizeUrlForDedupe(url) {
   if (!url) return '';
   try {
-    const parsed = new URL(url);
+    const cleaned = cleanTrackingParameters(url).cleanedUrl;
+    const parsed = new URL(cleaned);
     const host = parsed.hostname.toLowerCase().replace(/^www\./, '');
     const pathname = parsed.pathname.replace(/\/+$/, ''); // Remove trailing slashes
     const search = parsed.search;
