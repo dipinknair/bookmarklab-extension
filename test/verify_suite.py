@@ -13,6 +13,7 @@ import sys
 import os
 import json
 import re
+import struct
 from urllib.parse import urlparse, parse_qs, urlencode
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -57,6 +58,25 @@ def test_manifest():
     bg = manifest.get('background', {})
     assert_test(bg.get('service_worker') == 'background.js', "Background service worker configured")
     assert_test(bg.get('type') == 'module', "Background service worker type is module")
+
+    # Validate action and extension icons
+    icons_dict = manifest.get('icons', {})
+    action_icons = manifest.get('action', {}).get('default_icon', {})
+    for size_str in ['16', '32', '48', '128']:
+        size = int(size_str)
+        assert_test(size_str in icons_dict, f"manifest.icons has {size_str}px entry")
+        assert_test(size_str in action_icons, f"manifest.action.default_icon has {size_str}px entry")
+        icon_path = os.path.join(ROOT_DIR, icons_dict.get(size_str, ''))
+        assert_test(os.path.isfile(icon_path), f"Icon file exists: {icons_dict.get(size_str)}")
+        if os.path.isfile(icon_path):
+            with open(icon_path, 'rb') as img_f:
+                sig = img_f.read(8)
+                assert_test(sig == b'\x89PNG\r\n\x1a\n', f"{size_str}px icon has valid PNG signature")
+                img_f.read(4)  # chunk length
+                chunk_type = img_f.read(4)
+                assert_test(chunk_type == b'IHDR', f"{size_str}px icon starts with IHDR chunk")
+                w, h = struct.unpack('>II', img_f.read(8))
+                assert_test((w, h) == (size, size), f"{size_str}px icon dimensions match exact {size}x{size} (found {w}x{h})")
 
 def test_url_utils_logic():
     print("\n--- Testing URL Cleaning & Normalization Logic ---")
