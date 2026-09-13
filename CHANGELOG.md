@@ -6,7 +6,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 
 ---
 
-## Unreleased
+## [1.0.1] — 2026-09-12
 
 ### Added
 - **Cross-Browser Bookmark Import (#1)**:
