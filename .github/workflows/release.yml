@@ -21,7 +21,14 @@ jobs:
 
       - name: Verify release branch
         run: |
-          commit_branches=$(git branch -r --contains ${{ github.sha }})
+          # Ensure all remote branches are fetched and tracked
+          git fetch origin '+refs/heads/*:refs/remotes/origin/*'
+
+          # Resolve the actual commit SHA (works for both annotated and lightweight tags)
+          COMMIT_SHA=$(git rev-parse HEAD)
+          echo "Commit SHA: $COMMIT_SHA"
+
+          commit_branches=$(git branch -r --contains "$COMMIT_SHA")
           echo "Tag commit belongs to branches: $commit_branches"
 
           if echo "$commit_branches" | grep -E -q 'origin/main|origin/release'; then
