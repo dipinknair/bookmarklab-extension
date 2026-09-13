@@ -1,6 +1,6 @@
 /**
  * Netscape Bookmark HTML Parser
- * Parses standard Netscape Bookmark HTML files exported by Chrome, Firefox, Safari, Edge, Brave, etc.
+ * Parses standard Netscape Bookmark HTML files exported by Chromium and other desktop browsers.
  */
 
 export function parseBookmarkHTML(htmlString) {
@@ -88,7 +88,7 @@ export function parseBookmarkHTML(htmlString) {
     })).filter(bm => bm.url);
   }
 
-  // If Chrome/Safari/Firefox/Edge exported a "Bookmarks Bar" wrapper folder,
+  // If the exported file contains a "Bookmarks Bar" wrapper folder,
   // promote its contents directly to root so individual bookmarks and subfolders appear in exact order
   const barFolderIndex = rootChildren.findIndex(child => 
     child.type === 'folder' && 

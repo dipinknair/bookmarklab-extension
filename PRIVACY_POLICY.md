@@ -29,7 +29,7 @@ When you use the Backup or Export feature, an HTML, Markdown, or JSON file is ge
 
 ## Bookmark Import Feature
 
-When you import bookmarks from another browser (e.g. Safari, Firefox, Microsoft Edge, Arc, Chrome), files are selected locally via your operating system's file picker or dragged directly onto the workspace. BookmarkLab parses the file entirely in-memory using your browser's local `DOMParser` or `JSON.parse`. The contents of your imported files are never uploaded, sent over the network, or stored outside your local session.
+When you import bookmarks from another browser (using standard HTML or JSON export files), files are selected locally via your operating system's file picker or dragged directly onto the workspace. BookmarkLab parses the file entirely in-memory using your browser's local `DOMParser` or `JSON.parse`. The contents of your imported files are never uploaded, sent over the network, or stored outside your local session.
 
 ## Third Parties
 

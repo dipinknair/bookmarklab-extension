@@ -10,7 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 
 ### Added
 - **Cross-Browser Bookmark Import (#1)**:
-  - Added support for importing bookmarks exported from **Safari, Firefox, Microsoft Edge, Arc Browser, Brave, Opera, and Google Chrome**.
+  - Added support for importing bookmarks exported from other browsers via standard HTML or JSON backup files.
   - Supports both standard Netscape HTML (`.html`, `.htm`) and Chromium JSON (`.json`) formats.
   - Three distinct destination strategies:
     - **Dedicated Folder (Default)**: Stages imported hierarchy inside an isolated `Imported - [Date]` folder to protect existing bookmark structure.
@@ -72,4 +72,4 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 - Undo and redo support for all edit operations.
 - Drag-and-drop folder tree with sidebar resize.
 - Inspector panel for editing bookmark title, URL, and parent folder.
-- Support for Chrome, Edge, Brave, and other Chromium-based browsers.
+- Support for Chrome and other Chromium-based browsers.

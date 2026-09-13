@@ -55,9 +55,9 @@ BookmarkLab is designed following modern software engineering principles:
 │     Chrome API Bridge     │             │       Format Parsers      │
 │   (chromeBookmarks.js)    │             │  (htmlParser / jsonParser │
 │ • Tree translation        │             │        / exporter)        │
-│ • Safe batch sync engine  │             │ • Cross-Browser Import:   │
-│ • Hierarchical `idMap`    │             │   Safari, Firefox, Edge,  │
-│   creation resolution     │             │   Arc, Chrome (HTML/JSON) │
+│ • Safe batch sync engine  │             │ • Universal Import:       │
+│ • Hierarchical `idMap`    │             │   Standard HTML and JSON  │
+│   creation resolution     │             │   files from any browser  │
 └───────────────────────────┘             │ • Clean Export (HTML/JSON)│
                                           └───────────────────────────┘
 ```
@@ -109,7 +109,7 @@ To guarantee that deeply nested hierarchies sync accurately without parent-not-f
 
 ### 3.2. Cross-Browser Import Pipeline & Isolation Strategies
 
-BookmarkLab supports importing bookmark files from **Safari, Firefox, Microsoft Edge, Arc, Brave, Opera, and Google Chrome**:
+BookmarkLab supports importing bookmark files exported from modern web browsers:
 
 - **Format Parsing**:
   - **Netscape Bookmark HTML (`htmlParser.js`)**: Parses standard `<DL><DT><H3>` and `<A HREF>` structures via the browser's native `DOMParser`, extracting folder hierarchies, timestamps (`ADD_DATE`), and URLs.

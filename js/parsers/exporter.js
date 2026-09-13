@@ -62,7 +62,7 @@ export function exportToNetscapeHTML(treeNode) {
     html += renderChildren(processedChildren, 1);
   } else {
     // Root level represents the Favorites/Bookmarks Bar itself.
-    // Firefox uses PERSONAL_TOOLBAR_FOLDER="true" on <H3> for Bookmarks Toolbar
+    // Standard Netscape HTML format uses PERSONAL_TOOLBAR_FOLDER="true" on <H3> for Bookmarks Toolbar
     // and UNFILED_BOOKMARKS_FOLDER="true" for Other Bookmarks.
     const addDate = Math.floor((treeNode.dateAdded || Date.now()) / 1000);
     const lastMod = Math.floor((treeNode.dateModified || Date.now()) / 1000);

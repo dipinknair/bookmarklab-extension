@@ -15,7 +15,7 @@ Instead of making live edits immediately to your browser database, BookmarkLab l
 
 ## Key Features
 
-- **Cross-Browser Import (Safari, Firefox, Edge, Arc & More)**: Import bookmark files (`.html`, `.json`) from any browser. Choose between creating an isolated **Dedicated Folder** (keeping your existing tree 100% clean), **Merging** into matching folders, or **Replacing** the workspace. Supports drag-and-drop file imports directly onto the window.
+- **Cross-Browser Bookmark Import**: Import standard bookmark backup files (`.html`, `.json`) exported from other browsers. Choose between creating an isolated **Dedicated Folder** (keeping your existing tree 100% clean), **Merging** into matching folders, or **Replacing** the workspace. Supports drag-and-drop file imports directly onto the window.
 - **Safe Stage-and-Commit Model**: Preview all proposed deletions, moves, renames, and creations before committing them to your browser.
 - **Clean Minimalist Design**: Modern, high-craft interface inspired by tools like Linear and Raycast, featuring calm neutral surfaces, crisp 1px borders, and solid pastel buttons with zero distracting neon glows.
 - **Drag-and-Drop Organization**: Reorganize bookmarks and folders effortlessly across the tree view and main workbench.
@@ -32,17 +32,16 @@ Instead of making live edits immediately to your browser database, BookmarkLab l
 
 ---
 
-## Cross-Browser Import Guide
+## Bookmark Import Guide
 
-BookmarkLab makes migrating bookmarks from any browser effortless and safe:
+BookmarkLab makes migrating bookmarks effortless and safe using industry-standard formats:
 
-| Browser | Export Format from Source Browser | Supported in BookmarkLab |
+| Format / Source Type | Standard Export Method | Supported in BookmarkLab |
 |---|---|:---:|
-| **Apple Safari** | File → Export → Bookmarks (`.html`) | ✅ Full Support |
-| **Mozilla Firefox** | Library (`Cmd+Shift+O`) → Import and Backup → Export Bookmarks to HTML (`.html`) | ✅ Full Support |
-| **Microsoft Edge** | Settings → Favorites → Manage Favorites → Export Favorites (`.html`) | ✅ Full Support |
-| **Arc Browser** | Help → Export Bookmarks HTML (`.html`) | ✅ Full Support |
-| **Google Chrome / Chromium / Brave / Opera** | Bookmark Manager (`Cmd+Option+B`) → Export Bookmarks (`.html` or `.json`) | ✅ Full Support |
+| **Standard Netscape Bookmark HTML (`.html`, `.htm`)** | File / Library → Export Bookmarks to HTML | ✅ Full Support |
+| **JSON Bookmark Backup (`.json`)** | Bookmark Manager → Export Bookmarks JSON | ✅ Full Support |
+| **Chromium-based Browsers** | Bookmark Manager (`Cmd+Option+B` / `Ctrl+Shift+O`) → Export Bookmarks | ✅ Full Support |
+| **Other Desktop Browsers** | Bookmarks / Favorites Menu → Export Bookmarks | ✅ Full Support |
 
 ### How Import Works:
 1. **Choose File**: Click **Import** in the header or drag-and-drop any `.html`, `.htm`, or `.json` file directly onto the dashboard window.
@@ -83,7 +82,7 @@ For in-depth technical details on the state machine, diff engine, and data flow,
 
 ### Option 1: Chrome Web Store (Recommended)
 
-Get [BookmarkLab on the Chrome Web Store](https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm). Compatible with Google Chrome, Microsoft Edge, Brave, and Chromium-based browsers.
+Get [BookmarkLab on the Chrome Web Store](https://chromewebstore.google.com/detail/bookmarklab/lppfdghjnnndidlpfddfngijmfbfkflm). Compatible with Google Chrome and other Chromium-based browsers.
 
 ### Option 2: From Source (Developer Mode)
 

@@ -50,7 +50,7 @@ jobs:
         run: |
           ZIP_NAME="bookmarklab-extension-${VERSION}.zip"
           echo "ZIP_NAME=${ZIP_NAME}" >> $GITHUB_ENV
-          zip -r "${ZIP_NAME}" . -x "*.git*" -x "*.github*" -x "*.DS_Store*" -x "*.zip*" -x ".gitignore"
+          zip -r "${ZIP_NAME}" . -x "*.git*" -x "*.github*" -x "*.DS_Store*" -x "*.zip*" -x ".gitignore" -x "*.md" -x "docs/*" -x "test/*" -x "store-assets/*"
 
       - name: Create GitHub Release & Upload Asset
         uses: softprops/action-gh-release@v2
