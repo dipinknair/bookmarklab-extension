@@ -1,0 +1,458 @@
+{
+  "appName": {
+    "message": "BookmarkLab",
+    "description": "Extension title"
+  },
+  "appDesc": {
+    "message": "Organizador visual de favoritos: remova duplicados, agrupe de forma inteligente e limpe URLs de rastreamento no Chrome.",
+    "description": "Extension description"
+  },
+  "appBrandTag": {
+    "message": "Gerenciador Interativo de Favoritos",
+    "description": "Brand subtitle tag"
+  },
+  "appLiveTag": {
+    "message": "Favoritos do Chrome Ativos",
+    "description": "Status tag in popup header"
+  },
+  "loadingBookmarks": {
+    "message": "Carregando favoritos do Chrome…",
+    "description": "Loading state message"
+  },
+  "themeChooseAccent": {
+    "message": "Escolher tema de destaque",
+    "description": "Tooltip for theme accent selector"
+  },
+  "themeSwitchMode": {
+    "message": "Alternar modo de tema",
+    "description": "Tooltip for theme dark/light switch"
+  },
+  "undo": {
+    "message": "Desfazer (Cmd+Z)",
+    "description": "Undo button tooltip"
+  },
+  "redo": {
+    "message": "Refazer (Cmd+Shift+Z)",
+    "description": "Redo button tooltip"
+  },
+  "btnImport": {
+    "message": "Importar",
+    "description": "Import button label"
+  },
+  "btnImportTooltip": {
+    "message": "Importar favoritos de um arquivo de backup HTML ou JSON",
+    "description": "Tooltip for import button"
+  },
+  "btnBackup": {
+    "message": "Backup",
+    "description": "Backup button label"
+  },
+  "btnBackupTooltip": {
+    "message": "Baixe seus favoritos atuais do Chrome como arquivo HTML antes de fazer alterações",
+    "description": "Tooltip for backup button"
+  },
+  "btnSync": {
+    "message": "Sincronizar Favoritos",
+    "description": "Sync button label"
+  },
+  "btnSyncTooltip": {
+    "message": "Revisar e aplicar as alterações preparadas ao seu navegador",
+    "description": "Tooltip for sync button"
+  },
+  "sidebarFolders": {
+    "message": "Pastas",
+    "description": "Sidebar title"
+  },
+  "btnNewFolder": {
+    "message": "Nova Pasta",
+    "description": "New folder button tooltip"
+  },
+  "btnExpandAll": {
+    "message": "Expandir Tudo",
+    "description": "Expand all button tooltip"
+  },
+  "btnCollapseAll": {
+    "message": "Recolher Tudo",
+    "description": "Collapse all button tooltip"
+  },
+  "btnDeleteFolder": {
+    "message": "Excluir Pasta Selecionada",
+    "description": "Delete folder button tooltip"
+  },
+  "smartViews": {
+    "message": "Visualizações Inteligentes",
+    "description": "Smart views section heading"
+  },
+  "viewAllBookmarks": {
+    "message": "Todos os Favoritos",
+    "description": "All bookmarks smart view"
+  },
+  "viewDuplicates": {
+    "message": "Duplicados",
+    "description": "Duplicates smart view"
+  },
+  "viewUncategorized": {
+    "message": "Sem Categoria",
+    "description": "Uncategorized smart view"
+  },
+  "viewDirtyUrls": {
+    "message": "Com Tags de Rastreamento",
+    "description": "Dirty URLs smart view"
+  },
+  "viewBrokenLinks": {
+    "message": "Links Inacessíveis",
+    "description": "Broken links smart view"
+  },
+  "searchPlaceholder": {
+    "message": "Buscar por título, URL, tag ou domínio…",
+    "description": "Search input placeholder"
+  },
+  "btnAutoCluster": {
+    "message": "Agrupar Automaticamente",
+    "description": "Auto cluster button label"
+  },
+  "btnAutoClusterTooltip": {
+    "message": "Organizar automaticamente em pastas por domínio ou assunto",
+    "description": "Auto cluster button tooltip"
+  },
+  "btnFindDuplicates": {
+    "message": "Localizar Duplicados",
+    "description": "Find duplicates button label"
+  },
+  "btnFindDuplicatesTooltip": {
+    "message": "Encontrar e remover favoritos duplicados",
+    "description": "Find duplicates button tooltip"
+  },
+  "btnCheckLinks": {
+    "message": "Verificar Links",
+    "description": "Check links button label"
+  },
+  "btnCheckLinksTooltip": {
+    "message": "Verificar se todos os links estão acessíveis",
+    "description": "Check links button tooltip"
+  },
+  "btnCleanTracking": {
+    "message": "Limpar Rastreamento",
+    "description": "Clean tracking button label"
+  },
+  "btnCleanTrackingTooltip": {
+    "message": "Remover parâmetros utm_*, fbclid, gclid de todas as URLs",
+    "description": "Clean tracking button tooltip"
+  },
+  "viewGrid": {
+    "message": "Visualização em Grade",
+    "description": "Grid view tooltip"
+  },
+  "viewList": {
+    "message": "Visualização em Lista",
+    "description": "List view tooltip"
+  },
+  "batchMove": {
+    "message": "Mover para…",
+    "description": "Batch move button"
+  },
+  "batchTag": {
+    "message": "Adicionar Tag",
+    "description": "Batch tag button"
+  },
+  "batchDelete": {
+    "message": "Excluir Selecionados",
+    "description": "Batch delete button"
+  },
+  "loadErrorTitle": {
+    "message": "Não foi possível carregar os favoritos",
+    "description": "Error banner title"
+  },
+  "loadErrorDesc": {
+    "message": "Certifique-se de que esta página está aberta na extensão BookmarkLab (e não como uma página web comum).",
+    "description": "Error banner description"
+  },
+  "btnRetry": {
+    "message": "Tentar Novamente",
+    "description": "Retry button"
+  },
+  "btnLoadDemo": {
+    "message": "Carregar Favoritos de Demonstração",
+    "description": "Load demo button"
+  },
+  "btnLoadDemoTooltip": {
+    "message": "Explorar o BookmarkLab com favoritos de exemplo",
+    "description": "Load demo button tooltip"
+  },
+  "inspectorTitle": {
+    "message": "Detalhes do Item",
+    "description": "Inspector panel heading"
+  },
+  "inspectorEmpty": {
+    "message": "Selecione um favorito ou pasta para ver e editar detalhes.",
+    "description": "Inspector empty state text"
+  },
+  "modalSyncTitle": {
+    "message": "Revisar Alterações Antes de Sincronizar",
+    "description": "Sync modal title"
+  },
+  "modalSyncDesc": {
+    "message": "As seguintes alterações serão aplicadas aos seus favoritos do Chrome. Considere criar um backup antes de prosseguir.",
+    "description": "Sync modal description"
+  },
+  "btnApplyChanges": {
+    "message": "Aplicar Alterações",
+    "description": "Apply changes button"
+  },
+  "btnCancel": {
+    "message": "Cancelar",
+    "description": "Cancel button"
+  },
+  "btnClose": {
+    "message": "Fechar",
+    "description": "Close button"
+  },
+  "modalDedupeTitle": {
+    "message": "Resolução de Favoritos Duplicados",
+    "description": "Duplicate resolver modal title"
+  },
+  "btnAutoResolveDedupe": {
+    "message": "Manter Mais Antigo e Remover Duplicados",
+    "description": "Auto resolve button in dedupe modal"
+  },
+  "modalClusterTitle": {
+    "message": "Agrupamento Automático por Categoria",
+    "description": "Cluster modal title"
+  },
+  "modalClusterDesc": {
+    "message": "Analisa nomes de domínio e palavras-chave para organizar favoritos em pastas automaticamente.",
+    "description": "Cluster modal description"
+  },
+  "clusterStrategy": {
+    "message": "Estratégia de Agrupamento:",
+    "description": "Cluster strategy label"
+  },
+  "clusterByDomain": {
+    "message": "Agrupar por Domínio",
+    "description": "Cluster by domain option"
+  },
+  "clusterByDomainHelp": {
+    "message": "Cria pastas como \"GitHub\", \"YouTube\", \"StackOverflow\".",
+    "description": "Cluster by domain help text"
+  },
+  "clusterByCategory": {
+    "message": "Agrupar por Tópico Inteligente",
+    "description": "Cluster by topic option"
+  },
+  "clusterByCategoryHelp": {
+    "message": "Cria pastas: Ferramentas Dev, Mídia, Pesquisa, Redes Sociais, Compras, Finanças, Notícias.",
+    "description": "Cluster by topic help text"
+  },
+  "clusterOnlyUncategorized": {
+    "message": "Agrupar apenas favoritos atualmente na Raiz / Sem Categoria",
+    "description": "Cluster uncategorized checkbox label"
+  },
+  "btnRunCluster": {
+    "message": "Executar Agrupamento",
+    "description": "Run auto-cluster button"
+  },
+  "modalCleanTitle": {
+    "message": "Limpar Parâmetros de Rastreamento",
+    "description": "Clean tracking modal title"
+  },
+  "modalCleanDesc": {
+    "message": "Os seguintes favoritos possuem parâmetros de rastreamento (utm_*, fbclid, gclid, etc.) que serão removidos:",
+    "description": "Clean tracking modal description"
+  },
+  "selectAll": {
+    "message": "Selecionar Tudo / Desmarcar Tudo",
+    "description": "Select all label"
+  },
+  "btnStripParameters": {
+    "message": "Remover Parâmetros das URLs Selecionadas",
+    "description": "Strip parameters button"
+  },
+  "modalMoveTitle": {
+    "message": "Mover Favoritos",
+    "description": "Move modal title"
+  },
+  "modalMoveDesc": {
+    "message": "Selecione a pasta de destino para os itens selecionados:",
+    "description": "Move modal description"
+  },
+  "destFolderLabel": {
+    "message": "Pasta de Destino",
+    "description": "Destination folder label"
+  },
+  "destFolderCreateLabel": {
+    "message": "Ou crie uma nova pasta dentro do destino:",
+    "description": "Create inside destination label"
+  },
+  "newFolderPlaceholder": {
+    "message": "Nome da nova pasta...",
+    "description": "New folder input placeholder"
+  },
+  "btnCreate": {
+    "message": "+ Criar",
+    "description": "Create button"
+  },
+  "btnMoveItems": {
+    "message": "Mover Itens",
+    "description": "Move items button"
+  },
+  "modalTagTitle": {
+    "message": "Adicionar Tags aos Favoritos",
+    "description": "Tag modal title"
+  },
+  "modalTagDesc": {
+    "message": "Adicione tag(s) aos itens selecionados:",
+    "description": "Tag modal description"
+  },
+  "tagInputLabel": {
+    "message": "Tags (separadas por vírgula)",
+    "description": "Tags input label"
+  },
+  "tagPlaceholder": {
+    "message": "ex: dev, artigo, referencia",
+    "description": "Tag placeholder"
+  },
+  "btnAddTags": {
+    "message": "Adicionar Tag(s)",
+    "description": "Add tags button"
+  },
+  "modalImportTitle": {
+    "message": "Importar Favoritos",
+    "description": "Import modal title"
+  },
+  "importDestLabel": {
+    "message": "Destino",
+    "description": "Import destination label"
+  },
+  "importDestFolder": {
+    "message": "Pasta Dedicada (Recomendado)",
+    "description": "Import dedicated folder option"
+  },
+  "importDestFolderHelp": {
+    "message": "Mantém os favoritos existentes intocados. Coloca todos os links importados em uma nova pasta.",
+    "description": "Import dedicated folder help"
+  },
+  "importDestMerge": {
+    "message": "Mesclar com Pastas Existentes",
+    "description": "Import merge option"
+  },
+  "importDestMergeHelp": {
+    "message": "Combina pastas com o mesmo nome na raiz e adiciona os itens.",
+    "description": "Import merge help"
+  },
+  "importDestReplace": {
+    "message": "Substituir Espaço de Trabalho Atual",
+    "description": "Import replace option"
+  },
+  "importDestReplaceHelp": {
+    "message": "Substitui toda a árvore de favoritos atual pelo arquivo importado.",
+    "description": "Import replace help"
+  },
+  "importCleanTracking": {
+    "message": "Remover automaticamente parâmetros de rastreamento (utm_*, fbclid, etc.)",
+    "description": "Import clean tracking option"
+  },
+  "importOpenDedupe": {
+    "message": "Localizar e resolver duplicados logo após a importação",
+    "description": "Import dedupe option"
+  },
+  "btnConfirmImport": {
+    "message": "Importar Favoritos",
+    "description": "Confirm import button"
+  },
+  "popupTotal": {
+    "message": "Total de Favoritos",
+    "description": "Popup total bookmarks stat label"
+  },
+  "popupFolders": {
+    "message": "Pastas",
+    "description": "Popup folders stat label"
+  },
+  "popupDuplicates": {
+    "message": "Duplicados",
+    "description": "Popup duplicates stat label"
+  },
+  "popupTracking": {
+    "message": "Tags de Rastreamento",
+    "description": "Popup tracking stat label"
+  },
+  "popupQuickActions": {
+    "message": "Ações Rápidas",
+    "description": "Popup quick actions section header"
+  },
+  "popupQuickDedupeTitle": {
+    "message": "Localizar e Remover Duplicados",
+    "description": "Popup quick dedupe title"
+  },
+  "popupQuickDedupeSub": {
+    "message": "Detectar todos os favoritos duplicados",
+    "description": "Popup quick dedupe subtitle"
+  },
+  "popupQuickClusterTitle": {
+    "message": "Agrupar Automaticamente por Categoria",
+    "description": "Popup quick cluster title"
+  },
+  "popupQuickClusterSub": {
+    "message": "Organizar favoritos em pastas",
+    "description": "Popup quick cluster subtitle"
+  },
+  "popupQuickCleanTitle": {
+    "message": "Limpar URLs de Rastreamento",
+    "description": "Popup quick clean title"
+  },
+  "popupQuickCleanSub": {
+    "message": "Remover parâmetros utm_*, fbclid, gclid",
+    "description": "Popup quick clean subtitle"
+  },
+  "popupOpenDashboard": {
+    "message": "Abrir Painel Completo",
+    "description": "Popup button to launch main tab"
+  },
+  "btnKeepThis": {
+    "message": "Manter este, excluir outros",
+    "description": "Button in duplicate resolver item"
+  },
+  "diffTagOriginal": {
+    "message": "Original",
+    "description": "Tag for original URL in clean diff modal"
+  },
+  "diffTagCleaned": {
+    "message": "Limpo",
+    "description": "Tag for cleaned URL in clean diff modal"
+  },
+  "toastDuplicatesCleaned": {
+    "message": "Nenhum duplicado encontrado — seus favoritos estão limpos!",
+    "description": "Toast when no duplicates found"
+  },
+  "toastUrlsClean": {
+    "message": "Todos os URLs estão limpos — nenhum parâmetro de rastreamento encontrado!",
+    "description": "Toast when no dirty URLs found"
+  },
+  "toastClusterSuccess": {
+    "message": "Favoritos agrupados automaticamente em pastas por categoria!",
+    "description": "Toast after auto-clustering completes"
+  },
+  "inspectorLabelTitle": {
+    "message": "Título",
+    "description": "Inspector title label"
+  },
+  "inspectorLabelUrl": {
+    "message": "URL",
+    "description": "Inspector URL label"
+  },
+  "inspectorLabelFolder": {
+    "message": "Local da pasta",
+    "description": "Inspector folder location label"
+  },
+  "inspectorStripParams": {
+    "message": "⚡ Remover parâmetros de consulta de rastreamento",
+    "description": "Inspector strip tracking parameters button"
+  },
+  "inspectorStagedNotice": {
+    "message": "As edições estão preparadas — clique em Sincronizar Favoritos na barra de ferramentas para aplicar.",
+    "description": "Inspector notice about staged edits"
+  },
+  "sourceCode": {
+    "message": "Código Fonte",
+    "description": "Source code button label"
+  }
+}

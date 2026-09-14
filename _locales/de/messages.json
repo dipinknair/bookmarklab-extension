@@ -1,0 +1,458 @@
+{
+  "appName": {
+    "message": "BookmarkLab",
+    "description": "Extension title"
+  },
+  "appDesc": {
+    "message": "Live-Lesezeichen-Manager: Duplikate entfernen, intelligent gruppieren, Tracking-URLs bereinigen und Lesezeichen in Chrome organisieren.",
+    "description": "Extension description"
+  },
+  "appBrandTag": {
+    "message": "Interaktiver Lesezeichen-Manager",
+    "description": "Brand subtitle tag"
+  },
+  "appLiveTag": {
+    "message": "Live Chrome-Lesezeichen",
+    "description": "Status tag in popup header"
+  },
+  "loadingBookmarks": {
+    "message": "Chrome-Lesezeichen werden geladen…",
+    "description": "Loading state message"
+  },
+  "themeChooseAccent": {
+    "message": "Akzentfarbe wählen",
+    "description": "Tooltip for theme accent selector"
+  },
+  "themeSwitchMode": {
+    "message": "Design-Modus wechseln",
+    "description": "Tooltip for theme dark/light switch"
+  },
+  "undo": {
+    "message": "Rückgängig (Cmd+Z)",
+    "description": "Undo button tooltip"
+  },
+  "redo": {
+    "message": "Wiederholen (Cmd+Shift+Z)",
+    "description": "Redo button tooltip"
+  },
+  "btnImport": {
+    "message": "Importieren",
+    "description": "Import button label"
+  },
+  "btnImportTooltip": {
+    "message": "Lesezeichen aus einer HTML- oder JSON-Sicherungsdatei importieren",
+    "description": "Tooltip for import button"
+  },
+  "btnBackup": {
+    "message": "Sichern",
+    "description": "Backup button label"
+  },
+  "btnBackupTooltip": {
+    "message": "Laden Sie Ihre aktuellen Chrome-Lesezeichen als HTML-Sicherung herunter, bevor Sie Änderungen vornehmen",
+    "description": "Tooltip for backup button"
+  },
+  "btnSync": {
+    "message": "Lesezeichen synchronisieren",
+    "description": "Sync button label"
+  },
+  "btnSyncTooltip": {
+    "message": "Vorbereitete Änderungen überprüfen und im Browser anwenden",
+    "description": "Tooltip for sync button"
+  },
+  "sidebarFolders": {
+    "message": "Ordner",
+    "description": "Sidebar title"
+  },
+  "btnNewFolder": {
+    "message": "Neuer Ordner",
+    "description": "New folder button tooltip"
+  },
+  "btnExpandAll": {
+    "message": "Alle aufklappen",
+    "description": "Expand all button tooltip"
+  },
+  "btnCollapseAll": {
+    "message": "Alle zuklappen",
+    "description": "Collapse all button tooltip"
+  },
+  "btnDeleteFolder": {
+    "message": "Ausgewählten Ordner löschen",
+    "description": "Delete folder button tooltip"
+  },
+  "smartViews": {
+    "message": "Intelligente Ansichten",
+    "description": "Smart views section heading"
+  },
+  "viewAllBookmarks": {
+    "message": "Alle Lesezeichen",
+    "description": "All bookmarks smart view"
+  },
+  "viewDuplicates": {
+    "message": "Duplikate",
+    "description": "Duplicates smart view"
+  },
+  "viewUncategorized": {
+    "message": "Unkategorisiert",
+    "description": "Uncategorized smart view"
+  },
+  "viewDirtyUrls": {
+    "message": "Mit Tracking-Tags",
+    "description": "Dirty URLs smart view"
+  },
+  "viewBrokenLinks": {
+    "message": "Nicht erreichbare Links",
+    "description": "Broken links smart view"
+  },
+  "searchPlaceholder": {
+    "message": "Nach Titel, URL, Tag oder Domain suchen…",
+    "description": "Search input placeholder"
+  },
+  "btnAutoCluster": {
+    "message": "Auto-Gruppieren",
+    "description": "Auto cluster button label"
+  },
+  "btnAutoClusterTooltip": {
+    "message": "Automatisch nach Domain oder Thema in Ordner einsortieren",
+    "description": "Auto cluster button tooltip"
+  },
+  "btnFindDuplicates": {
+    "message": "Duplikate finden",
+    "description": "Find duplicates button label"
+  },
+  "btnFindDuplicatesTooltip": {
+    "message": "Doppelte Lesezeichen finden und entfernen",
+    "description": "Find duplicates button tooltip"
+  },
+  "btnCheckLinks": {
+    "message": "Links prüfen",
+    "description": "Check links button label"
+  },
+  "btnCheckLinksTooltip": {
+    "message": "Prüfen, ob alle Lesezeichen-Links erreichbar sind",
+    "description": "Check links button tooltip"
+  },
+  "btnCleanTracking": {
+    "message": "Tracking bereinigen",
+    "description": "Clean tracking button label"
+  },
+  "btnCleanTrackingTooltip": {
+    "message": "utm_*, fbclid, gclid Tracking-Parameter aus allen URLs entfernen",
+    "description": "Clean tracking button tooltip"
+  },
+  "viewGrid": {
+    "message": "Rasteransicht",
+    "description": "Grid view tooltip"
+  },
+  "viewList": {
+    "message": "Listenansicht",
+    "description": "List view tooltip"
+  },
+  "batchMove": {
+    "message": "Verschieben nach…",
+    "description": "Batch move button"
+  },
+  "batchTag": {
+    "message": "Tag hinzufügen",
+    "description": "Batch tag button"
+  },
+  "batchDelete": {
+    "message": "Ausgewählte löschen",
+    "description": "Batch delete button"
+  },
+  "loadErrorTitle": {
+    "message": "Lesezeichen konnten nicht geladen werden",
+    "description": "Error banner title"
+  },
+  "loadErrorDesc": {
+    "message": "Stellen Sie sicher, dass diese Seite innerhalb der BookmarkLab-Erweiterung läuft (nicht als normale Webseite).",
+    "description": "Error banner description"
+  },
+  "btnRetry": {
+    "message": "Wiederholen",
+    "description": "Retry button"
+  },
+  "btnLoadDemo": {
+    "message": "Demo-Lesezeichen laden",
+    "description": "Load demo button"
+  },
+  "btnLoadDemoTooltip": {
+    "message": "BookmarkLab mit Beispieldaten ausprobieren",
+    "description": "Load demo button tooltip"
+  },
+  "inspectorTitle": {
+    "message": "Element-Details",
+    "description": "Inspector panel heading"
+  },
+  "inspectorEmpty": {
+    "message": "Wählen Sie ein Lesezeichen oder einen Ordner aus, um Details anzuzeigen und zu bearbeiten.",
+    "description": "Inspector empty state text"
+  },
+  "modalSyncTitle": {
+    "message": "Änderungen vor dem Synchronisieren überprüfen",
+    "description": "Sync modal title"
+  },
+  "modalSyncDesc": {
+    "message": "Die folgenden Änderungen werden auf Ihre Chrome-Lesezeichen angewendet. Erstellen Sie bei Bedarf vorher ein Backup.",
+    "description": "Sync modal description"
+  },
+  "btnApplyChanges": {
+    "message": "Änderungen anwenden",
+    "description": "Apply changes button"
+  },
+  "btnCancel": {
+    "message": "Abbrechen",
+    "description": "Cancel button"
+  },
+  "btnClose": {
+    "message": "Schließen",
+    "description": "Close button"
+  },
+  "modalDedupeTitle": {
+    "message": "Duplikate bereinigen",
+    "description": "Duplicate resolver modal title"
+  },
+  "btnAutoResolveDedupe": {
+    "message": "Ältestes behalten & Duplikate entfernen",
+    "description": "Auto resolve button in dedupe modal"
+  },
+  "modalClusterTitle": {
+    "message": "Automatische Kategorie-Gruppierung",
+    "description": "Cluster modal title"
+  },
+  "modalClusterDesc": {
+    "message": "Analysiert Domainnamen und Stichwörter, um Lesezeichen automatisch in Themenordner zu sortieren.",
+    "description": "Cluster modal description"
+  },
+  "clusterStrategy": {
+    "message": "Gruppierungsstrategie:",
+    "description": "Cluster strategy label"
+  },
+  "clusterByDomain": {
+    "message": "Nach Domain gruppieren",
+    "description": "Cluster by domain option"
+  },
+  "clusterByDomainHelp": {
+    "message": "Erstellt Ordner wie \"GitHub\", \"YouTube\", \"StackOverflow\".",
+    "description": "Cluster by domain help text"
+  },
+  "clusterByCategory": {
+    "message": "Nach intelligentem Thema gruppieren",
+    "description": "Cluster by topic option"
+  },
+  "clusterByCategoryHelp": {
+    "message": "Erstellt Ordner: Entwickler-Tools, Medien, Recherche, Soziales, Shopping, Finanzen, Nachrichten.",
+    "description": "Cluster by topic help text"
+  },
+  "clusterOnlyUncategorized": {
+    "message": "Nur Lesezeichen gruppieren, die sich im Hauptverzeichnis / Unkategorisiert befinden",
+    "description": "Cluster uncategorized checkbox label"
+  },
+  "btnRunCluster": {
+    "message": "Gruppierung starten",
+    "description": "Run auto-cluster button"
+  },
+  "modalCleanTitle": {
+    "message": "Tracking-Parameter entfernen",
+    "description": "Clean tracking modal title"
+  },
+  "modalCleanDesc": {
+    "message": "Die folgenden Lesezeichen enthalten Tracking-Parameter (utm_*, fbclid, gclid usw.), die entfernt werden:",
+    "description": "Clean tracking modal description"
+  },
+  "selectAll": {
+    "message": "Alle auswählen / Alle abwählen",
+    "description": "Select all label"
+  },
+  "btnStripParameters": {
+    "message": "Parameter aus ausgewählten URLs entfernen",
+    "description": "Strip parameters button"
+  },
+  "modalMoveTitle": {
+    "message": "Lesezeichen verschieben",
+    "description": "Move modal title"
+  },
+  "modalMoveDesc": {
+    "message": "Wählen Sie den Zielordner für die ausgewählten Elemente:",
+    "description": "Move modal description"
+  },
+  "destFolderLabel": {
+    "message": "Zielordner",
+    "description": "Destination folder label"
+  },
+  "destFolderCreateLabel": {
+    "message": "Oder neuen Ordner im Ziel erstellen:",
+    "description": "Create inside destination label"
+  },
+  "newFolderPlaceholder": {
+    "message": "Neuer Ordnername...",
+    "description": "New folder input placeholder"
+  },
+  "btnCreate": {
+    "message": "+ Erstellen",
+    "description": "Create button"
+  },
+  "btnMoveItems": {
+    "message": "Elemente verschieben",
+    "description": "Move items button"
+  },
+  "modalTagTitle": {
+    "message": "Tags zu Lesezeichen hinzufügen",
+    "description": "Tag modal title"
+  },
+  "modalTagDesc": {
+    "message": "Tag(s) zu den ausgewählten Elementen hinzufügen:",
+    "description": "Tag modal description"
+  },
+  "tagInputLabel": {
+    "message": "Tags (durch Komma getrennt)",
+    "description": "Tags input label"
+  },
+  "tagPlaceholder": {
+    "message": "z. B. dev, artikel, referenz",
+    "description": "Tag placeholder"
+  },
+  "btnAddTags": {
+    "message": "Tag(s) hinzufügen",
+    "description": "Add tags button"
+  },
+  "modalImportTitle": {
+    "message": "Lesezeichen importieren",
+    "description": "Import modal title"
+  },
+  "importDestLabel": {
+    "message": "Ziel",
+    "description": "Import destination label"
+  },
+  "importDestFolder": {
+    "message": "Eigener Ordner (Empfohlen)",
+    "description": "Import dedicated folder option"
+  },
+  "importDestFolderHelp": {
+    "message": "Bestehende Lesezeichen bleiben unberührt. Alle importierten Links werden in einem neuen Ordner abgelegt.",
+    "description": "Import dedicated folder help"
+  },
+  "importDestMerge": {
+    "message": "In bestehende Ordner zusammenführen",
+    "description": "Import merge option"
+  },
+  "importDestMergeHelp": {
+    "message": "Führt passende Ordnernamen auf oberster Ebene zusammen und fügt Elemente an.",
+    "description": "Import merge help"
+  },
+  "importDestReplace": {
+    "message": "Aktuellen Arbeitsbereich ersetzen",
+    "description": "Import replace option"
+  },
+  "importDestReplaceHelp": {
+    "message": "Überschreibt den aktuellen Arbeitsbereich mit der importierten Datei.",
+    "description": "Import replace help"
+  },
+  "importCleanTracking": {
+    "message": "Tracking-Parameter (utm_*, fbclid etc.) automatisch entfernen",
+    "description": "Import clean tracking option"
+  },
+  "importOpenDedupe": {
+    "message": "Duplikate direkt nach dem Import suchen und auflösen",
+    "description": "Import dedupe option"
+  },
+  "btnConfirmImport": {
+    "message": "Lesezeichen importieren",
+    "description": "Confirm import button"
+  },
+  "popupTotal": {
+    "message": "Lesezeichen gesamt",
+    "description": "Popup total bookmarks stat label"
+  },
+  "popupFolders": {
+    "message": "Ordner",
+    "description": "Popup folders stat label"
+  },
+  "popupDuplicates": {
+    "message": "Duplikate",
+    "description": "Popup duplicates stat label"
+  },
+  "popupTracking": {
+    "message": "Tracking-Tags",
+    "description": "Popup tracking stat label"
+  },
+  "popupQuickActions": {
+    "message": "Schnellaktionen",
+    "description": "Popup quick actions section header"
+  },
+  "popupQuickDedupeTitle": {
+    "message": "Duplikate finden & entfernen",
+    "description": "Popup quick dedupe title"
+  },
+  "popupQuickDedupeSub": {
+    "message": "Alle doppelten Lesezeichen erkennen",
+    "description": "Popup quick dedupe subtitle"
+  },
+  "popupQuickClusterTitle": {
+    "message": "Auto-Kategorisierung",
+    "description": "Popup quick cluster title"
+  },
+  "popupQuickClusterSub": {
+    "message": "Lesezeichen in Ordner organisieren",
+    "description": "Popup quick cluster subtitle"
+  },
+  "popupQuickCleanTitle": {
+    "message": "Tracking-URLs bereinigen",
+    "description": "Popup quick clean title"
+  },
+  "popupQuickCleanSub": {
+    "message": "utm_*, fbclid, gclid Parameter entfernen",
+    "description": "Popup quick clean subtitle"
+  },
+  "popupOpenDashboard": {
+    "message": "Vollständiges Dashboard öffnen",
+    "description": "Popup button to launch main tab"
+  },
+  "btnKeepThis": {
+    "message": "Diesen behalten, andere löschen",
+    "description": "Button in duplicate resolver item"
+  },
+  "diffTagOriginal": {
+    "message": "Original",
+    "description": "Tag for original URL in clean diff modal"
+  },
+  "diffTagCleaned": {
+    "message": "Bereinigt",
+    "description": "Tag for cleaned URL in clean diff modal"
+  },
+  "toastDuplicatesCleaned": {
+    "message": "Keine Duplikate gefunden — Ihre Lesezeichen sind sauber!",
+    "description": "Toast when no duplicates found"
+  },
+  "toastUrlsClean": {
+    "message": "Alle URLs sind sauber — keine Tracking-Parameter gefunden!",
+    "description": "Toast when no dirty URLs found"
+  },
+  "toastClusterSuccess": {
+    "message": "Lesezeichen wurden automatisch in Kategorieordner einsortiert!",
+    "description": "Toast after auto-clustering completes"
+  },
+  "inspectorLabelTitle": {
+    "message": "Titel",
+    "description": "Inspector title label"
+  },
+  "inspectorLabelUrl": {
+    "message": "URL",
+    "description": "Inspector URL label"
+  },
+  "inspectorLabelFolder": {
+    "message": "Ordner-Speicherort",
+    "description": "Inspector folder location label"
+  },
+  "inspectorStripParams": {
+    "message": "⚡ Tracking-Abfrageparameter entfernen",
+    "description": "Inspector strip tracking parameters button"
+  },
+  "inspectorStagedNotice": {
+    "message": "Änderungen sind zwischengespeichert — klicken Sie in der Symbolleiste auf Lesezeichen synchronisieren.",
+    "description": "Inspector notice about staged edits"
+  },
+  "sourceCode": {
+    "message": "Quellcode",
+    "description": "Source code button label"
+  }
+}

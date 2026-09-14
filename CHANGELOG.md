@@ -6,6 +6,25 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 
 ---
 
+## [1.1.1] - Unreleased
+
+### Added
+- **Full Internationalization (i18n) & Multi-Language Support**:
+  - Native Chrome extension internationalization via `_locales/` architecture with `"default_locale": "en"`.
+  - Complete translations (114 keys with 100% key parity) across 6 languages:
+    - **English (`en`)** — Default Base Locale
+    - **Spanish (`es`)** — Español
+    - **Portuguese (`pt_BR` & `pt`)** — Português
+    - **German (`de`)** — Deutsch
+    - **French (`fr`)** — Français
+    - **Simplified Chinese (`zh_CN`)** — 简体中文
+  - Lightweight, safe runtime localization helper (`js/utils/i18n.js`) with fallback safety for offline/standalone previews.
+  - Declarative DOM localization engine supporting `data-i18n`, `data-i18n-title`, `data-i18n-placeholder`, and `data-i18n-aria-label`.
+  - Localized store listing copy across all 6 target languages in `store-assets/translations/` and `docs/translations/`.
+  - Automated test coverage in `test/verify_suite.py` validating 100% key parity across all locales and manifest integration.
+
+---
+
 ## [1.0.1] — 2026-09-12
 
 ### Added

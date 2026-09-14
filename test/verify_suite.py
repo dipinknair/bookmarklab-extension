@@ -38,8 +38,17 @@ def test_manifest():
     with open(manifest_path, 'r', encoding='utf-8') as f:
         manifest = json.load(f)
 
-    assert_test(manifest.get('manifest_version') == 3, "Manifest version is 3")
-    assert_test(manifest.get('name') == "BookmarkLab", "Extension name is BookmarkLab")
+    manifest_name = manifest.get('name')
+    if manifest_name == '__MSG_appName__':
+        en_loc = os.path.join(ROOT_DIR, '_locales', 'en', 'messages.json')
+        assert_test(os.path.isfile(en_loc), "_locales/en/messages.json exists")
+        with open(en_loc, 'r', encoding='utf-8') as f:
+            en_msgs = json.load(f)
+        resolved_name = en_msgs.get('appName', {}).get('message')
+        assert_test(resolved_name == "BookmarkLab", f"Extension name resolves to BookmarkLab from default locale ('{resolved_name}')")
+        assert_test(manifest.get('default_locale') == "en", "Default locale is 'en'")
+    else:
+        assert_test(manifest_name == "BookmarkLab", "Extension name is BookmarkLab")
 
     # Validate Chrome version format: 1-4 dot-separated integers between 0 and 65535
     ver = manifest.get('version', '')
@@ -348,6 +357,42 @@ def test_bookmark_import():
     assert_test(len(simulated_chrome_tree['1']) == 1, "Root received single top-level folder")
     assert_test(id_map.get('folder-2') in simulated_chrome_tree[id_map['folder-1']], "Subfolder nested inside parent Chrome folder")
 
+def test_i18n_locales():
+    print("\n--- Testing Internationalization (i18n) & Locales ---")
+    locales_dir = os.path.join(ROOT_DIR, '_locales')
+    assert_test(os.path.isdir(locales_dir), "_locales directory exists")
+
+    required_locales = ['en', 'es', 'pt_BR', 'de', 'fr', 'zh_CN']
+    locale_messages = {}
+
+    for loc in required_locales:
+        loc_path = os.path.join(locales_dir, loc, 'messages.json')
+        assert_test(os.path.isfile(loc_path), f"Locale '{loc}' messages.json exists")
+        try:
+            with open(loc_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            assert_test(isinstance(data, dict) and len(data) > 0, f"Locale '{loc}' has non-empty JSON message dictionary")
+            locale_messages[loc] = data
+        except Exception as e:
+            assert_test(False, f"Locale '{loc}' messages.json is valid JSON: {e}")
+
+    # Check key parity against English base locale
+    en_keys = set(locale_messages.get('en', {}).keys())
+    assert_test(len(en_keys) >= 50, f"English base locale contains comprehensive key catalog ({len(en_keys)} keys)")
+
+    for loc in ['es', 'pt_BR', 'de', 'fr', 'zh_CN']:
+        target_keys = set(locale_messages.get(loc, {}).keys())
+        missing = en_keys - target_keys
+        assert_test(len(missing) == 0, f"Locale '{loc}' has 100% key parity with base (missing: {list(missing)})")
+
+    # Check i18n utility module
+    i18n_js = os.path.join(ROOT_DIR, 'js', 'utils', 'i18n.js')
+    assert_test(os.path.isfile(i18n_js), "i18n.js exists")
+    with open(i18n_js, 'r', encoding='utf-8') as f:
+        i18n_content = f.read()
+    assert_test('export function t(' in i18n_content, "i18n.js exports t()")
+    assert_test('export function localizeDOM(' in i18n_content, "i18n.js exports localizeDOM()")
+
 def main():
     print("==================================================")
     print("BookmarkLab Extension Test Suite")
@@ -360,6 +405,7 @@ def main():
     test_undo_redo_invariants()
     test_theme_and_color_modes()
     test_bookmark_import()
+    test_i18n_locales()
 
     print("\n==================================================")
     print(f"Results: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")

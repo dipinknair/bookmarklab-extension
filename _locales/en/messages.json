@@ -1,0 +1,458 @@
+{
+  "appName": {
+    "message": "BookmarkLab",
+    "description": "Extension title"
+  },
+  "appDesc": {
+    "message": "Live browser bookmark organizer — deduplicate, auto-cluster, clean tracking URLs, and organize your bookmarks directly in Chrome.",
+    "description": "Extension description"
+  },
+  "appBrandTag": {
+    "message": "Interactive Bookmark Manager",
+    "description": "Brand subtitle tag"
+  },
+  "appLiveTag": {
+    "message": "Live Chrome Bookmarks",
+    "description": "Status tag in popup header"
+  },
+  "loadingBookmarks": {
+    "message": "Loading Chrome bookmarks…",
+    "description": "Loading state message"
+  },
+  "themeChooseAccent": {
+    "message": "Choose Accent Theme",
+    "description": "Tooltip for theme accent selector"
+  },
+  "themeSwitchMode": {
+    "message": "Switch Theme Mode",
+    "description": "Tooltip for theme dark/light switch"
+  },
+  "undo": {
+    "message": "Undo (Cmd+Z)",
+    "description": "Undo button tooltip"
+  },
+  "redo": {
+    "message": "Redo (Cmd+Shift+Z)",
+    "description": "Redo button tooltip"
+  },
+  "btnImport": {
+    "message": "Import",
+    "description": "Import button label"
+  },
+  "btnImportTooltip": {
+    "message": "Import bookmarks from an HTML or JSON backup file",
+    "description": "Tooltip for import button"
+  },
+  "btnBackup": {
+    "message": "Backup",
+    "description": "Backup button label"
+  },
+  "btnBackupTooltip": {
+    "message": "Download your current Chrome bookmarks as an HTML backup file — do this before making changes",
+    "description": "Tooltip for backup button"
+  },
+  "btnSync": {
+    "message": "Sync Bookmarks",
+    "description": "Sync button label"
+  },
+  "btnSyncTooltip": {
+    "message": "Review and apply your staged changes back to the browser",
+    "description": "Tooltip for sync button"
+  },
+  "sidebarFolders": {
+    "message": "Folders",
+    "description": "Sidebar title"
+  },
+  "btnNewFolder": {
+    "message": "New Folder",
+    "description": "New folder button tooltip"
+  },
+  "btnExpandAll": {
+    "message": "Expand All",
+    "description": "Expand all button tooltip"
+  },
+  "btnCollapseAll": {
+    "message": "Collapse All",
+    "description": "Collapse all button tooltip"
+  },
+  "btnDeleteFolder": {
+    "message": "Delete Selected Folder",
+    "description": "Delete folder button tooltip"
+  },
+  "smartViews": {
+    "message": "Smart Views",
+    "description": "Smart views section heading"
+  },
+  "viewAllBookmarks": {
+    "message": "All Bookmarks",
+    "description": "All bookmarks smart view"
+  },
+  "viewDuplicates": {
+    "message": "Duplicates",
+    "description": "Duplicates smart view"
+  },
+  "viewUncategorized": {
+    "message": "Uncategorized",
+    "description": "Uncategorized smart view"
+  },
+  "viewDirtyUrls": {
+    "message": "With Tracking Tags",
+    "description": "Dirty URLs smart view"
+  },
+  "viewBrokenLinks": {
+    "message": "Unreachable Links",
+    "description": "Broken links smart view"
+  },
+  "searchPlaceholder": {
+    "message": "Search by title, URL, tag or domain…",
+    "description": "Search input placeholder"
+  },
+  "btnAutoCluster": {
+    "message": "Auto-Cluster",
+    "description": "Auto cluster button label"
+  },
+  "btnAutoClusterTooltip": {
+    "message": "Auto-organize into folders by domain or topic",
+    "description": "Auto cluster button tooltip"
+  },
+  "btnFindDuplicates": {
+    "message": "Find Duplicates",
+    "description": "Find duplicates button label"
+  },
+  "btnFindDuplicatesTooltip": {
+    "message": "Find & remove duplicate bookmarks",
+    "description": "Find duplicates button tooltip"
+  },
+  "btnCheckLinks": {
+    "message": "Check Links",
+    "description": "Check links button label"
+  },
+  "btnCheckLinksTooltip": {
+    "message": "Check all links are reachable",
+    "description": "Check links button tooltip"
+  },
+  "btnCleanTracking": {
+    "message": "Clean Tracking",
+    "description": "Clean tracking button label"
+  },
+  "btnCleanTrackingTooltip": {
+    "message": "Strip utm_*, fbclid, gclid tracking params from all URLs",
+    "description": "Clean tracking button tooltip"
+  },
+  "viewGrid": {
+    "message": "Grid View",
+    "description": "Grid view tooltip"
+  },
+  "viewList": {
+    "message": "List View",
+    "description": "List view tooltip"
+  },
+  "batchMove": {
+    "message": "Move to…",
+    "description": "Batch move button"
+  },
+  "batchTag": {
+    "message": "Add Tag",
+    "description": "Batch tag button"
+  },
+  "batchDelete": {
+    "message": "Delete Selected",
+    "description": "Batch delete button"
+  },
+  "loadErrorTitle": {
+    "message": "Could Not Load Bookmarks",
+    "description": "Error banner title"
+  },
+  "loadErrorDesc": {
+    "message": "Make sure this page is running inside the BookmarkLab Chrome extension (not as a regular web page).",
+    "description": "Error banner description"
+  },
+  "btnRetry": {
+    "message": "Retry",
+    "description": "Retry button"
+  },
+  "btnLoadDemo": {
+    "message": "Load Demo Bookmarks",
+    "description": "Load demo button"
+  },
+  "btnLoadDemoTooltip": {
+    "message": "Explore BookmarkLab with sample bookmarks",
+    "description": "Load demo button tooltip"
+  },
+  "inspectorTitle": {
+    "message": "Item Details",
+    "description": "Inspector panel heading"
+  },
+  "inspectorEmpty": {
+    "message": "Select a bookmark or folder to view and edit details.",
+    "description": "Inspector empty state text"
+  },
+  "modalSyncTitle": {
+    "message": "Review Changes Before Syncing Bookmarks",
+    "description": "Sync modal title"
+  },
+  "modalSyncDesc": {
+    "message": "The following changes will be applied to your real Chrome bookmarks. Consider creating a Backup first if you haven't already.",
+    "description": "Sync modal description"
+  },
+  "btnApplyChanges": {
+    "message": "Apply Changes",
+    "description": "Apply changes button"
+  },
+  "btnCancel": {
+    "message": "Cancel",
+    "description": "Cancel button"
+  },
+  "btnClose": {
+    "message": "Close",
+    "description": "Close button"
+  },
+  "modalDedupeTitle": {
+    "message": "Duplicate Bookmark Resolver",
+    "description": "Duplicate resolver modal title"
+  },
+  "btnAutoResolveDedupe": {
+    "message": "Auto-Keep Oldest & Remove Duplicates",
+    "description": "Auto resolve button in dedupe modal"
+  },
+  "modalClusterTitle": {
+    "message": "Auto-Cluster by Category",
+    "description": "Cluster modal title"
+  },
+  "modalClusterDesc": {
+    "message": "Analyzes domain names and keywords to organize bookmarks into topic folders automatically.",
+    "description": "Cluster modal description"
+  },
+  "clusterStrategy": {
+    "message": "Clustering Strategy:",
+    "description": "Cluster strategy label"
+  },
+  "clusterByDomain": {
+    "message": "Group by Domain",
+    "description": "Cluster by domain option"
+  },
+  "clusterByDomainHelp": {
+    "message": "Creates folders like \"GitHub\", \"YouTube\", \"StackOverflow\".",
+    "description": "Cluster by domain help text"
+  },
+  "clusterByCategory": {
+    "message": "Group by Smart Topic",
+    "description": "Cluster by topic option"
+  },
+  "clusterByCategoryHelp": {
+    "message": "Creates folders: Developer Tools, Media, Research, Social, Shopping, Finance, News.",
+    "description": "Cluster by topic help text"
+  },
+  "clusterOnlyUncategorized": {
+    "message": "Only cluster bookmarks currently in Root / Uncategorized",
+    "description": "Cluster uncategorized checkbox label"
+  },
+  "btnRunCluster": {
+    "message": "Run Auto-Cluster",
+    "description": "Run auto-cluster button"
+  },
+  "modalCleanTitle": {
+    "message": "Clean Tracking Parameters",
+    "description": "Clean tracking modal title"
+  },
+  "modalCleanDesc": {
+    "message": "The following bookmarks have tracking parameters (utm_*, fbclid, gclid, etc.) that will be stripped:",
+    "description": "Clean tracking modal description"
+  },
+  "selectAll": {
+    "message": "Select All / Deselect All",
+    "description": "Select all label"
+  },
+  "btnStripParameters": {
+    "message": "Strip Parameters from Selected URLs",
+    "description": "Strip parameters button"
+  },
+  "modalMoveTitle": {
+    "message": "Move Bookmarks",
+    "description": "Move modal title"
+  },
+  "modalMoveDesc": {
+    "message": "Select destination folder for selected item(s):",
+    "description": "Move modal description"
+  },
+  "destFolderLabel": {
+    "message": "Destination Folder",
+    "description": "Destination folder label"
+  },
+  "destFolderCreateLabel": {
+    "message": "Or create a new folder inside destination:",
+    "description": "Create inside destination label"
+  },
+  "newFolderPlaceholder": {
+    "message": "New folder name...",
+    "description": "New folder input placeholder"
+  },
+  "btnCreate": {
+    "message": "+ Create",
+    "description": "Create button"
+  },
+  "btnMoveItems": {
+    "message": "Move Items",
+    "description": "Move items button"
+  },
+  "modalTagTitle": {
+    "message": "Add Tags to Bookmarks",
+    "description": "Tag modal title"
+  },
+  "modalTagDesc": {
+    "message": "Add tag(s) to selected item(s):",
+    "description": "Tag modal description"
+  },
+  "tagInputLabel": {
+    "message": "Tags (comma-separated)",
+    "description": "Tags input label"
+  },
+  "tagPlaceholder": {
+    "message": "e.g. dev, article, reference",
+    "description": "Tag placeholder"
+  },
+  "btnAddTags": {
+    "message": "Add Tag(s)",
+    "description": "Add tags button"
+  },
+  "modalImportTitle": {
+    "message": "Import Bookmarks",
+    "description": "Import modal title"
+  },
+  "importDestLabel": {
+    "message": "Destination",
+    "description": "Import destination label"
+  },
+  "importDestFolder": {
+    "message": "Dedicated Folder (Recommended)",
+    "description": "Import dedicated folder option"
+  },
+  "importDestFolderHelp": {
+    "message": "Keeps existing bookmarks untouched. Places all imported links into a new folder.",
+    "description": "Import dedicated folder help"
+  },
+  "importDestMerge": {
+    "message": "Merge into Existing Folders",
+    "description": "Import merge option"
+  },
+  "importDestMergeHelp": {
+    "message": "Combines matching folder names at the root level and appends items.",
+    "description": "Import merge help"
+  },
+  "importDestReplace": {
+    "message": "Replace Current Workspace",
+    "description": "Import replace option"
+  },
+  "importDestReplaceHelp": {
+    "message": "Overwrites the active staging tree with the imported file.",
+    "description": "Import replace help"
+  },
+  "importCleanTracking": {
+    "message": "Automatically strip tracking parameters (utm_*, fbclid, etc.)",
+    "description": "Import clean tracking option"
+  },
+  "importOpenDedupe": {
+    "message": "Find and resolve duplicates immediately after import",
+    "description": "Import dedupe option"
+  },
+  "btnConfirmImport": {
+    "message": "Import Bookmarks",
+    "description": "Confirm import button"
+  },
+  "popupTotal": {
+    "message": "Total Bookmarks",
+    "description": "Popup total bookmarks stat label"
+  },
+  "popupFolders": {
+    "message": "Folders",
+    "description": "Popup folders stat label"
+  },
+  "popupDuplicates": {
+    "message": "Duplicates",
+    "description": "Popup duplicates stat label"
+  },
+  "popupTracking": {
+    "message": "Tracking Tags",
+    "description": "Popup tracking stat label"
+  },
+  "popupQuickActions": {
+    "message": "Quick Actions",
+    "description": "Popup quick actions section header"
+  },
+  "popupQuickDedupeTitle": {
+    "message": "Find & Remove Duplicates",
+    "description": "Popup quick dedupe title"
+  },
+  "popupQuickDedupeSub": {
+    "message": "Detect all duplicate bookmarks",
+    "description": "Popup quick dedupe subtitle"
+  },
+  "popupQuickClusterTitle": {
+    "message": "Auto-Cluster by Category",
+    "description": "Popup quick cluster title"
+  },
+  "popupQuickClusterSub": {
+    "message": "Organize bookmarks into folders",
+    "description": "Popup quick cluster subtitle"
+  },
+  "popupQuickCleanTitle": {
+    "message": "Clean Tracking URLs",
+    "description": "Popup quick clean title"
+  },
+  "popupQuickCleanSub": {
+    "message": "Strip utm_*, fbclid, gclid params",
+    "description": "Popup quick clean subtitle"
+  },
+  "popupOpenDashboard": {
+    "message": "Open Full Dashboard",
+    "description": "Popup button to launch main tab"
+  },
+  "btnKeepThis": {
+    "message": "Keep This, Delete Others",
+    "description": "Button in duplicate resolver item"
+  },
+  "diffTagOriginal": {
+    "message": "Original",
+    "description": "Tag for original URL in clean diff modal"
+  },
+  "diffTagCleaned": {
+    "message": "Cleaned",
+    "description": "Tag for cleaned URL in clean diff modal"
+  },
+  "toastDuplicatesCleaned": {
+    "message": "No duplicates found — your bookmarks are clean!",
+    "description": "Toast when no duplicates found"
+  },
+  "toastUrlsClean": {
+    "message": "All URLs are clean — no tracking parameters found!",
+    "description": "Toast when no dirty URLs found"
+  },
+  "toastClusterSuccess": {
+    "message": "Bookmarks auto-clustered into category folders!",
+    "description": "Toast after auto-clustering completes"
+  },
+  "inspectorLabelTitle": {
+    "message": "Title",
+    "description": "Inspector title label"
+  },
+  "inspectorLabelUrl": {
+    "message": "URL",
+    "description": "Inspector URL label"
+  },
+  "inspectorLabelFolder": {
+    "message": "Folder Location",
+    "description": "Inspector folder location label"
+  },
+  "inspectorStripParams": {
+    "message": "⚡ Remove Tracking Query Parameters",
+    "description": "Inspector strip tracking parameters button"
+  },
+  "inspectorStagedNotice": {
+    "message": "Edits are staged — click Sync Bookmarks in the toolbar to apply.",
+    "description": "Inspector notice about staged edits"
+  },
+  "sourceCode": {
+    "message": "Source Code",
+    "description": "Source code button label"
+  }
+}

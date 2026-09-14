@@ -7,6 +7,7 @@ import { state } from '../state.js';
 import { getDomainName, getFaviconUrl, cleanTrackingParameters, validateLink } from '../utils/urlUtils.js';
 import { escapeHTML } from '../utils/domUtils.js';
 import { showToast } from '../app.js';
+import { t } from '../utils/i18n.js';
 
 export function renderInspector(containerEl) {
   if (!containerEl) return;
@@ -59,7 +60,7 @@ function renderBookmarkInspector(containerEl, node) {
 
   const stagedBadge = `<div style="background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.25); border-radius:6px; padding:6px 10px; font-size:0.73rem; color:#818cf8; margin-bottom:12px; display:flex; align-items:center; gap:6px;">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    Edits are staged — click <strong style="margin:0 3px;">Sync Bookmarks</strong> in the toolbar to apply.
+    ${escapeHTML(t('inspectorStagedNotice', 'Edits are staged — click Sync Bookmarks in the toolbar to apply.'))}
    </div>`;
 
   containerEl.innerHTML = `
@@ -76,22 +77,22 @@ function renderBookmarkInspector(containerEl, node) {
       </div>
 
       <div class="form-group">
-        <label class="form-label">Title <span style="font-weight:normal; color:var(--text-muted); font-size:0.75rem;">(Leave empty for icon-only)</span></label>
+        <label class="form-label">${escapeHTML(t('inspectorLabelTitle', 'Title'))} <span style="font-weight:normal; color:var(--text-muted); font-size:0.75rem;">(Leave empty for icon-only)</span></label>
         <input type="text" id="inp-title" class="form-input" placeholder="Icon-only bookmark" value="${escapeHTML(node.title)}" />
       </div>
 
       <div class="form-group">
-        <label class="form-label">URL</label>
+        <label class="form-label">${escapeHTML(t('inspectorLabelUrl', 'URL'))}</label>
         <input type="text" id="inp-url" class="form-input" value="${escapeHTML(node.url)}" />
         ${hasChanges ? `
           <button id="btn-strip-this-url" class="btn-sm btn-accent" style="margin-top:6px;">
-            ⚡ Remove Tracking Query Parameters
+            ${escapeHTML(t('inspectorStripParams', '⚡ Remove Tracking Query Parameters'))}
           </button>
         ` : ''}
       </div>
 
       <div class="form-group">
-        <label class="form-label">Folder Location</label>
+        <label class="form-label">${escapeHTML(t('inspectorLabelFolder', 'Folder Location'))}</label>
         <select id="inp-folder" class="form-select">
           ${allFolders.map(f => `
             <option value="${f.id}" ${currentParent && currentParent.id === f.id ? 'selected' : ''}>

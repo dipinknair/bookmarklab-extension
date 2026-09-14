@@ -1,0 +1,458 @@
+{
+  "appName": {
+    "message": "BookmarkLab",
+    "description": "Extension title"
+  },
+  "appDesc": {
+    "message": "实时浏览器书签管理器：一键清理重复书签、智能分类归档、去除跟踪参数，让书签井井有条。",
+    "description": "Extension description"
+  },
+  "appBrandTag": {
+    "message": "交互式书签管理器",
+    "description": "Brand subtitle tag"
+  },
+  "appLiveTag": {
+    "message": "实时 Chrome 书签",
+    "description": "Status tag in popup header"
+  },
+  "loadingBookmarks": {
+    "message": "正在加载 Chrome 书签…",
+    "description": "Loading state message"
+  },
+  "themeChooseAccent": {
+    "message": "选择主题色",
+    "description": "Tooltip for theme accent selector"
+  },
+  "themeSwitchMode": {
+    "message": "切换深浅模式",
+    "description": "Tooltip for theme dark/light switch"
+  },
+  "undo": {
+    "message": "撤销 (Cmd+Z)",
+    "description": "Undo button tooltip"
+  },
+  "redo": {
+    "message": "重做 (Cmd+Shift+Z)",
+    "description": "Redo button tooltip"
+  },
+  "btnImport": {
+    "message": "导入",
+    "description": "Import button label"
+  },
+  "btnImportTooltip": {
+    "message": "从 HTML 或 JSON 备份文件导入书签",
+    "description": "Tooltip for import button"
+  },
+  "btnBackup": {
+    "message": "备份",
+    "description": "Backup button label"
+  },
+  "btnBackupTooltip": {
+    "message": "在修改前将当前 Chrome 书签下载为 HTML 备份文件",
+    "description": "Tooltip for backup button"
+  },
+  "btnSync": {
+    "message": "同步书签",
+    "description": "Sync button label"
+  },
+  "btnSyncTooltip": {
+    "message": "预览暂存的更改并应用到浏览器",
+    "description": "Tooltip for sync button"
+  },
+  "sidebarFolders": {
+    "message": "文件夹",
+    "description": "Sidebar title"
+  },
+  "btnNewFolder": {
+    "message": "新建文件夹",
+    "description": "New folder button tooltip"
+  },
+  "btnExpandAll": {
+    "message": "展开全部",
+    "description": "Expand all button tooltip"
+  },
+  "btnCollapseAll": {
+    "message": "折叠全部",
+    "description": "Collapse all button tooltip"
+  },
+  "btnDeleteFolder": {
+    "message": "删除所选文件夹",
+    "description": "Delete folder button tooltip"
+  },
+  "smartViews": {
+    "message": "智能视图",
+    "description": "Smart views section heading"
+  },
+  "viewAllBookmarks": {
+    "message": "全部书签",
+    "description": "All bookmarks smart view"
+  },
+  "viewDuplicates": {
+    "message": "重复项",
+    "description": "Duplicates smart view"
+  },
+  "viewUncategorized": {
+    "message": "未分类",
+    "description": "Uncategorized smart view"
+  },
+  "viewDirtyUrls": {
+    "message": "含跟踪标签",
+    "description": "Dirty URLs smart view"
+  },
+  "viewBrokenLinks": {
+    "message": "失效链接",
+    "description": "Broken links smart view"
+  },
+  "searchPlaceholder": {
+    "message": "按标题、网址、标签或域名搜索…",
+    "description": "Search input placeholder"
+  },
+  "btnAutoCluster": {
+    "message": "自动分类",
+    "description": "Auto cluster button label"
+  },
+  "btnAutoClusterTooltip": {
+    "message": "按域名或主题自动整理到文件夹",
+    "description": "Auto cluster button tooltip"
+  },
+  "btnFindDuplicates": {
+    "message": "查找重复项",
+    "description": "Find duplicates button label"
+  },
+  "btnFindDuplicatesTooltip": {
+    "message": "查找并删除重复书签",
+    "description": "Find duplicates button tooltip"
+  },
+  "btnCheckLinks": {
+    "message": "检查链接",
+    "description": "Check links button label"
+  },
+  "btnCheckLinksTooltip": {
+    "message": "检查所有书签链接是否可用",
+    "description": "Check links button tooltip"
+  },
+  "btnCleanTracking": {
+    "message": "清理跟踪",
+    "description": "Clean tracking button label"
+  },
+  "btnCleanTrackingTooltip": {
+    "message": "清除所有网址中的 utm_*、fbclid、gclid 等营销跟踪参数",
+    "description": "Clean tracking button tooltip"
+  },
+  "viewGrid": {
+    "message": "网格视图",
+    "description": "Grid view tooltip"
+  },
+  "viewList": {
+    "message": "列表视图",
+    "description": "List view tooltip"
+  },
+  "batchMove": {
+    "message": "移动到…",
+    "description": "Batch move button"
+  },
+  "batchTag": {
+    "message": "添加标签",
+    "description": "Batch tag button"
+  },
+  "batchDelete": {
+    "message": "删除所选",
+    "description": "Batch delete button"
+  },
+  "loadErrorTitle": {
+    "message": "无法加载书签",
+    "description": "Error banner title"
+  },
+  "loadErrorDesc": {
+    "message": "请确保此页面在 BookmarkLab Chrome 扩展内运行（而非普通网页）。",
+    "description": "Error banner description"
+  },
+  "btnRetry": {
+    "message": "重试",
+    "description": "Retry button"
+  },
+  "btnLoadDemo": {
+    "message": "加载演示书签",
+    "description": "Load demo button"
+  },
+  "btnLoadDemoTooltip": {
+    "message": "使用样例书签体验 BookmarkLab",
+    "description": "Load demo button tooltip"
+  },
+  "inspectorTitle": {
+    "message": "项目详情",
+    "description": "Inspector panel heading"
+  },
+  "inspectorEmpty": {
+    "message": "选择书签或文件夹以查看并编辑详细信息。",
+    "description": "Inspector empty state text"
+  },
+  "modalSyncTitle": {
+    "message": "同步前确认更改",
+    "description": "Sync modal title"
+  },
+  "modalSyncDesc": {
+    "message": "以下更改将应用到您的 Chrome 书签。如果尚未备份，建议先创建备份。",
+    "description": "Sync modal description"
+  },
+  "btnApplyChanges": {
+    "message": "应用更改",
+    "description": "Apply changes button"
+  },
+  "btnCancel": {
+    "message": "取消",
+    "description": "Cancel button"
+  },
+  "btnClose": {
+    "message": "关闭",
+    "description": "Close button"
+  },
+  "modalDedupeTitle": {
+    "message": "重复书签清理器",
+    "description": "Duplicate resolver modal title"
+  },
+  "btnAutoResolveDedupe": {
+    "message": "自动保留最早版本并删除多余副本",
+    "description": "Auto resolve button in dedupe modal"
+  },
+  "modalClusterTitle": {
+    "message": "按类别自动分类",
+    "description": "Cluster modal title"
+  },
+  "modalClusterDesc": {
+    "message": "分析域名与关键词，自动将书签整理到主题文件夹中。",
+    "description": "Cluster modal description"
+  },
+  "clusterStrategy": {
+    "message": "分类策略：",
+    "description": "Cluster strategy label"
+  },
+  "clusterByDomain": {
+    "message": "按域名归类",
+    "description": "Cluster by domain option"
+  },
+  "clusterByDomainHelp": {
+    "message": "创建如 \"GitHub\"、\"YouTube\"、\"StackOverflow\" 等文件夹。",
+    "description": "Cluster by domain help text"
+  },
+  "clusterByCategory": {
+    "message": "按智能主题归类",
+    "description": "Cluster by topic option"
+  },
+  "clusterByCategoryHelp": {
+    "message": "创建文件夹：开发工具、媒体娱乐、学术研究、社交媒体、购物消费、金融理财、资讯新闻。",
+    "description": "Cluster by topic help text"
+  },
+  "clusterOnlyUncategorized": {
+    "message": "仅分类当前位于根目录或未分类的书签",
+    "description": "Cluster uncategorized checkbox label"
+  },
+  "btnRunCluster": {
+    "message": "开始自动分类",
+    "description": "Run auto-cluster button"
+  },
+  "modalCleanTitle": {
+    "message": "清理跟踪参数",
+    "description": "Clean tracking modal title"
+  },
+  "modalCleanDesc": {
+    "message": "以下书签包含将被去除的跟踪参数（utm_*、fbclid、gclid 等）：",
+    "description": "Clean tracking modal description"
+  },
+  "selectAll": {
+    "message": "全选 / 取消全选",
+    "description": "Select all label"
+  },
+  "btnStripParameters": {
+    "message": "清除所选网址中的跟踪参数",
+    "description": "Strip parameters button"
+  },
+  "modalMoveTitle": {
+    "message": "移动书签",
+    "description": "Move modal title"
+  },
+  "modalMoveDesc": {
+    "message": "为所选项目选择目标文件夹：",
+    "description": "Move modal description"
+  },
+  "destFolderLabel": {
+    "message": "目标文件夹",
+    "description": "Destination folder label"
+  },
+  "destFolderCreateLabel": {
+    "message": "或在目标位置新建文件夹：",
+    "description": "Create inside destination label"
+  },
+  "newFolderPlaceholder": {
+    "message": "新文件夹名称...",
+    "description": "New folder input placeholder"
+  },
+  "btnCreate": {
+    "message": "+ 创建",
+    "description": "Create button"
+  },
+  "btnMoveItems": {
+    "message": "移动项目",
+    "description": "Move items button"
+  },
+  "modalTagTitle": {
+    "message": "为书签添加标签",
+    "description": "Tag modal title"
+  },
+  "modalTagDesc": {
+    "message": "为所选项目添加标签：",
+    "description": "Tag modal description"
+  },
+  "tagInputLabel": {
+    "message": "标签（逗号分隔）",
+    "description": "Tags input label"
+  },
+  "tagPlaceholder": {
+    "message": "例如：开发、文章、参考资料",
+    "description": "Tag placeholder"
+  },
+  "btnAddTags": {
+    "message": "添加标签",
+    "description": "Add tags button"
+  },
+  "modalImportTitle": {
+    "message": "导入书签",
+    "description": "Import modal title"
+  },
+  "importDestLabel": {
+    "message": "导入目标位置",
+    "description": "Import destination label"
+  },
+  "importDestFolder": {
+    "message": "独立文件夹（推荐）",
+    "description": "Import dedicated folder option"
+  },
+  "importDestFolderHelp": {
+    "message": "保持现有书签结构完好无损，所有导入书签放入新建文件夹。",
+    "description": "Import dedicated folder help"
+  },
+  "importDestMerge": {
+    "message": "合并到同名现有文件夹",
+    "description": "Import merge option"
+  },
+  "importDestMergeHelp": {
+    "message": "与根目录下同名文件夹合并并追加导入内容。",
+    "description": "Import merge help"
+  },
+  "importDestReplace": {
+    "message": "替换当前工作区",
+    "description": "Import replace option"
+  },
+  "importDestReplaceHelp": {
+    "message": "用导入文件完全覆盖当前暂存书签树。",
+    "description": "Import replace help"
+  },
+  "importCleanTracking": {
+    "message": "导入时自动清除跟踪参数（utm_*、fbclid 等）",
+    "description": "Import clean tracking option"
+  },
+  "importOpenDedupe": {
+    "message": "导入后立即查找并清理重复书签",
+    "description": "Import dedupe option"
+  },
+  "btnConfirmImport": {
+    "message": "确认导入",
+    "description": "Confirm import button"
+  },
+  "popupTotal": {
+    "message": "书签总数",
+    "description": "Popup total bookmarks stat label"
+  },
+  "popupFolders": {
+    "message": "文件夹数",
+    "description": "Popup folders stat label"
+  },
+  "popupDuplicates": {
+    "message": "重复项",
+    "description": "Popup duplicates stat label"
+  },
+  "popupTracking": {
+    "message": "含跟踪项",
+    "description": "Popup tracking stat label"
+  },
+  "popupQuickActions": {
+    "message": "快捷操作",
+    "description": "Popup quick actions section header"
+  },
+  "popupQuickDedupeTitle": {
+    "message": "查找并清理重复项",
+    "description": "Popup quick dedupe title"
+  },
+  "popupQuickDedupeSub": {
+    "message": "扫描所有重复保存的书签",
+    "description": "Popup quick dedupe subtitle"
+  },
+  "popupQuickClusterTitle": {
+    "message": "按类别智能整理",
+    "description": "Popup quick cluster title"
+  },
+  "popupQuickClusterSub": {
+    "message": "自动归类到不同主题文件夹",
+    "description": "Popup quick cluster subtitle"
+  },
+  "popupQuickCleanTitle": {
+    "message": "清理网址跟踪参数",
+    "description": "Popup quick clean title"
+  },
+  "popupQuickCleanSub": {
+    "message": "去除 utm_*、fbclid、gclid 参数",
+    "description": "Popup quick clean subtitle"
+  },
+  "popupOpenDashboard": {
+    "message": "打开完整工作台",
+    "description": "Popup button to launch main tab"
+  },
+  "btnKeepThis": {
+    "message": "保留此项，删除其他",
+    "description": "Button in duplicate resolver item"
+  },
+  "diffTagOriginal": {
+    "message": "原始",
+    "description": "Tag for original URL in clean diff modal"
+  },
+  "diffTagCleaned": {
+    "message": "已清理",
+    "description": "Tag for cleaned URL in clean diff modal"
+  },
+  "toastDuplicatesCleaned": {
+    "message": "未发现重复项 — 您的书签很整洁！",
+    "description": "Toast when no duplicates found"
+  },
+  "toastUrlsClean": {
+    "message": "所有 URL 均已清理 — 未发现跟踪参数！",
+    "description": "Toast when no dirty URLs found"
+  },
+  "toastClusterSuccess": {
+    "message": "书签已自动归类到分类文件夹中！",
+    "description": "Toast after auto-clustering completes"
+  },
+  "inspectorLabelTitle": {
+    "message": "标题",
+    "description": "Inspector title label"
+  },
+  "inspectorLabelUrl": {
+    "message": "网址",
+    "description": "Inspector URL label"
+  },
+  "inspectorLabelFolder": {
+    "message": "文件夹位置",
+    "description": "Inspector folder location label"
+  },
+  "inspectorStripParams": {
+    "message": "⚡ 移除跟踪查询参数",
+    "description": "Inspector strip tracking parameters button"
+  },
+  "inspectorStagedNotice": {
+    "message": "更改已暂存 — 点击工具栏中的“同步书签”以应用更改。",
+    "description": "Inspector notice about staged edits"
+  },
+  "sourceCode": {
+    "message": "源码",
+    "description": "Source code button label"
+  }
+}

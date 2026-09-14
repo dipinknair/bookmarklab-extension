@@ -6,8 +6,10 @@
 
 import { initTheme, setupThemeSelector } from './utils/theme.js';
 import { cleanTrackingParameters, findDuplicateGroups } from './utils/urlUtils.js';
+import { localizeDOM } from './utils/i18n.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  localizeDOM();
   await initTheme();
   setupThemeSelector();
 

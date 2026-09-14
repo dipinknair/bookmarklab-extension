@@ -1,0 +1,458 @@
+{
+  "appName": {
+    "message": "BookmarkLab",
+    "description": "Extension title"
+  },
+  "appDesc": {
+    "message": "Organizador interactivo de marcadores: elimine duplicados, agrupe inteligentemente y limpie URLs de seguimiento en Chrome.",
+    "description": "Extension description"
+  },
+  "appBrandTag": {
+    "message": "Gestor Interactivo de Marcadores",
+    "description": "Brand subtitle tag"
+  },
+  "appLiveTag": {
+    "message": "Marcadores de Chrome Activos",
+    "description": "Status tag in popup header"
+  },
+  "loadingBookmarks": {
+    "message": "Cargando marcadores de Chrome…",
+    "description": "Loading state message"
+  },
+  "themeChooseAccent": {
+    "message": "Elegir tema de color",
+    "description": "Tooltip for theme accent selector"
+  },
+  "themeSwitchMode": {
+    "message": "Cambiar modo de tema",
+    "description": "Tooltip for theme dark/light switch"
+  },
+  "undo": {
+    "message": "Deshacer (Cmd+Z)",
+    "description": "Undo button tooltip"
+  },
+  "redo": {
+    "message": "Rehacer (Cmd+Shift+Z)",
+    "description": "Redo button tooltip"
+  },
+  "btnImport": {
+    "message": "Importar",
+    "description": "Import button label"
+  },
+  "btnImportTooltip": {
+    "message": "Importar marcadores desde un archivo de respaldo HTML o JSON",
+    "description": "Tooltip for import button"
+  },
+  "btnBackup": {
+    "message": "Copia de Seguridad",
+    "description": "Backup button label"
+  },
+  "btnBackupTooltip": {
+    "message": "Descargue sus marcadores actuales de Chrome como archivo HTML de respaldo antes de hacer cambios",
+    "description": "Tooltip for backup button"
+  },
+  "btnSync": {
+    "message": "Sincronizar Marcadores",
+    "description": "Sync button label"
+  },
+  "btnSyncTooltip": {
+    "message": "Revisar y aplicar los cambios preparados a su navegador",
+    "description": "Tooltip for sync button"
+  },
+  "sidebarFolders": {
+    "message": "Carpetas",
+    "description": "Sidebar title"
+  },
+  "btnNewFolder": {
+    "message": "Nueva Carpeta",
+    "description": "New folder button tooltip"
+  },
+  "btnExpandAll": {
+    "message": "Expandir Todo",
+    "description": "Expand all button tooltip"
+  },
+  "btnCollapseAll": {
+    "message": "Contraer Todo",
+    "description": "Collapse all button tooltip"
+  },
+  "btnDeleteFolder": {
+    "message": "Eliminar Carpeta Seleccionada",
+    "description": "Delete folder button tooltip"
+  },
+  "smartViews": {
+    "message": "Vistas Inteligentes",
+    "description": "Smart views section heading"
+  },
+  "viewAllBookmarks": {
+    "message": "Todos los Marcadores",
+    "description": "All bookmarks smart view"
+  },
+  "viewDuplicates": {
+    "message": "Duplicados",
+    "description": "Duplicates smart view"
+  },
+  "viewUncategorized": {
+    "message": "Sin Categoría",
+    "description": "Uncategorized smart view"
+  },
+  "viewDirtyUrls": {
+    "message": "Con Etiquetas de Rastreo",
+    "description": "Dirty URLs smart view"
+  },
+  "viewBrokenLinks": {
+    "message": "Enlaces Rotos",
+    "description": "Broken links smart view"
+  },
+  "searchPlaceholder": {
+    "message": "Buscar por título, URL, etiqueta o dominio…",
+    "description": "Search input placeholder"
+  },
+  "btnAutoCluster": {
+    "message": "Agrupar Automáticamente",
+    "description": "Auto cluster button label"
+  },
+  "btnAutoClusterTooltip": {
+    "message": "Organizar automáticamente en carpetas por dominio o tema",
+    "description": "Auto cluster button tooltip"
+  },
+  "btnFindDuplicates": {
+    "message": "Buscar Duplicados",
+    "description": "Find duplicates button label"
+  },
+  "btnFindDuplicatesTooltip": {
+    "message": "Buscar y eliminar marcadores duplicados",
+    "description": "Find duplicates button tooltip"
+  },
+  "btnCheckLinks": {
+    "message": "Comprobar Enlaces",
+    "description": "Check links button label"
+  },
+  "btnCheckLinksTooltip": {
+    "message": "Verificar si todos los enlaces están disponibles",
+    "description": "Check links button tooltip"
+  },
+  "btnCleanTracking": {
+    "message": "Limpiar Rastreo",
+    "description": "Clean tracking button label"
+  },
+  "btnCleanTrackingTooltip": {
+    "message": "Eliminar parámetros utm_*, fbclid, gclid de todas las URLs",
+    "description": "Clean tracking button tooltip"
+  },
+  "viewGrid": {
+    "message": "Vista de Cuadrícula",
+    "description": "Grid view tooltip"
+  },
+  "viewList": {
+    "message": "Vista de Lista",
+    "description": "List view tooltip"
+  },
+  "batchMove": {
+    "message": "Mover a…",
+    "description": "Batch move button"
+  },
+  "batchTag": {
+    "message": "Añadir Etiqueta",
+    "description": "Batch tag button"
+  },
+  "batchDelete": {
+    "message": "Eliminar Seleccionados",
+    "description": "Batch delete button"
+  },
+  "loadErrorTitle": {
+    "message": "No se pudieron cargar los marcadores",
+    "description": "Error banner title"
+  },
+  "loadErrorDesc": {
+    "message": "Asegúrese de que esta página se ejecute dentro de la extensión BookmarkLab (no como una página web normal).",
+    "description": "Error banner description"
+  },
+  "btnRetry": {
+    "message": "Reintentar",
+    "description": "Retry button"
+  },
+  "btnLoadDemo": {
+    "message": "Cargar Marcadores de Demostración",
+    "description": "Load demo button"
+  },
+  "btnLoadDemoTooltip": {
+    "message": "Explorar BookmarkLab con marcadores de ejemplo",
+    "description": "Load demo button tooltip"
+  },
+  "inspectorTitle": {
+    "message": "Detalles del Elemento",
+    "description": "Inspector panel heading"
+  },
+  "inspectorEmpty": {
+    "message": "Seleccione un marcador o carpeta para ver y editar detalles.",
+    "description": "Inspector empty state text"
+  },
+  "modalSyncTitle": {
+    "message": "Revisar Cambios Antes de Sincronizar",
+    "description": "Sync modal title"
+  },
+  "modalSyncDesc": {
+    "message": "Los siguientes cambios se aplicarán a sus marcadores de Chrome. Considere crear una copia de seguridad antes si aún no lo ha hecho.",
+    "description": "Sync modal description"
+  },
+  "btnApplyChanges": {
+    "message": "Aplicar Cambios",
+    "description": "Apply changes button"
+  },
+  "btnCancel": {
+    "message": "Cancelar",
+    "description": "Cancel button"
+  },
+  "btnClose": {
+    "message": "Cerrar",
+    "description": "Close button"
+  },
+  "modalDedupeTitle": {
+    "message": "Resolución de Marcadores Duplicados",
+    "description": "Duplicate resolver modal title"
+  },
+  "btnAutoResolveDedupe": {
+    "message": "Conservar Más Antiguo y Eliminar Duplicados",
+    "description": "Auto resolve button in dedupe modal"
+  },
+  "modalClusterTitle": {
+    "message": "Agrupación Automática por Categoría",
+    "description": "Cluster modal title"
+  },
+  "modalClusterDesc": {
+    "message": "Analiza nombres de dominio y palabras clave para organizar los marcadores en carpetas automáticamente.",
+    "description": "Cluster modal description"
+  },
+  "clusterStrategy": {
+    "message": "Estrategia de Agrupación:",
+    "description": "Cluster strategy label"
+  },
+  "clusterByDomain": {
+    "message": "Agrupar por Dominio",
+    "description": "Cluster by domain option"
+  },
+  "clusterByDomainHelp": {
+    "message": "Crea carpetas como \"GitHub\", \"YouTube\", \"StackOverflow\".",
+    "description": "Cluster by domain help text"
+  },
+  "clusterByCategory": {
+    "message": "Agrupar por Tema Inteligente",
+    "description": "Cluster by topic option"
+  },
+  "clusterByCategoryHelp": {
+    "message": "Crea carpetas: Herramientas de Desarrollo, Multimedia, Investigación, Redes Sociales, Compras, Finanzas, Noticias.",
+    "description": "Cluster by topic help text"
+  },
+  "clusterOnlyUncategorized": {
+    "message": "Agrupar solo marcadores que estén actualmente en la Raíz / Sin Categoría",
+    "description": "Cluster uncategorized checkbox label"
+  },
+  "btnRunCluster": {
+    "message": "Ejecutar Agrupación",
+    "description": "Run auto-cluster button"
+  },
+  "modalCleanTitle": {
+    "message": "Limpiar Parámetros de Rastreo",
+    "description": "Clean tracking modal title"
+  },
+  "modalCleanDesc": {
+    "message": "Los siguientes marcadores contienen parámetros de rastreo (utm_*, fbclid, gclid, etc.) que serán eliminados:",
+    "description": "Clean tracking modal description"
+  },
+  "selectAll": {
+    "message": "Seleccionar Todo / Deseleccionar Todo",
+    "description": "Select all label"
+  },
+  "btnStripParameters": {
+    "message": "Eliminar Parámetros de URLs Seleccionadas",
+    "description": "Strip parameters button"
+  },
+  "modalMoveTitle": {
+    "message": "Mover Marcadores",
+    "description": "Move modal title"
+  },
+  "modalMoveDesc": {
+    "message": "Seleccione la carpeta de destino para los elementos seleccionados:",
+    "description": "Move modal description"
+  },
+  "destFolderLabel": {
+    "message": "Carpeta de Destino",
+    "description": "Destination folder label"
+  },
+  "destFolderCreateLabel": {
+    "message": "O cree una nueva carpeta dentro del destino:",
+    "description": "Create inside destination label"
+  },
+  "newFolderPlaceholder": {
+    "message": "Nombre de la nueva carpeta...",
+    "description": "New folder input placeholder"
+  },
+  "btnCreate": {
+    "message": "+ Crear",
+    "description": "Create button"
+  },
+  "btnMoveItems": {
+    "message": "Mover Elementos",
+    "description": "Move items button"
+  },
+  "modalTagTitle": {
+    "message": "Añadir Etiquetas a Marcadores",
+    "description": "Tag modal title"
+  },
+  "modalTagDesc": {
+    "message": "Añadir etiqueta(s) a los elementos seleccionados:",
+    "description": "Tag modal description"
+  },
+  "tagInputLabel": {
+    "message": "Etiquetas (separadas por comas)",
+    "description": "Tags input label"
+  },
+  "tagPlaceholder": {
+    "message": "ej. dev, articulo, referencia",
+    "description": "Tag placeholder"
+  },
+  "btnAddTags": {
+    "message": "Añadir Etiqueta(s)",
+    "description": "Add tags button"
+  },
+  "modalImportTitle": {
+    "message": "Importar Marcadores",
+    "description": "Import modal title"
+  },
+  "importDestLabel": {
+    "message": "Destino",
+    "description": "Import destination label"
+  },
+  "importDestFolder": {
+    "message": "Carpeta Dedicada (Recomendado)",
+    "description": "Import dedicated folder option"
+  },
+  "importDestFolderHelp": {
+    "message": "Mantiene intactos sus marcadores existentes. Coloca todos los enlaces importados en una nueva carpeta.",
+    "description": "Import dedicated folder help"
+  },
+  "importDestMerge": {
+    "message": "Combinar con Carpetas Existentes",
+    "description": "Import merge option"
+  },
+  "importDestMergeHelp": {
+    "message": "Combina nombres de carpetas coincidentes en la raíz y añade los elementos.",
+    "description": "Import merge help"
+  },
+  "importDestReplace": {
+    "message": "Reemplazar Espacio de Trabajo Actual",
+    "description": "Import replace option"
+  },
+  "importDestReplaceHelp": {
+    "message": "Sobrescribe el árbol de trabajo actual con el archivo importado.",
+    "description": "Import replace help"
+  },
+  "importCleanTracking": {
+    "message": "Eliminar automáticamente parámetros de rastreo (utm_*, fbclid, etc.)",
+    "description": "Import clean tracking option"
+  },
+  "importOpenDedupe": {
+    "message": "Buscar y resolver duplicados inmediatamente tras importar",
+    "description": "Import dedupe option"
+  },
+  "btnConfirmImport": {
+    "message": "Importar Marcadores",
+    "description": "Confirm import button"
+  },
+  "popupTotal": {
+    "message": "Total de Marcadores",
+    "description": "Popup total bookmarks stat label"
+  },
+  "popupFolders": {
+    "message": "Carpetas",
+    "description": "Popup folders stat label"
+  },
+  "popupDuplicates": {
+    "message": "Duplicados",
+    "description": "Popup duplicates stat label"
+  },
+  "popupTracking": {
+    "message": "Etiquetas de Rastreo",
+    "description": "Popup tracking stat label"
+  },
+  "popupQuickActions": {
+    "message": "Acciones Rápidas",
+    "description": "Popup quick actions section header"
+  },
+  "popupQuickDedupeTitle": {
+    "message": "Buscar y Eliminar Duplicados",
+    "description": "Popup quick dedupe title"
+  },
+  "popupQuickDedupeSub": {
+    "message": "Detectar todos los marcadores duplicados",
+    "description": "Popup quick dedupe subtitle"
+  },
+  "popupQuickClusterTitle": {
+    "message": "Agrupar Automáticamente por Categoría",
+    "description": "Popup quick cluster title"
+  },
+  "popupQuickClusterSub": {
+    "message": "Organizar marcadores en carpetas",
+    "description": "Popup quick cluster subtitle"
+  },
+  "popupQuickCleanTitle": {
+    "message": "Limpiar URLs de Rastreo",
+    "description": "Popup quick clean title"
+  },
+  "popupQuickCleanSub": {
+    "message": "Eliminar parámetros utm_*, fbclid, gclid",
+    "description": "Popup quick clean subtitle"
+  },
+  "popupOpenDashboard": {
+    "message": "Abrir Panel Completo",
+    "description": "Popup button to launch main tab"
+  },
+  "btnKeepThis": {
+    "message": "Conservar este, eliminar otros",
+    "description": "Button in duplicate resolver item"
+  },
+  "diffTagOriginal": {
+    "message": "Original",
+    "description": "Tag for original URL in clean diff modal"
+  },
+  "diffTagCleaned": {
+    "message": "Limpio",
+    "description": "Tag for cleaned URL in clean diff modal"
+  },
+  "toastDuplicatesCleaned": {
+    "message": "¡No se encontraron duplicados — sus marcadores están limpios!",
+    "description": "Toast when no duplicates found"
+  },
+  "toastUrlsClean": {
+    "message": "¡Todas las URLs están limpias — no se encontraron parámetros de rastreo!",
+    "description": "Toast when no dirty URLs found"
+  },
+  "toastClusterSuccess": {
+    "message": "¡Marcadores agrupados automáticamente en carpetas por categoría!",
+    "description": "Toast after auto-clustering completes"
+  },
+  "inspectorLabelTitle": {
+    "message": "Título",
+    "description": "Inspector title label"
+  },
+  "inspectorLabelUrl": {
+    "message": "URL",
+    "description": "Inspector URL label"
+  },
+  "inspectorLabelFolder": {
+    "message": "Ubicación de la carpeta",
+    "description": "Inspector folder location label"
+  },
+  "inspectorStripParams": {
+    "message": "⚡ Eliminar parámetros de consulta de rastreo",
+    "description": "Inspector strip tracking parameters button"
+  },
+  "inspectorStagedNotice": {
+    "message": "Los cambios están preparados — haga clic en Sincronizar Marcadores en la barra de herramientas para aplicar.",
+    "description": "Inspector notice about staged edits"
+  },
+  "sourceCode": {
+    "message": "Código Fuente",
+    "description": "Source code button label"
+  }
+}

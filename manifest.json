@@ -1,10 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "BookmarkLab",
+  "name": "__MSG_appName__",
   "short_name": "BookmarkLab",
-  "version": "1.0.1",
-  "version_name": "1.0.1-dev",
-  "description": "Live browser bookmark organizer — deduplicate, auto-cluster, clean tracking URLs, and organize your bookmarks directly in Chrome.",
+  "default_locale": "en",
+  "version": "1.1.1",
+  "description": "__MSG_appDesc__",
   "author": "BookmarkLab",
   "permissions": [
     "bookmarks",

@@ -1,0 +1,458 @@
+{
+  "appName": {
+    "message": "BookmarkLab",
+    "description": "Extension title"
+  },
+  "appDesc": {
+    "message": "Organisateur interactif de favoris : supprimez les doublons, regroupez intelligemment et nettoyez les URL de suivi dans Chrome.",
+    "description": "Extension description"
+  },
+  "appBrandTag": {
+    "message": "Gestionnaire Interactif de Favoris",
+    "description": "Brand subtitle tag"
+  },
+  "appLiveTag": {
+    "message": "Favoris Chrome Actifs",
+    "description": "Status tag in popup header"
+  },
+  "loadingBookmarks": {
+    "message": "Chargement des favoris Chrome…",
+    "description": "Loading state message"
+  },
+  "themeChooseAccent": {
+    "message": "Choisir la couleur d'accentuation",
+    "description": "Tooltip for theme accent selector"
+  },
+  "themeSwitchMode": {
+    "message": "Changer le mode du thème",
+    "description": "Tooltip for theme dark/light switch"
+  },
+  "undo": {
+    "message": "Annuler (Cmd+Z)",
+    "description": "Undo button tooltip"
+  },
+  "redo": {
+    "message": "Rétablir (Cmd+Shift+Z)",
+    "description": "Redo button tooltip"
+  },
+  "btnImport": {
+    "message": "Importer",
+    "description": "Import button label"
+  },
+  "btnImportTooltip": {
+    "message": "Importer des favoris depuis un fichier de sauvegarde HTML ou JSON",
+    "description": "Tooltip for import button"
+  },
+  "btnBackup": {
+    "message": "Sauvegarder",
+    "description": "Backup button label"
+  },
+  "btnBackupTooltip": {
+    "message": "Téléchargez vos favoris Chrome actuels au format HTML avant d'apporter des modifications",
+    "description": "Tooltip for backup button"
+  },
+  "btnSync": {
+    "message": "Synchroniser les Favoris",
+    "description": "Sync button label"
+  },
+  "btnSyncTooltip": {
+    "message": "Vérifier et appliquer les modifications préparées dans votre navigateur",
+    "description": "Tooltip for sync button"
+  },
+  "sidebarFolders": {
+    "message": "Dossiers",
+    "description": "Sidebar title"
+  },
+  "btnNewFolder": {
+    "message": "Nouveau Dossier",
+    "description": "New folder button tooltip"
+  },
+  "btnExpandAll": {
+    "message": "Tout Développer",
+    "description": "Expand all button tooltip"
+  },
+  "btnCollapseAll": {
+    "message": "Tout Réduire",
+    "description": "Collapse all button tooltip"
+  },
+  "btnDeleteFolder": {
+    "message": "Supprimer le Dossier Sélectionné",
+    "description": "Delete folder button tooltip"
+  },
+  "smartViews": {
+    "message": "Vues Intelligentes",
+    "description": "Smart views section heading"
+  },
+  "viewAllBookmarks": {
+    "message": "Tous les Favoris",
+    "description": "All bookmarks smart view"
+  },
+  "viewDuplicates": {
+    "message": "Doublons",
+    "description": "Duplicates smart view"
+  },
+  "viewUncategorized": {
+    "message": "Non Classés",
+    "description": "Uncategorized smart view"
+  },
+  "viewDirtyUrls": {
+    "message": "Avec Balises de Suivi",
+    "description": "Dirty URLs smart view"
+  },
+  "viewBrokenLinks": {
+    "message": "Liens Inaccessibles",
+    "description": "Broken links smart view"
+  },
+  "searchPlaceholder": {
+    "message": "Rechercher par titre, URL, tag ou domaine…",
+    "description": "Search input placeholder"
+  },
+  "btnAutoCluster": {
+    "message": "Regrouper Auto",
+    "description": "Auto cluster button label"
+  },
+  "btnAutoClusterTooltip": {
+    "message": "Classer automatiquement dans des dossiers par domaine ou sujet",
+    "description": "Auto cluster button tooltip"
+  },
+  "btnFindDuplicates": {
+    "message": "Trouver Doublons",
+    "description": "Find duplicates button label"
+  },
+  "btnFindDuplicatesTooltip": {
+    "message": "Identifier et supprimer les favoris en double",
+    "description": "Find duplicates button tooltip"
+  },
+  "btnCheckLinks": {
+    "message": "Vérifier Liens",
+    "description": "Check links button label"
+  },
+  "btnCheckLinksTooltip": {
+    "message": "Vérifier la disponibilité de tous les liens",
+    "description": "Check links button tooltip"
+  },
+  "btnCleanTracking": {
+    "message": "Nettoyer Suivi",
+    "description": "Clean tracking button label"
+  },
+  "btnCleanTrackingTooltip": {
+    "message": "Supprimer les paramètres utm_*, fbclid, gclid de toutes les URL",
+    "description": "Clean tracking button tooltip"
+  },
+  "viewGrid": {
+    "message": "Vue Grille",
+    "description": "Grid view tooltip"
+  },
+  "viewList": {
+    "message": "Vue Liste",
+    "description": "List view tooltip"
+  },
+  "batchMove": {
+    "message": "Déplacer vers…",
+    "description": "Batch move button"
+  },
+  "batchTag": {
+    "message": "Ajouter un Tag",
+    "description": "Batch tag button"
+  },
+  "batchDelete": {
+    "message": "Supprimer Sélection",
+    "description": "Batch delete button"
+  },
+  "loadErrorTitle": {
+    "message": "Impossible de charger les favoris",
+    "description": "Error banner title"
+  },
+  "loadErrorDesc": {
+    "message": "Vérifiez que cette page est ouverte dans l'extension BookmarkLab (et non comme page web ordinaire).",
+    "description": "Error banner description"
+  },
+  "btnRetry": {
+    "message": "Réessayer",
+    "description": "Retry button"
+  },
+  "btnLoadDemo": {
+    "message": "Charger Favoris de Démo",
+    "description": "Load demo button"
+  },
+  "btnLoadDemoTooltip": {
+    "message": "Découvrir BookmarkLab avec des favoris d'exemple",
+    "description": "Load demo button tooltip"
+  },
+  "inspectorTitle": {
+    "message": "Détails de l'Élément",
+    "description": "Inspector panel heading"
+  },
+  "inspectorEmpty": {
+    "message": "Sélectionnez un favori ou un dossier pour afficher et modifier ses détails.",
+    "description": "Inspector empty state text"
+  },
+  "modalSyncTitle": {
+    "message": "Vérifier les Modifications Avant Synchronisation",
+    "description": "Sync modal title"
+  },
+  "modalSyncDesc": {
+    "message": "Les modifications suivantes seront appliquées à vos favoris Chrome. Pensez à créer une sauvegarde avant si ce n'est pas déjà fait.",
+    "description": "Sync modal description"
+  },
+  "btnApplyChanges": {
+    "message": "Appliquer les Modifications",
+    "description": "Apply changes button"
+  },
+  "btnCancel": {
+    "message": "Annuler",
+    "description": "Cancel button"
+  },
+  "btnClose": {
+    "message": "Fermer",
+    "description": "Close button"
+  },
+  "modalDedupeTitle": {
+    "message": "Résolution des Favoris en Double",
+    "description": "Duplicate resolver modal title"
+  },
+  "btnAutoResolveDedupe": {
+    "message": "Garder le Plus Ancien & Supprimer Doublons",
+    "description": "Auto resolve button in dedupe modal"
+  },
+  "modalClusterTitle": {
+    "message": "Regroupement Automatique par Catégorie",
+    "description": "Cluster modal title"
+  },
+  "modalClusterDesc": {
+    "message": "Analyse les noms de domaine et mots-clés pour classer automatiquement les favoris dans des dossiers thématiques.",
+    "description": "Cluster modal description"
+  },
+  "clusterStrategy": {
+    "message": "Stratégie de Regroupement :",
+    "description": "Cluster strategy label"
+  },
+  "clusterByDomain": {
+    "message": "Grouper par Domaine",
+    "description": "Cluster by domain option"
+  },
+  "clusterByDomainHelp": {
+    "message": "Crée des dossiers comme \"GitHub\", \"YouTube\", \"StackOverflow\".",
+    "description": "Cluster by domain help text"
+  },
+  "clusterByCategory": {
+    "message": "Grouper par Thématique Intelligente",
+    "description": "Cluster by topic option"
+  },
+  "clusterByCategoryHelp": {
+    "message": "Crée des dossiers : Outils Dév, Médias, Recherche, Réseaux Sociaux, Achats, Finance, Actualités.",
+    "description": "Cluster by topic help text"
+  },
+  "clusterOnlyUncategorized": {
+    "message": "Regrouper uniquement les favoris situés à la Racine / Non Classés",
+    "description": "Cluster uncategorized checkbox label"
+  },
+  "btnRunCluster": {
+    "message": "Lancer le Regroupement",
+    "description": "Run auto-cluster button"
+  },
+  "modalCleanTitle": {
+    "message": "Nettoyer les Paramètres de Suivi",
+    "description": "Clean tracking modal title"
+  },
+  "modalCleanDesc": {
+    "message": "Les favoris suivants contiennent des paramètres de suivi (utm_*, fbclid, gclid, etc.) qui seront supprimés :",
+    "description": "Clean tracking modal description"
+  },
+  "selectAll": {
+    "message": "Tout Sélectionner / Tout Désélectionner",
+    "description": "Select all label"
+  },
+  "btnStripParameters": {
+    "message": "Supprimer les Paramètres des URL Sélectionnées",
+    "description": "Strip parameters button"
+  },
+  "modalMoveTitle": {
+    "message": "Déplacer les Favoris",
+    "description": "Move modal title"
+  },
+  "modalMoveDesc": {
+    "message": "Sélectionnez le dossier de destination pour les éléments sélectionnés :",
+    "description": "Move modal description"
+  },
+  "destFolderLabel": {
+    "message": "Dossier de Destination",
+    "description": "Destination folder label"
+  },
+  "destFolderCreateLabel": {
+    "message": "Ou créer un nouveau dossier dans la destination :",
+    "description": "Create inside destination label"
+  },
+  "newFolderPlaceholder": {
+    "message": "Nom du nouveau dossier...",
+    "description": "New folder input placeholder"
+  },
+  "btnCreate": {
+    "message": "+ Créer",
+    "description": "Create button"
+  },
+  "btnMoveItems": {
+    "message": "Déplacer les Éléments",
+    "description": "Move items button"
+  },
+  "modalTagTitle": {
+    "message": "Ajouter des Tags aux Favoris",
+    "description": "Tag modal title"
+  },
+  "modalTagDesc": {
+    "message": "Ajouter un ou plusieurs tags aux éléments sélectionnés :",
+    "description": "Tag modal description"
+  },
+  "tagInputLabel": {
+    "message": "Tags (séparés par des virgules)",
+    "description": "Tags input label"
+  },
+  "tagPlaceholder": {
+    "message": "ex. dev, article, reference",
+    "description": "Tag placeholder"
+  },
+  "btnAddTags": {
+    "message": "Ajouter le(s) Tag(s)",
+    "description": "Add tags button"
+  },
+  "modalImportTitle": {
+    "message": "Importer des Favoris",
+    "description": "Import modal title"
+  },
+  "importDestLabel": {
+    "message": "Destination",
+    "description": "Import destination label"
+  },
+  "importDestFolder": {
+    "message": "Dossier Dédié (Recommandé)",
+    "description": "Import dedicated folder option"
+  },
+  "importDestFolderHelp": {
+    "message": "Conserve vos favoris actuels intacts. Place tous les liens importés dans un nouveau dossier.",
+    "description": "Import dedicated folder help"
+  },
+  "importDestMerge": {
+    "message": "Fusionner avec les Dossiers Existants",
+    "description": "Import merge option"
+  },
+  "importDestMergeHelp": {
+    "message": "Combine les dossiers portant le même nom à la racine et ajoute les éléments.",
+    "description": "Import merge help"
+  },
+  "importDestReplace": {
+    "message": "Remplacer l'Espace de Travail Actuel",
+    "description": "Import replace option"
+  },
+  "importDestReplaceHelp": {
+    "message": "Remplace l'arborescence active par le contenu du fichier importé.",
+    "description": "Import replace help"
+  },
+  "importCleanTracking": {
+    "message": "Supprimer automatiquement les paramètres de suivi (utm_*, fbclid, etc.)",
+    "description": "Import clean tracking option"
+  },
+  "importOpenDedupe": {
+    "message": "Rechercher et résoudre les doublons immédiatement après l'importation",
+    "description": "Import dedupe option"
+  },
+  "btnConfirmImport": {
+    "message": "Importer les Favoris",
+    "description": "Confirm import button"
+  },
+  "popupTotal": {
+    "message": "Total des Favoris",
+    "description": "Popup total bookmarks stat label"
+  },
+  "popupFolders": {
+    "message": "Dossiers",
+    "description": "Popup folders stat label"
+  },
+  "popupDuplicates": {
+    "message": "Doublons",
+    "description": "Popup duplicates stat label"
+  },
+  "popupTracking": {
+    "message": "Balises de Suivi",
+    "description": "Popup tracking stat label"
+  },
+  "popupQuickActions": {
+    "message": "Actions Rapides",
+    "description": "Popup quick actions section header"
+  },
+  "popupQuickDedupeTitle": {
+    "message": "Trouver & Supprimer Doublons",
+    "description": "Popup quick dedupe title"
+  },
+  "popupQuickDedupeSub": {
+    "message": "Détecter tous les favoris en double",
+    "description": "Popup quick dedupe subtitle"
+  },
+  "popupQuickClusterTitle": {
+    "message": "Regrouper par Catégorie",
+    "description": "Popup quick cluster title"
+  },
+  "popupQuickClusterSub": {
+    "message": "Organiser les favoris dans des dossiers",
+    "description": "Popup quick cluster subtitle"
+  },
+  "popupQuickCleanTitle": {
+    "message": "Nettoyer les URL de Suivi",
+    "description": "Popup quick clean title"
+  },
+  "popupQuickCleanSub": {
+    "message": "Supprimer les paramètres utm_*, fbclid, gclid",
+    "description": "Popup quick clean subtitle"
+  },
+  "popupOpenDashboard": {
+    "message": "Ouvrir le Tableau de Bord",
+    "description": "Popup button to launch main tab"
+  },
+  "btnKeepThis": {
+    "message": "Garder ceci, supprimer les autres",
+    "description": "Button in duplicate resolver item"
+  },
+  "diffTagOriginal": {
+    "message": "Original",
+    "description": "Tag for original URL in clean diff modal"
+  },
+  "diffTagCleaned": {
+    "message": "Nettoyé",
+    "description": "Tag for cleaned URL in clean diff modal"
+  },
+  "toastDuplicatesCleaned": {
+    "message": "Aucun doublon trouvé — vos favoris sont propres !",
+    "description": "Toast when no duplicates found"
+  },
+  "toastUrlsClean": {
+    "message": "Tous les URL sont propres — aucun paramètre de suivi trouvé !",
+    "description": "Toast when no dirty URLs found"
+  },
+  "toastClusterSuccess": {
+    "message": "Favoris regroupés automatiquement dans des dossiers par catégorie !",
+    "description": "Toast after auto-clustering completes"
+  },
+  "inspectorLabelTitle": {
+    "message": "Titre",
+    "description": "Inspector title label"
+  },
+  "inspectorLabelUrl": {
+    "message": "URL",
+    "description": "Inspector URL label"
+  },
+  "inspectorLabelFolder": {
+    "message": "Emplacement du dossier",
+    "description": "Inspector folder location label"
+  },
+  "inspectorStripParams": {
+    "message": "⚡ Supprimer les paramètres de suivi de requête",
+    "description": "Inspector strip tracking parameters button"
+  },
+  "inspectorStagedNotice": {
+    "message": "Les modifications sont en attente — cliquez sur Synchroniser les favoris dans la barre d'outils pour appliquer.",
+    "description": "Inspector notice about staged edits"
+  },
+  "sourceCode": {
+    "message": "Code Source",
+    "description": "Source code button label"
+  }
+}

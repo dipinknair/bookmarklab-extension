@@ -12,6 +12,7 @@ import {
   findDuplicateGroups
 } from '../utils/urlUtils.js';
 import { escapeHTML } from '../utils/domUtils.js';
+import { t } from '../utils/i18n.js';
 
 /**
  * Opens a modal dialog by ID within the global backdrop.
@@ -69,7 +70,7 @@ function renderDedupeModal(groups, showToast) {
               <strong>${escapeHTML(itemTitle)}</strong>
               <div class="dedupe-path">📂 ${escapeHTML(item.path && item.path.length ? item.path.join(' / ') : 'Root')}</div>
             </div>
-            <button class="btn-sm btn-danger btn-keep-this" data-id="${item.id}">Keep This, Delete Others</button>
+            <button class="btn-sm btn-danger btn-keep-this" data-id="${item.id}">${escapeHTML(t('btnKeepThis', 'Keep This, Delete Others'))}</button>
           </div>
         `;
       }).join('')}
@@ -97,7 +98,7 @@ function renderDedupeModal(groups, showToast) {
 export function triggerDedupeModal(showToast) {
   const groups = findDuplicateGroups(state.getAllBookmarks());
   if (!groups.length) {
-    if (showToast) showToast('No duplicates found — your bookmarks are clean!', 'success');
+    if (showToast) showToast(t('toastDuplicatesCleaned', 'No duplicates found — your bookmarks are clean!'), 'success');
     return;
   }
   renderDedupeModal(groups, showToast);
@@ -217,7 +218,7 @@ export function setupModals(showToast) {
 
       runAutoCluster(mode, onlyUncat);
       closeModal();
-      showToast('Bookmarks auto-clustered into category folders!', 'success');
+      showToast(t('toastClusterSuccess', 'Bookmarks auto-clustered into category folders!'), 'success');
     });
   }
 
@@ -394,7 +395,7 @@ export function triggerCleanTrackingModal(showToast) {
   });
 
   if (dirtyItems.length === 0) {
-    if (showToast) showToast('All URLs are clean — no tracking parameters found!', 'info');
+    if (showToast) showToast(t('toastUrlsClean', 'All URLs are clean — no tracking parameters found!'), 'info');
     return;
   }
 
@@ -442,11 +443,11 @@ export function triggerCleanTrackingModal(showToast) {
           <span class="clean-diff-domain">${escapeHTML(domain)}</span>
         </div>
         <div class="clean-diff-row">
-          <span class="diff-tag old">Original</span>
+          <span class="diff-tag old">${escapeHTML(t('diffTagOriginal', 'Original'))}</span>
           <span class="url-text">${highlightedOriginal}</span>
         </div>
         <div class="clean-diff-row">
-          <span class="diff-tag new">Cleaned</span>
+          <span class="diff-tag new">${escapeHTML(t('diffTagCleaned', 'Cleaned'))}</span>
           <span class="url-text">${cleaned}</span>
         </div>
       </div>

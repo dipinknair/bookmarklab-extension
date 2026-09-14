@@ -416,14 +416,14 @@
       </svg>
     </div>
     <div class="popup-brand">
-      <span class="popup-brand-name">BookmarkLab</span>
+      <span class="popup-brand-name" data-i18n="appName">BookmarkLab</span>
       <span class="popup-brand-sub">
         <span class="live-dot"></span>
-        Live Chrome Bookmarks
+        <span data-i18n="appLiveTag">Live Chrome Bookmarks</span>
       </span>
     </div>
     <!-- Theme Accent Picker -->
-    <div class="theme-selector" title="Choose Accent Theme">
+    <div class="theme-selector" title="Choose Accent Theme" data-i18n-title="themeChooseAccent">
       <button class="theme-dot active" data-theme="purple" style="--dot-color: #858ee0;" title="Pastel Lavender (Default)"></button>
       <button class="theme-dot" data-theme="emerald" style="--dot-color: #6eb49b;" title="Pastel Sage"></button>
       <button class="theme-dot" data-theme="cyan" style="--dot-color: #6ba3c2;" title="Pastel Mist Blue"></button>
@@ -432,7 +432,7 @@
     </div>
 
     <!-- Mode Toggle (Dark / Light) -->
-    <button class="theme-mode-btn" title="Switch Theme Mode" aria-label="Switch Theme Mode">
+    <button class="theme-mode-btn" title="Switch Theme Mode" aria-label="Switch Theme Mode" data-i18n-title="themeSwitchMode" data-i18n-aria-label="themeSwitchMode">
       <svg class="icon-sun" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="5"></circle>
         <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -453,7 +453,7 @@
   <!-- Loading State -->
   <div id="popup-loading">
     <div class="spinner"></div>
-    Loading your bookmarks…
+    <span data-i18n="loadingBookmarks">Loading your bookmarks…</span>
   </div>
 
   <!-- Error State -->
@@ -466,34 +466,34 @@
     <div class="popup-stats">
       <div class="stat-card">
         <div class="stat-value" id="stat-total">—</div>
-        <div class="stat-label">Total Bookmarks</div>
+        <div class="stat-label" data-i18n="popupTotal">Total Bookmarks</div>
       </div>
       <div class="stat-card">
         <div class="stat-value" id="stat-folders">—</div>
-        <div class="stat-label">Folders</div>
+        <div class="stat-label" data-i18n="popupFolders">Folders</div>
       </div>
       <div class="stat-card dupes">
         <div class="stat-value" id="stat-dupes">—</div>
-        <div class="stat-label">Duplicates</div>
+        <div class="stat-label" data-i18n="popupDuplicates">Duplicates</div>
       </div>
       <div class="stat-card tracking">
         <div class="stat-value" id="stat-tracking">—</div>
-        <div class="stat-label">Tracking Tags</div>
+        <div class="stat-label" data-i18n="popupTracking">Tracking Tags</div>
       </div>
     </div>
 
     <div class="popup-divider"></div>
 
     <!-- Quick Actions -->
-    <div class="popup-actions-label">Quick Actions</div>
+    <div class="popup-actions-label" data-i18n="popupQuickActions">Quick Actions</div>
     <div class="popup-actions">
       <button class="action-btn dedupe" id="btn-quick-dedupe">
         <div class="action-icon">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         </div>
         <div class="action-btn-text">
-          <span class="action-btn-title">Find & Remove Duplicates</span>
-          <span class="action-btn-sub">Detect all duplicate bookmarks</span>
+          <span class="action-btn-title" data-i18n="popupQuickDedupeTitle">Find & Remove Duplicates</span>
+          <span class="action-btn-sub" data-i18n="popupQuickDedupeSub">Detect all duplicate bookmarks</span>
         </div>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -503,8 +503,8 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
         <div class="action-btn-text">
-          <span class="action-btn-title">Auto-Cluster by Category</span>
-          <span class="action-btn-sub">Organize bookmarks into folders</span>
+          <span class="action-btn-title" data-i18n="popupQuickClusterTitle">Auto-Cluster by Category</span>
+          <span class="action-btn-sub" data-i18n="popupQuickClusterSub">Organize bookmarks into folders</span>
         </div>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -514,8 +514,8 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
         </div>
         <div class="action-btn-text">
-          <span class="action-btn-title">Clean Tracking URLs</span>
-          <span class="action-btn-sub">Strip utm_*, fbclid, gclid params</span>
+          <span class="action-btn-title" data-i18n="popupQuickCleanTitle">Clean Tracking URLs</span>
+          <span class="action-btn-sub" data-i18n="popupQuickCleanSub">Strip utm_*, fbclid, gclid params</span>
         </div>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -527,7 +527,7 @@
   <div class="popup-footer">
     <button class="btn-launch" id="btn-open-dashboard">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      Open Full Dashboard
+      <span data-i18n="popupOpenDashboard">Open Full Dashboard</span>
     </button>
   </div>
 

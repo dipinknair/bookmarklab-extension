@@ -13,6 +13,7 @@ import {
 import { initTheme, setupThemeSelector } from './utils/theme.js';
 import { downloadFile } from './utils/domUtils.js';
 import { DEMO_BOOKMARK_TREE } from './utils/demoData.js';
+import { localizeDOM } from './utils/i18n.js';
 
 import { renderTreeView } from './components/treeView.js';
 import { renderMainView } from './components/mainView.js';
@@ -210,6 +211,7 @@ function cleanTreeTracking(node) {
 
 // ─── Main App Entry ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
+  localizeDOM();
   await initTheme();
   setupThemeSelector();
 

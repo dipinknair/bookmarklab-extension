@@ -28,6 +28,7 @@ Instead of making live edits immediately to your browser database, BookmarkLab l
 - **Batch Operations**: Multi-select bookmarks to move, tag, or delete in bulk.
 - **Dark & Light (White) Mode**: Toggle effortlessly between sleek dark mode and crisp light/white mode with full contrast adaptation.
 - **Muted Pastel Theme Accents**: Choose between 5 calming, aesthetic pastel tones (Pastel Lavender, Pastel Sage, Pastel Mist Blue, Pastel Sand, and Pastel Dusty Rose), persisted via `chrome.storage.local`.
+- **Multi-Language Support (i18n)**: Fully localized into **English**, **Spanish** (`es`), **Portuguese** (`pt_BR`, `pt`), **German** (`de`), **French** (`fr`), and **Simplified Chinese** (`zh_CN`), automatically adapting to your Chrome display language.
 - **Offline / Standalone Preview**: Load built-in demo bookmarks when opened directly in a browser or test environment outside the extension runtime.
 
 ---
